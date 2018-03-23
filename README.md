@@ -17,5 +17,5 @@
 ### First Sprint:
 - [ ] as an administrator,...
 - [ ] as a user, ...
-- [ ]
-- [ ]
+- [ ] 
+- [ ] 
