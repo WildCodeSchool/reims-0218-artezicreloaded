@@ -1,9 +1,21 @@
 # reims-0218-artezicreloaded
 
-## Membres du projet:
+## Group members:
 
 
 * Aurélie
 *
 *
 *
+
+
+## Description
+
+
+## Sprints
+
+### First Sprint:
+- [ ] as an administrator,...
+- [ ] as a user, ...
+- [ ]
+- [ ]
