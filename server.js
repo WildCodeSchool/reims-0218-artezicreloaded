@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const playlist = require('./public/user-playlists.json')
 
 app.use(express.static('public'))
 
@@ -45,8 +46,8 @@ app.get('/', (req, res) => {
   res.end()
 })
 
-app.get('/Membre', (req, res) => {
-    res.send(hidden)
+app.get('/membre', (req, res) => {
+    res.json(playlist)
     res.end()
   })
 
