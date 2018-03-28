@@ -16,7 +16,7 @@ Share your best playlists with your team/coworkers, vote for the best playlist o
 
 ## Contributing:
 1. clone this repo.
-2. ```$ npm install
+2. In your terminal: ```$ npm install```
 3. install commitizen globally and use it to format your commit. (Please note that commitizen is already saved in the package.json so it will already be installed locally.)
 
 
