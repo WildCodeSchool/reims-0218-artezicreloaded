@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/WildCodeSchool/reims-0218-artezicreloaded/issues"
   },
-  "homepage": "https://github.com/WildCodeSchool/reims-0218-artezicreloaded#readme"
+  "homepage": "https://github.com/WildCodeSchool/reims-0218-artezicreloaded#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
 }
