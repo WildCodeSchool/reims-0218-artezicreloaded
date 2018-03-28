@@ -1,0 +1,20 @@
+[
+    {
+        "url": "https://play.soundsgood.co/playlist/max-2",
+        "title": "La playlist de Max",
+        "genre": "rock",
+        "contest": true
+    },
+    {
+        "url": "https://play.soundsgood.co/playlist/max-2",
+        "title": "La deuxième playlist de Max",
+        "genre": "country",
+        "contest": false
+    },
+    {
+        "url": "https://play.soundsgood.co/playlist/max-2",
+        "title": "La troisième playlist de Max",
+        "genre": "rap",
+        "contest": false
+    }
+]
