@@ -1,8 +1,12 @@
+console.log("je suis le serveur, je commence")
+
 const express = require('express')
 const app = express()
 const playlist = require('./public/user-playlists.json')
 
 app.use(express.static('public'))
+
+
 
 const html = `
 <!doctype html>
@@ -18,6 +22,7 @@ const html = `
     <div id="main">
 
     </div>
+    <script src="page.js"></script>
     <script src="app.js"></script>
   </body>
 </html>`
@@ -29,7 +34,11 @@ app.get('/', (req, res) => {
 
 app.get('/membre', (req, res) => {
     res.json(playlist)
-    res.end()
   })
+
+app.get('*', (req, res) => {
+  res.json(html)
+  res.end()
+})
 
 app.listen(8000)
