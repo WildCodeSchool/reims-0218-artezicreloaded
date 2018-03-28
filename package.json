@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/WildCodeSchool/reims-0218-artezicreloaded#readme",
   "dependencies": {
+    "commitizen": "^2.9.6",
     "express": "^4.16.3"
   }
 }
