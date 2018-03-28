@@ -8,10 +8,11 @@ const html = `
 <html class="no-js" lang="">
   <head>
     <meta charset="utf-8">
-    <title>NodeJS server</title>
+    <title>Artezic Reloaded</title>
     <link rel="stylesheet" href="bootstrap.min.css" />
   </head>
   <body>
+    <h1>elo Toma</h1>
     <div id="main">
 
     </div>
