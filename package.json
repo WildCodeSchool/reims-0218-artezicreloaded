@@ -1,0 +1,25 @@
+{
+  "name": "reims-0218-artezicreloaded",
+  "version": "1.0.0",
+  "description": "This project is a platform designed for team-building by sharing playlists.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WildCodeSchool/reims-0218-artezicreloaded.git"
+  },
+  "keywords": [
+    "music",
+    "team-building",
+    "contest",
+    "school-project"
+  ],
+  "author": "Arnaud Gadroy, Aurélie Bayre, Max Gallois, Thibaud Royer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WildCodeSchool/reims-0218-artezicreloaded/issues"
+  },
+  "homepage": "https://github.com/WildCodeSchool/reims-0218-artezicreloaded#readme"
+}
