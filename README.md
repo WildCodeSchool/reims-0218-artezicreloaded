@@ -6,7 +6,7 @@
 * Aurélie
 * Arnaud
 * Max
-*
+* Thibaud
 
 
 ## Description
