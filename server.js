@@ -18,7 +18,7 @@ const html = `
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
-      <h1>elo Toma</h1>
+      <h1>Hello Thomas!</h1>
       <div id="main">
 
       </div>
