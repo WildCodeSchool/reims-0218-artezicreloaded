@@ -71,6 +71,20 @@ const controllers = {
             e.preventDefault()
             const data = serializeForm(form)
             console.log(data)
+            fetch('/membre', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(playlist => {
+                const alertBox = document.getElementById('alert-box')
+                alertBox.className = 'alert alert-success'
+                alertBox.innerHTML = `Votre playlist titre ${playlist.title} a bien été créée`
+            })
         })
     }
 
