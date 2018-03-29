@@ -19,6 +19,7 @@ const html = `
   </head>
   <body>
     <h1>elo Toma</h1>
+    <p><a class="btn btn-success btn-lg" href="/users/new" role="button">Ajouter une playlist »</a></p>
     <div id="main">
 
     </div>
@@ -37,7 +38,7 @@ app.get('/membre', (req, res) => {
   })
 
 app.get('*', (req, res) => {
-  res.json(html)
+  res.send(html)
   res.end()
 })
 
