@@ -55,7 +55,7 @@ const controllers = {
             </div>
             <div class="form-group">
               <label for="inputUrl">Url de votre playlist</label>
-              <input name="lastName" type="text" class="form-control" id="inputLastName" placeholder="Enter last name">
+              <input name="url" type="text" class="form-control" id="inputUrl" placeholder="Entrez l'url de votre playlist">
             </div>
             <div class="form-group">
               <label for="inputGenre">Genre musical</label>
