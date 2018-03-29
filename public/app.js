@@ -42,7 +42,7 @@ const controllers = {
             `
         ))
     },
-    '/users/new': () => {
+    '/playlist/new': () => {
         render(`
         <div class="container">
           <div id="alert-box" class="hidden">
@@ -79,7 +79,7 @@ const route = pathname => {
 
 
 (() => {
-    ['/clement', '/users/new'].forEach(
+    ['/clement', '/playlist/new'].forEach(
         path => page(path, controllers[path])
     )
     page()

@@ -19,7 +19,7 @@ const html = `
   </head>
   <body>
     <h1>Hello Clément</h1>
-    <p><a class="btn btn-success btn-lg" href="/users/new" role="button">Ajouter une playlist »</a></p>
+    <p><a class="btn btn-success btn-lg" href="/playlist/new" role="button">Ajouter une playlist »</a></p>
     <div id="main">
 
     </div>
