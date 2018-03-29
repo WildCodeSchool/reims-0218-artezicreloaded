@@ -48,7 +48,7 @@ const controllers = {
           <div id="alert-box" class="hidden">
     
           </div>
-          <form id="add-pirate">
+          <form id="add-playlist">
             <div class="form-group">
               <label for="inputFirstName">First name</label>
               <input name="firstName" type="text" class="form-control" id="inputFirstName" placeholder="Enter first name">
