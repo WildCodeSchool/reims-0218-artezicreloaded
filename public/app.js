@@ -58,16 +58,12 @@ const controllers = {
               <input name="lastName" type="text" class="form-control" id="inputLastName" placeholder="Enter last name">
             </div>
             <div class="form-group">
-              <label for="inputImageUrl">Image URL</label>
-              <input name="image" type="text" class="form-control" id="inputImageUrl" placeholder="Enter image URL">
-            </div>
-            <div class="form-group">
-              <label for="inputBio">Bio</label>
-              <textarea name="bio" class="form-control" id="inputLastName" placeholder="Bio"></textarea>
+              <label for="inputGenre">Genre musical</label>
+              <input name="genre" type="text" class="form-control" id="inputGenre" placeholder="Quel est le genre de votre playlist ?">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
-          <a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil »</a>
+          <a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil</a>
         </div>`
         )
     }
