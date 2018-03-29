@@ -50,11 +50,11 @@ const controllers = {
           </div>
           <form id="add-playlist">
             <div class="form-group">
-              <label for="inputFirstName">First name</label>
-              <input name="firstName" type="text" class="form-control" id="inputFirstName" placeholder="Enter first name">
+              <label for="inputTitle">Titre</label>
+              <input name="title" type="text" class="form-control" id="inputTitle" placeholder="Entrez le titre de votre playlist">
             </div>
             <div class="form-group">
-              <label for="inputLastName">Last name</label>
+              <label for="inputUrl">Url de votre playlist</label>
               <input name="lastName" type="text" class="form-control" id="inputLastName" placeholder="Enter last name">
             </div>
             <div class="form-group">
