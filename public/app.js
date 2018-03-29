@@ -67,6 +67,7 @@ const controllers = {
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
+          <a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil »</a>
         </div>`
         )
     }
