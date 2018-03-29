@@ -16,14 +16,14 @@ const makeCard = item => `
     </div>
     `
 
-// const serializeForm = form => {
-//     const data = {}
-//     const elements = form.getElementsByClassName('form-control')
-//     for(el of elements) {
-//         data[el.name] = el.value
-//     }
-//     return data
-// }
+const serializeForm = form => {
+    const data = {}
+    const elements = form.getElementsByClassName('form-control')
+    for(el of elements) {
+        data[el.name] = el.value
+    }
+    return data
+}
 
 const controllers = {
     '/clement': () => {
@@ -66,6 +66,12 @@ const controllers = {
           <a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil</a>
         </div>`
         )
+        const form = document.getElementById('add-playlist')
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            const data = serializeForm(form)
+            console.log(data)
+        })
     }
 
 }
