@@ -16,8 +16,17 @@ const makeCard = item => `
     </div>
     `
 
+// const serializeForm = form => {
+//     const data = {}
+//     const elements = form.getElementsByClassName('form-control')
+//     for(el of elements) {
+//         data[el.name] = el.value
+//     }
+//     return data
+// }
+
 const controllers = {
-    '/': () => {
+    '/clement': () => {
         console.log("coucou je suis le console log du controller pour le path /")
         fetch('/membre')
         .then(res => {
@@ -34,8 +43,8 @@ const controllers = {
         ))
     },
     '/users/new': () => {
-        render(
-        `<div class="container">
+        render(`
+        <div class="container">
           <div id="alert-box" class="hidden">
     
           </div>
@@ -60,37 +69,17 @@ const controllers = {
           </form>
         </div>`
         )
-        const form = document.getElementById('add-pirate')
-        form.addEventListener('submit', e => {
-            e.preventDefault()
-            const data = serializeForm(form)
-            if(! data.image) {
-                const fullName = encodeURIComponent(`${data.firstName} ${data.lastName}`)
-                data.image = `https://via.placeholder.com/640x480/?text=${fullName}`
-            }
-            fetch('/pirates', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(res => res.json())
-            .then(pirate => {
-                const alertBox = document.getElementById('alert-box')
-                alertBox.className = 'alert alert-success'
-                alertBox.innerHTML = `Successfully created pirate ${pirate.firstName} (${pirate.id})`
-            })
-        })
     }
+
 }
 
 const route = pathname => {
 
 }
+
+
 (() => {
-    ['/'].forEach(
+    ['/clement', '/users/new'].forEach(
         path => page(path, controllers[path])
     )
     page()
