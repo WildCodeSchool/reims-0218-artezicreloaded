@@ -1,11 +1,23 @@
 console.log("je suis le serveur, je commence")
-const sqlite = require('sqlite')
+const sqlite = require('sqlite') //for the post route
 const express = require('express')
+const Promise = require('bluebird') //...used to make the database promise
 const app = express()
 const playlist = require('./public/user-playlists.json')
+//we see bodyParser (requirng body-parser module), but do we need it now?
+let db //apparently it's going to be redefined by the post route
 
 app.use(express.static('public'))
+//maybe app.use(bodyParser.json())
 
+//this will be called by the Promise when redifining db
+const insertPlaylist = p => {
+  const { title, url, genre } = p
+  return db.get('INSERT INTO playlists(slug, title, url, genre) VALUES(?, ?, ?, ?)', slug, title, url, genre)
+  .then(() => db.get('SELECT last_insert_rowid() as id'))
+  .then(({id})=> db.get('SELECT * from playlists WHERE id = ?', id))
+}
+//TO CONTINUE...
 
 
 const html = `
