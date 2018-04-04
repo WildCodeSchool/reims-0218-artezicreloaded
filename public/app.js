@@ -90,7 +90,7 @@ const controllers = {
             .then(playlist => {
                 const alertBox = document.getElementById('alert-box')
                 alertBox.className = 'alert alert-success'
-                alertBox.innerHTML = `Votre playlist titre ${playlist.title} a bien été créée`
+                alertBox.innerHTML = `Votre playlist titre ${playlist.title} (${playlist.id}) a bien été créée`
             })
         })
     }
