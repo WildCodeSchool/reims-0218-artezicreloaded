@@ -22,10 +22,12 @@ const serializeForm = form => {
     for(el of elements) {
         data[el.name] = el.value
     }
+    console.log(data)
     return data
 }
 
 const controllers = {
+  //chaque propriété est une fonction
     '/clement': () => {
         console.log("coucou je suis le console log du controller pour le path /")
         fetch('/membre')
@@ -33,6 +35,7 @@ const controllers = {
             console.log("dans le fetch, on s'occupe de la res")
              return res.json()
         })
+        //on concatène les cartes, une carte par objet du json
         .then(mesplaylists => mesplaylists.reduce((carry, playlist) => carry + makeCard(playlist), ''))
         .then(album => render(
             `
@@ -46,7 +49,7 @@ const controllers = {
         render(`
         <div class="container">
           <div id="alert-box" class="hidden">
-    
+
           </div>
           <form id="add-playlist">
             <div class="form-group">
@@ -74,12 +77,16 @@ const controllers = {
             fetch('/membre', {
                 method: 'POST',
                 headers: {
+                  // Se renseigner sur la façon de mettre en forme le message
                     'Accept': 'application/json, text/plain, */*',
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
             })
-            .then(res => res.json())
+            .then(res => {
+              console.log('le res :', res.json())
+              return res.json()
+            })
             .then(playlist => {
                 const alertBox = document.getElementById('alert-box')
                 alertBox.className = 'alert alert-success'
