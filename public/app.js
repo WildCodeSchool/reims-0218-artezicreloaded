@@ -83,7 +83,7 @@ const controllers = {
                 },
                 body: JSON.stringify(data) // le corps de ma requête est mon objet data jsonifié. car sqlite fonctionne en json
             })
-            .then(res => res.json()) // Demander à Jean-Luc pourquoi il n'aime pas la syntaxe entre accolades
+            .then(res => res.json()) // Demander à THOMAS pourquoi il n'aime pas la syntaxe entre accolades
             .then(playlist => {
                 console.log("alerte ?")
                 const alertBox = document.getElementById('alert-box')
