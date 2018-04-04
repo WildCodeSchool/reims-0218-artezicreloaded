@@ -74,7 +74,7 @@ const controllers = {
             e.preventDefault()
             const data = serializeForm(form)
             console.log(data)
-            fetch('/membre', {
+            fetch('/profil', {
                 method: 'POST',
                 headers: {
                   // Se renseigner sur la façon de mettre en forme le message
@@ -83,11 +83,9 @@ const controllers = {
                 },
                 body: JSON.stringify(data)
             })
-            .then(res => {
-              console.log('le res :', res.json())
-              return res.json()
-            })
+            .then(res => res.json())
             .then(playlist => {
+                console.log("alerte ?")
                 const alertBox = document.getElementById('alert-box')
                 alertBox.className = 'alert alert-success'
                 alertBox.innerHTML = `Votre playlist titre ${playlist.title} (${playlist.id}) a bien été créée`
