@@ -5,19 +5,28 @@ const Promise = require('bluebird') //...used to make the database promise
 const app = express()
 const playlist = require('./public/user-playlists.json')
 //we see bodyParser (requirng body-parser module), but do we need it now?
+const bodyParser = require('body-parser')
 let db //apparently it's going to be redefined by the post route
 
 app.use(express.static('public'))
-//maybe app.use(bodyParser.json())
+app.use(bodyParser.json())
 
 //this will be called by the Promise when redifining db
 const insertPlaylist = p => {
   const { title, url, genre } = p
-  return db.get('INSERT INTO playlists(slug, title, url, genre) VALUES(?, ?, ?, ?)', slug, title, url, genre)
+  console.log(p)
+  return db.get('INSERT INTO playlists(title, url, genre) VALUES(?, ?, ?)', title, url, genre)
   .then(() => db.get('SELECT last_insert_rowid() as id'))
   .then(({id})=> db.get('SELECT * from playlists WHERE id = ?', id))
 }
-//TO CONTINUE...
+ const dbPromise = Promise.resolve()
+ .then(() => sqlite.open('./database.sqlite', {Promise}))
+.then(_db => {
+db = _db
+console.log(db)
+return db.migrate({force: 'last'})
+})
+.then(() => Promise.map(playlist, p => insertPlaylist(p)))
 
 
 const html = `
@@ -35,19 +44,26 @@ const html = `
     <div id="main">
 
     </div>
-    <script src="page.js"></script>
-    <script src="app.js"></script>
+    <script src="/page.js"></script>
+    <script src="/app.js"></script>
   </body>
 </html>`
- 
+
 app.get('/', (req, res) => {
   res.send(html)
   res.end()
 })
 
 app.get('/membre', (req, res) => {
-    res.json(playlist)
-  })
+  db.all('SELECT * from playlists')//ici il y aura un appel à la base de donnée
+  .then(recordNewPlaylist => res.json(recordNewPlaylist))
+})
+
+app.post('/membre', (req, res) => {
+  console.log('on fait le post')
+  return insertPlaylist(req.body)
+  .then(recordNewPlaylist => res.json(recordNewPlaylist))
+})
 
 app.get('*', (req, res) => {
   res.send(html)
