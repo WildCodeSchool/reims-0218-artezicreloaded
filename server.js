@@ -49,17 +49,19 @@ const html = `
   </body>
 </html>`
 
-app.get('/', (req, res) => {
-  res.send(html)
-  res.end()
-})
+// app.get('/', (req, res) => {
+//   res.send(html)
+//   res.end()
+// })
 
-app.get('/membre', (req, res) => {
+app.get('/profil', (req, res) => {
   db.all('SELECT * from playlists')//ici il y aura un appel à la base de donnée
-  .then(recordNewPlaylist => res.json(recordNewPlaylist))
+  .then(recordNewPlaylist => { 
+    console.log("on est dans le get/profil", recordNewPlaylist)
+    res.json(recordNewPlaylist)})
 })
 
-app.post('/membre', (req, res) => {
+app.post('/profil', (req, res) => {
   console.log('on fait le post')
   return insertPlaylist(req.body)
   .then(recordNewPlaylist => res.json(recordNewPlaylist))
