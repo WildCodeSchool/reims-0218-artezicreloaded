@@ -1,20 +1,20 @@
 [
     {
         "pseudo": "max",
-        "mot de passe": "azertyuiop",
-        "adresse email": "azertyuiop@hotmail.fr"
+        "password": "azertyuiop",
+        "email": "azertyuiop@hotmail.fr"
     },
 
     {
         "pseudo": "jean-luc",
-        "mot de passe": "reichman",
-        "adresse email": "attentionàlamarche@hotmail.fr"
+        "password": "reichman",
+        "email": "attentionàlamarche@hotmail.fr"
     },
 
     {
         "pseudo": "thib",
-        "mot de passe": "gautama",
-        "adresse email": "bouddha@hotmail.fr"
+        "password": "gautama",
+        "email": "bouddha@hotmail.fr"
     }
 
 ]

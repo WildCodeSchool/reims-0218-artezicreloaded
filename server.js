@@ -3,6 +3,7 @@ const sqlite = require('sqlite') //importation du module sqlite dans la constant
 const express = require('express') // importation du module express dans la constante express
 const Promise = require('bluebird') // importation du module bluebird pour l'utilisation des promises
 const app = express() // fonction express qui permet d'importer dans app les méthodes de express
+const team = require('./public/team.json')
 const playlist = require('./public/user-playlists.json') // Pour que cela fonctionne il faut déclarer app.use(express.static('public'))
 //we see bodyParser (requirng body-parser module), but do we need it now?
 const bodyParser = require('body-parser') // Analyse les corps de requête entrants dans un middleware ?????
@@ -57,6 +58,12 @@ app.get('/', (req, res) => { // Quand je lis la route /, j'envoie le html sur la
 app.get('/membre', (req, res) => { // Quand je lis la route /membre, 
   db.all('SELECT * from playlists')// je sélectionne toutes les playlists de la base de données et le résultat de cette sélection
   .then(recordNewPlaylist => res.json(recordNewPlaylist)) // on retourne le json
+})
+
+app.get('/team', (req, res) => { // Quand je lis la route /membre, 
+  res.json(team)
+  //db.all('SELECT * from playlists')// je sélectionne toutes les playlists de la base de données et le résultat de cette sélection
+  //.then(recordNewPlaylist => res.json(recordNewPlaylist)) // on retourne le json
 })
 
 app.post('/membre', (req, res) => { // Quand je fais un appel pour créer sur la route membre, je retourne le résultat de insertPlayList auquel je passe le body de la request

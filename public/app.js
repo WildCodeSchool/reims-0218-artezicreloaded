@@ -15,6 +15,16 @@ const makeCard = item => `
         </div>
     </div>
     `
+    const makeWilder = item => `
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">${item.pseudo}</h5>
+            <p class="card-text">${item.password}</p>
+            <a href="${item.email}" class="btn btn-primary">Voir ma playlist</a>
+        </div>
+    </div>
+    `
 
 const serializeForm = form => {
     const data = {}
@@ -91,6 +101,18 @@ const controllers = {
                 alertBox.innerHTML = `Votre playlist titre ${playlist.title} (${playlist.id}) a bien été créée`
             })
         })
+    },
+    '/wilders': () => {
+        fetch('/team')
+        .then(res => res.json())
+        .then(listusers => listusers.reduce((carry, user) => carry + makeWilder(user), ''))
+        .then(book => render(
+            `
+            <div class="row">
+            ${book}
+            </div>
+            `
+        ))
     }
 
 }
@@ -101,7 +123,7 @@ const route = pathname => {
 
 
 (() => {
-    ['/clement', '/playlist/new'].forEach(
+    ['/wilders', '/clement', '/playlist/new'].forEach(
         path => page(path, controllers[path])
     )
     page()
