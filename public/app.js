@@ -72,8 +72,8 @@ const controllers = {
         const form = document.getElementById('add-playlist')
         form.addEventListener('submit', e => {
             e.preventDefault()
-            const data = serializeForm(form)
-            console.log(data)
+            const data = serializeForm(form) //mon objet data contient toutes les valeurs des inputs du formulaire
+            // Quand je soumet le formulaire, je fais une action create (post) et j'envoie l'objet data
             fetch('/profil', {
                 method: 'POST',
                 headers: {
@@ -81,9 +81,9 @@ const controllers = {
                     'Accept': 'application/json, text/plain, */*',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(data) // le corps de ma requête est mon objet data jsonifié. car sqlite fonctionne en json
             })
-            .then(res => res.json())
+            .then(res => res.json()) // Demander à THOMAS pourquoi il n'aime pas la syntaxe entre accolades
             .then(playlist => {
                 console.log("alerte ?")
                 const alertBox = document.getElementById('alert-box')
