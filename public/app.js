@@ -73,9 +73,8 @@ const controllers = {
         form.addEventListener('submit', e => {
             e.preventDefault()
             const data = serializeForm(form) //mon objet data contient toutes les valeurs des inputs du formulaire
-            console.log(data)
-            //quand je soumets le formulaire, je fetch /membre pour une création (POST)
-            fetch('/membre', {
+            // Quand je soumet le formulaire, je fais une action create (post) et j'envoie l'objet data
+            fetch('/profil', {
                 method: 'POST',
                 headers: {
                   // Se renseigner sur la façon de mettre en forme le message
@@ -86,9 +85,10 @@ const controllers = {
             })
             .then(res => res.json()) // Demander à Jean-Luc pourquoi il n'aime pas la syntaxe entre accolades
             .then(playlist => {
+                console.log("alerte ?")
                 const alertBox = document.getElementById('alert-box')
                 alertBox.className = 'alert alert-success'
-                alertBox.innerHTML = `Votre playlist titre ${playlist.title} a bien été créée`
+                alertBox.innerHTML = `Votre playlist titre ${playlist.title} (${playlist.id}) a bien été créée`
             })
         })
     }
