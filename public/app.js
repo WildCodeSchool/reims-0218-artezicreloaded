@@ -72,8 +72,9 @@ const controllers = {
         const form = document.getElementById('add-playlist')
         form.addEventListener('submit', e => {
             e.preventDefault()
-            const data = serializeForm(form)
+            const data = serializeForm(form) //mon objet data contient toutes les valeurs des inputs du formulaire
             console.log(data)
+            //quand je soumets le formulaire, je fetch /membre pour une création (POST)
             fetch('/membre', {
                 method: 'POST',
                 headers: {
@@ -81,12 +82,9 @@ const controllers = {
                     'Accept': 'application/json, text/plain, */*',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(data) // le corps de ma requête est mon objet data jsonifié. car sqlite fonctionne en json
             })
-            .then(res => {
-              console.log('le res :', res.json())
-              return res.json()
-            })
+            .then(res => res.json()) // Demander à Jean-Luc pourquoi il n'aime pas la syntaxe entre accolades
             .then(playlist => {
                 const alertBox = document.getElementById('alert-box')
                 alertBox.className = 'alert alert-success'
