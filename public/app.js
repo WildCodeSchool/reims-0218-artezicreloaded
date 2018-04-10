@@ -38,7 +38,15 @@ const serializeForm = form => {
 
 const controllers = {
   //chaque propriété est une fonction
-    '/clement': () => {
+    '/': () => {
+      render(`
+        <h2>Ce que vous pouvez faire:</h2>
+        <li> Ajouter une playlist sur votre page profil
+        </li>
+        <li>Consulter la page membre
+        </li>`)
+    },
+    '/monprofil': () => {
         console.log("coucou je suis le console log du controller pour le path /")
         fetch('/membre')
         .then(res => {
@@ -52,6 +60,7 @@ const controllers = {
             <div class="row">
             ${album}
             </div>
+                <p><a class="btn btn-success btn-lg" href="/playlist/new" role="button">Ajouter une playlist »</a></p>
             `
         ))
     },
@@ -123,7 +132,7 @@ const route = pathname => {
 
 
 (() => {
-    ['/wilders', '/clement', '/playlist/new'].forEach(
+    ['/', '/wilders', '/monprofil', '/playlist/new'].forEach(
         path => page(path, controllers[path])
     )
     page()
