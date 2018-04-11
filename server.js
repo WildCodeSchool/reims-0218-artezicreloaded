@@ -4,6 +4,7 @@ const express = require('express') // importation du module express dans la cons
 const Promise = require('bluebird') // importation du module bluebird pour l'utilisation des promises
 const app = express() // fonction express qui permet d'importer dans app les méthodes de express
 const team = require('./public/team.json')
+const test1 = require('./public/test1.json')
 const playlist = require('./public/user-playlists.json') // Pour que cela fonctionne il faut déclarer app.use(express.static('public'))
 //we see bodyParser (requirng body-parser module), but do we need it now?
 const bodyParser = require('body-parser') // Analyse les corps de requête entrants dans un middleware ?????
@@ -40,8 +41,26 @@ const html = `
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
   <body>
-    <h1>Hello Clément</h1>
-    <p><a class="btn btn-success btn-lg" href="/playlist/new" role="button">Ajouter une playlist »</a></p>
+    <h1>Bienvenue ---nom de l'utilisateur---</h1>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Artezic</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="/monprofil">Mon profil<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/wilders">Equipe</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Concours">Concours</a>
+      </li>
+    </ul>
+    </div>
+    </nav>
     <div id="main">
 
     </div>
@@ -55,15 +74,19 @@ app.get('/', (req, res) => { // Quand je lis la route /, j'envoie le html sur la
   res.end()
 })
 
-app.get('/membre', (req, res) => { // Quand je lis la route /membre, 
+app.get('/membre', (req, res) => { // Quand je lis la route /membre,
   db.all('SELECT * from playlists')// je sélectionne toutes les playlists de la base de données et le résultat de cette sélection
   .then(recordNewPlaylist => res.json(recordNewPlaylist)) // on retourne le json
 })
 
-app.get('/team', (req, res) => { // Quand je lis la route /membre, 
+app.get('/team', (req, res) => { // Quand je lis la route /membre,
   res.json(team)
   //db.all('SELECT * from playlists')// je sélectionne toutes les playlists de la base de données et le résultat de cette sélection
   //.then(recordNewPlaylist => res.json(recordNewPlaylist)) // on retourne le json
+})
+
+app.get('/test1', (req, res) => {
+  res.json(test1)
 })
 
 app.post('/membre', (req, res) => { // Quand je fais un appel pour créer sur la route membre, je retourne le résultat de insertPlayList auquel je passe le body de la request
