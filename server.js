@@ -69,7 +69,9 @@ const html = `
   </body>
 </html>`
 
-app.get('/', (req, res) => { // Quand je lis la route /, j'envoie le html sur la route /
+
+ // Quand je lis la route /, j'envoie le html sur la route /
+app.get('/', (req, res) => {
   res.send(html)
   res.end()
 })
