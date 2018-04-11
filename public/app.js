@@ -122,8 +122,27 @@ const controllers = {
             </div>
             `
         ))
-    }
+    },
 
+    // Voir mes playlists au lieu de voir ma playlist
+
+    '/viewplaylists/:slug': ctx => {
+      const { slug } = ctx.params
+      fetch('/team')
+      .then(res => res.json())
+      .then(members => members.find(member => member.slug === slug))
+      .then(member => render(`<div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <img src="${member.avatar}" alt="${member.avatar} ${member.user}" class="img-fluid" />
+          </div>
+          <div class="col-md-6">
+            <h1>${member.user}</h1>
+            <p>${member.bio}</p>
+          </div>
+        </div>
+      </div>`))
+    }
 }
 
 const route = pathname => {
@@ -132,7 +151,7 @@ const route = pathname => {
 
 
 (() => {
-    ['/', '/wilders', '/monprofil', '/playlist/new'].forEach(
+    ['/', '/wilders', '/monprofil', '/playlist/new', '/users/:slug'].forEach(
         path => page(path, controllers[path])
     )
     page()

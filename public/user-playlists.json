@@ -1,20 +1,38 @@
 [
     {
-        "url": "https://play.soundsgood.co/playlist/max-2",
-        "title": "La playlist de Max",
-        "genre": "rock",
-        "contest": true
+        "pseudo": "Max",
+        "avatar": "http://i.pravatar.cc/150",
+        "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida, justo et semper blandit, mauris justo tempus arcu, eu auctor erat ipsum nec leo. Proin convallis nibh ac elementum condimentum. Etiam varius, est sed suscipit tempor, tortor lacus porta enim, non dapibus augue magna at magna.",
+        "playlists": [ 
+            { "name": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "compete": true, "votes": 10 },
+            { "name": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "compete": false, "votes": 0  }
+        ]
     },
     {
-        "url": "https://play.soundsgood.co/playlist/max-2",
-        "title": "La deuxième playlist de Max",
-        "genre": "country",
-        "contest": false
+        "pseudo": "Thibaud",
+        "avatar": "http://i.pravatar.cc/150",
+        "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida, justo et semper blandit, mauris justo tempus arcu, eu auctor erat ipsum nec leo. Proin convallis nibh ac elementum condimentum. Etiam varius, est sed suscipit tempor, tortor lacus porta enim, non dapibus augue magna at magna.",
+        "playlists": [ 
+            { "name": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "compete": true, "votes": 8 },
+            { "name": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "compete": false, "votes": 0 }
+        ]
     },
     {
-        "url": "https://play.soundsgood.co/playlist/max-2",
-        "title": "La troisième playlist de Max",
-        "genre": "rap",
-        "contest": false
+        "pseudo": "Aurélie",
+        "avatar": "http://i.pravatar.cc/150",
+        "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida, justo et semper blandit, mauris justo tempus arcu, eu auctor erat ipsum nec leo. Proin convallis nibh ac elementum condimentum. Etiam varius, est sed suscipit tempor, tortor lacus porta enim, non dapibus augue magna at magna.",
+        "playlists": [ 
+            { "name": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "compete": true, "votes": 6 },
+            { "name": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "compete": false, "votes": 0 }
+        ]
+    },
+    {
+        "pseudo": "Arnaud",
+        "avatar": "http://i.pravatar.cc/150",
+        "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida, justo et semper blandit, mauris justo tempus arcu, eu auctor erat ipsum nec leo. Proin convallis nibh ac elementum condimentum. Etiam varius, est sed suscipit tempor, tortor lacus porta enim, non dapibus augue magna at magna.",
+        "playlists": [ 
+            { "name": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "compete": true, "votes": 4 },
+            { "name": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "compete": false, "votes": 0 }
+        ]
     }
 ]
