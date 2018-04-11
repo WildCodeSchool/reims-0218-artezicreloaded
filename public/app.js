@@ -85,7 +85,7 @@ const controllers = {
             </div>
             <div class="form-group">
                 <label for="competition">Concourir avec cette playlist?</label>
-                <input type="radio" id="competition" name="competition" value="1">
+                <input name="competition" type="radio" id="competition" class="form-control" value="true">
             </div>        
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
