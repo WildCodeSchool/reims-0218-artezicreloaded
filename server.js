@@ -103,7 +103,7 @@ app.get('/', (req, res) => {
 
 // Faire le app.post pour la route membres
 app.post('/membres', (req, res) => { 
-  console.log(req.body)
+  console.log(typeof req.body)
   return insertWilder(req.body)
   .then(recordNewWilder => {
     res.json(recordNewWilder) //j'envoie comme réponse le résultat en json

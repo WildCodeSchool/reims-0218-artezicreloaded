@@ -60,11 +60,11 @@ const controllers = {
             <div class="row">
             ${album}
             </div>
-                <p><a class="btn btn-success btn-lg" href="/playlist/new" role="button">Ajouter une playlist »</a></p>
+                <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
             `
         ))
     },
-    '/playlist/new': () => {
+    '/newplaylist': () => {
         render(`
         <div class="container">
           <div id="alert-box" class="hidden">
@@ -76,13 +76,21 @@ const controllers = {
               <input name="title" type="text" class="form-control" id="inputTitle" placeholder="Entrez le titre de votre playlist">
             </div>
             <div class="form-group">
-              <label for="inputUrl">Url de votre playlist</label>
-              <input name="url" type="text" class="form-control" id="inputUrl" placeholder="Entrez l'url de votre playlist">
-            </div>
-            <div class="form-group">
               <label for="inputGenre">Genre musical</label>
               <input name="genre" type="text" class="form-control" id="inputGenre" placeholder="Quel est le genre de votre playlist ?">
             </div>
+            <div class="form-group">
+                <label for="inputUrl">Url de votre playlist</label>
+                <input name="url" type="text" class="form-control" id="inputUrl" placeholder="Entrez l'url de votre playlist">
+            </div>
+            <div class="form-group">
+                <label for="inputUrl">Url de votre playlist</label>
+                <input name="url" type="text" class="form-control" id="inputUrl" placeholder="Entrez l'url de votre playlist">
+            </div>
+            <div>
+                <label for="competition">Concourir avec cette playlist?</label>
+                <input type="radio" id="competition" name="competition" value="true">
+            </div>        
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
           <a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil</a>
@@ -93,7 +101,7 @@ const controllers = {
             e.preventDefault()
             const data = serializeForm(form) //mon objet data contient toutes les valeurs des inputs du formulaire
             // Quand je soumet le formulaire, je fais une action create (post) et j'envoie l'objet data
-            fetch('/profil', {
+            fetch('/playlists', {
                 method: 'POST',
                 headers: {
                   // Se renseigner sur la façon de mettre en forme le message
@@ -104,7 +112,8 @@ const controllers = {
             })
             .then(res => res.json()) // Demander à THOMAS pourquoi il n'aime pas la syntaxe entre accolades
             .then(playlist => {
-                console.log("alerte ?")
+                console.log(playlist)
+                //console.log("alerte ?")
                 const alertBox = document.getElementById('alert-box')
                 alertBox.className = 'alert alert-success'
                 alertBox.innerHTML = `Votre playlist titre ${playlist.title} (${playlist.id}) a bien été créée`
@@ -122,25 +131,24 @@ const controllers = {
             </div>
             `
         ))
-    },
-
-    '/viewplaylists/:slug': ctx => {
-      const { slug } = ctx.params
-      fetch('/team')
-      .then(res => res.json())
-      .then(members => members.find(member => member.slug === slug))
-      .then(member => render(`<div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <img src="${member.avatar}" alt="${member.avatar} ${member.user}" class="img-fluid" />
-          </div>
-          <div class="col-md-6">
-            <h1>${member.user}</h1>
-            <p>${member.bio}</p>
-          </div>
-        </div>
-      </div>`))
-    }
+    }//,
+    // '/viewplaylists/:slug': ctx => {
+    //   const { slug } = ctx.params
+    //   fetch('/team')
+    //   .then(res => res.json())
+    //   .then(members => members.find(member => member.slug === slug))
+    //   .then(member => render(`<div class="container">
+    //     <div class="row">
+    //       <div class="col-md-6">
+    //         <img src="${member.avatar}" alt="${member.avatar} ${member.user}" class="img-fluid" />
+    //       </div>
+    //       <div class="col-md-6">
+    //         <h1>${member.user}</h1>
+    //         <p>${member.bio}</p>
+    //       </div>
+    //     </div>
+    //   </div>`))
+    // }
 }
 
 const route = pathname => {
@@ -149,7 +157,7 @@ const route = pathname => {
 
 
 (() => {
-    ['/', '/wilders', '/monprofil', '/playlist/new', '/users/:slug'].forEach(
+    ['/', '/wilders', '/monprofil', '/newplaylist'].forEach(
         path => page(path, controllers[path])
     )
     page()
