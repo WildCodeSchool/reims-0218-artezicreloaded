@@ -24,11 +24,17 @@ app.use(bodyParser.json()) // Sert à parser le JSON =>  analyse le JSON
 // }
 
   const insertWilder = w => {
-    const { id, pseudo, bio } = w
-    console.log(w)
+    const { pseudo, bio } = w
     return db.get('INSERT INTO wilders(pseudo, bio) VALUES(?, ?)', pseudo, bio) // On retourne une méthode (db.get) On passe une requête MYSQL qui prend le titre, url et genre
     .then(() => db.get('SELECT last_insert_rowid() as id')) // On sélectionne l'id de la dernière rangée de la dernière insertion
     .then(({id})=> db.get('SELECT * from wilders WHERE id = ?', id)) // on sélectionne la playlist qui possède l'id indiqué
+  }
+
+  const insertPlaylist = w => {
+    const { titre, genre, url, id_wilders, compete, nbrevotes } = w
+    return db.get('INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes) VALUES(?, ?, ?, ?, ?, ?)', titre, genre, url, id_wilders, compete, nbrevotes) // On retourne une méthode (db.get) On passe une requête MYSQL qui prend le titre, url et genre
+    .then(() => db.get('SELECT last_insert_rowid() as id')) // On sélectionne l'id de la dernière rangée de la dernière insertion
+    .then(({id})=> db.get('SELECT * from playlists WHERE id = ?', id)) // on sélectionne la playlist qui possède l'id indiqué
   }
 
   const dbPromise = Promise.resolve() // insertUser reçoit l'objet data envoyé le post depuis l'app. Pour fonctionner il a besoin que db soit défini, (cf const dbPromise)
@@ -39,10 +45,10 @@ app.use(bodyParser.json()) // Sert à parser le JSON =>  analyse le JSON
     return db.migrate({force: 'last'})
   })
   .then(() => {
-    console.log("Notre promise: ", Promise)
+    //console.log("Notre promise: ", Promise)
     Promise.map(users, w => {
       // console.log("notre résultat: ", wilder)
-      console.log('le w mystérieux: ', w)
+      //console.log('le w mystérieux: ', w)
       insertWilder(w)
       })
     }
@@ -100,19 +106,26 @@ app.get('/', (req, res) => {
 app.get('/membres', (req, res) => { // Quand je lis la route /membre,
   db.all('SELECT * from wilders')// je sélectionne tous les wilders de la base de données et le résultat de cette sélection
   .then(allWilders => {
-    console.log("notre table wilders ", res.json(allWilders))
+    //console.log("notre table wilders ", res.json(allWilders))
     res.json(allWilders)
   }) // on retourne le json
 })
 
 
 // Faire le app.post pour les playlists
+app.post('/playlists', (req, res) => { 
+  console.log('on fait le post pour créer playlists')
+  return insertPlaylist(req.body)
+  .then(recordNewPlaylist => res.json(recordNewPlaylist)) //j'envoie comme réponse le résultat en json
+})
+
+
 
 // Faire le app.get pour les playlists
 app.get('/playlists', (req, res) => { // Quand je lis la route /membre,
   db.all('SELECT * from playlists')// je sélectionne toutes les playlists de la base de données et le résultat de cette sélection
   .then(allPlaylists => {
-    console.log("notre table wilders ", res.json(allPlaylists))
+    //console.log("notre table wilders ", res.json(allPlaylists))
     res.json(allPlaylists)
   }) // on retourne le json
 })
@@ -133,11 +146,7 @@ app.get('/team', (req, res) => { // Quand je lis la route /membre,
   //.then(recordNewPlaylist => res.json(recordNewPlaylist)) // on retourne le json
 })
 
-// app.post('/membre', (req, res) => { // Quand je fais un appel pour créer sur la route membre, je retourne le résultat de insertPlayList auquel je passe le body de la request
-//   console.log('on fait le post')
-//   return insertPlaylist(req.body)
-//   .then(recordNewPlaylist => res.json(recordNewPlaylist)) //j'envoie comme réponse le résultat en json
-// })
+
 
 app.get('*', (req, res) => {
   res.send(html)
