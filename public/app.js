@@ -123,10 +123,6 @@ const controllers = {
             `
             ))
     }
-    '/edit_my_profil': () =>  {
-
-    }
-
 }
 
 const route = pathname => {

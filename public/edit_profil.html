@@ -42,7 +42,7 @@
                     <img src="http://via.placeholder.com/200x250" alt="avatar" class="img-thumbnail">
                 </figure>
                 <div class="col-md-3">
-                    <h2>User name</h2>
+                    <h2>User Speudo</h2>
                 </div>
             </article>
             <div class="card col-md-9">
@@ -66,12 +66,13 @@
                 <form id="uplayForm" class="hidden">
                     <!--  hidden permet de cacher le formulaire, cependant l'espace qu'utilise le form est present dans la page -->
                     <div class="form-group col-md-9 ">
-                        <label for="inputNickname ">Nickname</label>
-                        <input name="Nickname " type="text " class="form-control " id="inputNickname " placeholder="Enter Nickname ">
+                        <label for="inputSpeudo ">Speudo</label>
+                        <input name="Nickname " type="text " class="form-control " id="inputNickname " placeholder="Enter your Speudo ">
                     </div>
                     <div class="form-group col-md-9 ">
-                        <label for="inputImageUrl ">Image URL</label>
-                        <input name="image " type="text " class="form-control " id="inputImageUrl " placeholder="Enter image URL ">
+                        <label for="inputImageUrl ">Avatar</label>
+                        <input name="image " type="text " class="form-control " id="inputImageUrl " placeholder="Add an image ">
+                        <input type="file" name="nom" />
                     </div>
                     <div class="form-group col-md-9 ">
                         <label for="inputBio ">Bio</label>
@@ -96,7 +97,8 @@
                 if (document.getElementById(anId).style.visibility == "hidden") { Show(anId); }
                 else { Hide(anId); }
             }
-
+            // document.getElementById("myP").style.visibility = "hidden"; 
+            //La propriété visibility définit ou retourne si un élément doit être visible. 
             window.onload = function () { Hide("uplayForm"); };
             //chargement de la page le form est hide (cacher)
         </script>
