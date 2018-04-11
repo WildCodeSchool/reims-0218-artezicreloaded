@@ -20,6 +20,7 @@ const insertPlaylist = p => {
   .then(() => db.get('SELECT last_insert_rowid() as id')) // On sélectionne l'id de la dernière rangée de la dernière insertion
   .then(({id})=> db.get('SELECT * from playlists WHERE id = ?', id)) // on sélectionne la playlist qui possède l'id indiqué
 }
+
  const dbPromise = Promise.resolve() // insertUser reçoit l'objet data envoyé le post depuis l'app. Pour fonctionner il a besoin que db soit défini, (cf const dbPromise)
  .then(() => sqlite.open('./database.sqlite', {Promise}))
 .then(_db => {
@@ -55,7 +56,7 @@ const html = `
         <a class="nav-link" href="/wilders">Equipe</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/">Concours</a>
+        <a class="nav-link" href="/concours">Concours</a>
       </li>
     </ul>
     </div>
