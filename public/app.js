@@ -48,7 +48,7 @@ const controllers = {
     },
     '/monprofil': () => {
         console.log("coucou je suis le console log du controller pour le path /")
-        fetch('/membre')
+        fetch('/membres')
         .then(res => {
             console.log("dans le fetch, on s'occupe de la res")
              return res.json()
@@ -123,8 +123,6 @@ const controllers = {
             `
         ))
     },
-
-    // Voir mes playlists au lieu de voir ma playlist
 
     '/viewplaylists/:slug': ctx => {
       const { slug } = ctx.params

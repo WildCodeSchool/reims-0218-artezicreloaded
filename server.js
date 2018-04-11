@@ -94,23 +94,38 @@ app.get('/', (req, res) => {
   res.end()
 })
 
+// Faire le app.post pour la route membres
+
 //aficher tous les wilders
-app.get('/membre', (req, res) => { // Quand je lis la route /membre,
-  db.all('SELECT * from wilders')// je sélectionne toutes les playlists de la base de données et le résultat de cette sélection
+app.get('/membres', (req, res) => { // Quand je lis la route /membre,
+  db.all('SELECT * from wilders')// je sélectionne tous les wilders de la base de données et le résultat de cette sélection
   .then(allWilders => {
     console.log("notre table wilders ", res.json(allWilders))
     res.json(allWilders)
   }) // on retourne le json
 })
 
-//afficher toutes les playlists d'un wilder donné:
-app.get('/membre-:id', (req, res) => {
-  db.all(`SELECT pseudo from wilders WHERE id = 1`)
-  .then(recordNewPlaylist => {
-    console.log("retrouve-t-on notre wilder? ", res.json())
-    res.json(recordNewPlaylist)
+
+// Faire le app.post pour les playlists
+
+// Faire le app.get pour les playlists
+app.get('/playlists', (req, res) => { // Quand je lis la route /membre,
+  db.all('SELECT * from playlists')// je sélectionne toutes les playlists de la base de données et le résultat de cette sélection
+  .then(allPlaylists => {
+    console.log("notre table wilders ", res.json(allPlaylists))
+    res.json(allPlaylists)
   }) // on retourne le json
 })
+
+
+//afficher toutes les playlists d'un wilder donné:
+// app.get('/membre-:id', (req, res) => {
+//   db.all(`SELECT pseudo from wilders WHERE id = 1`)
+//   .then(recordNewPlaylist => {
+//     console.log("retrouve-t-on notre wilder? ", res.json())
+//     res.json(recordNewPlaylist)
+//   }) // on retourne le json
+// })
 
 app.get('/team', (req, res) => { // Quand je lis la route /membre,
   //res.json(team)
