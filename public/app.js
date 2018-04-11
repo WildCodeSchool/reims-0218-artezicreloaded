@@ -130,7 +130,7 @@ const controllers = {
         .then(book => render(
             `
             <div class="row">
-            ${book.pseudo}
+            ${book}
             </div>
             `
         ))
