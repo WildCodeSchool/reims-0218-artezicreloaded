@@ -84,12 +84,8 @@ const controllers = {
                 <input name="url" type="text" class="form-control" id="inputUrl" placeholder="Entrez l'url de votre playlist">
             </div>
             <div class="form-group">
-                <label for="inputUrl">Url de votre playlist</label>
-                <input name="url" type="text" class="form-control" id="inputUrl" placeholder="Entrez l'url de votre playlist">
-            </div>
-            <div>
                 <label for="competition">Concourir avec cette playlist?</label>
-                <input type="radio" id="competition" name="competition" value="true">
+                <input type="radio" id="competition" name="competition" value="1">
             </div>        
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
@@ -112,7 +108,7 @@ const controllers = {
             })
             .then(res => res.json()) // Demander à THOMAS pourquoi il n'aime pas la syntaxe entre accolades
             .then(playlist => {
-                console.log(playlist)
+                console.log("resultat du form: ", playlist)
                 //console.log("alerte ?")
                 const alertBox = document.getElementById('alert-box')
                 alertBox.className = 'alert alert-success'
