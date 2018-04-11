@@ -25,6 +25,7 @@ app.use(bodyParser.json()) // Sert à parser le JSON =>  analyse le JSON
 
   const insertWilder = w => {
     const { pseudo, bio } = w
+    console.log('pseudo', pseudo, 'bio', bio)
     return db.get('INSERT INTO wilders(pseudo, bio) VALUES(?, ?)', pseudo, bio) // On retourne une méthode (db.get) On passe une requête MYSQL qui prend le titre, url et genre
     .then(() => db.get('SELECT last_insert_rowid() as id')) // On sélectionne l'id de la dernière rangée de la dernière insertion
     .then(({id})=> db.get('SELECT * from wilders WHERE id = ?', id)) // on sélectionne la playlist qui possède l'id indiqué
@@ -101,6 +102,14 @@ app.get('/', (req, res) => {
 })
 
 // Faire le app.post pour la route membres
+app.post('/membres', (req, res) => { 
+  console.log(req.body)
+  return insertWilder(req.body)
+  .then(recordNewWilder => {
+    res.json(recordNewWilder) //j'envoie comme réponse le résultat en json
+  }) 
+})
+
 
 //aficher tous les wilders
 app.get('/membres', (req, res) => { // Quand je lis la route /membre,
@@ -114,16 +123,18 @@ app.get('/membres', (req, res) => { // Quand je lis la route /membre,
 
 // Faire le app.post pour les playlists
 app.post('/playlists', (req, res) => { 
-  console.log('on fait le post pour créer playlists')
+  console.log(req.body)
   return insertPlaylist(req.body)
-  .then(recordNewPlaylist => res.json(recordNewPlaylist)) //j'envoie comme réponse le résultat en json
+  .then(recordNewPlaylist => {
+    res.json(recordNewPlaylist) //j'envoie comme réponse le résultat en json
+  }) 
 })
 
 
 
 // Faire le app.get pour les playlists
 app.get('/playlists', (req, res) => { // Quand je lis la route /membre,
-  db.all('SELECT * from playlists')// je sélectionne toutes les playlists de la base de données et le résultat de cette sélection
+  db.all('SELECT * from playlists') // je sélectionne toutes les playlists de la base de données et le résultat de cette sélection
   .then(allPlaylists => {
     //console.log("notre table wilders ", res.json(allPlaylists))
     res.json(allPlaylists)
