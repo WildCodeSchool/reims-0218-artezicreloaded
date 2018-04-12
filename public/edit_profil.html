@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Bienvenue ---nom de l'utilisateur---</h1>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Artezic</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/monprofil">Mon profil
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/wilders">Equipe</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Concours</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div id="main">
+        <section class="container">
+            <article class="row">
+                <figure class="col-md-3">
+                    <img src="http://via.placeholder.com/200x250" alt="avatar" class="img-thumbnail">
+                </figure>
+                <div class="col-md-3">
+                    <h2>User Speudo</h2>
+                </div>
+            </article>
+            <div class="card col-md-9">
+                <div class="card-body">
+                    <p>Bio :
+                        <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus, nulla ut commodo sagittis,
+                        sapien dui mattis dui, non pulvinar lorem felis nec erat. Aliquam egestas, velit at condimentum placerat,
+                        sem sapien laoreet mauris, dictum porttitor lacus est nec enim. Vivamus feugiat elit lorem, eu porttitor
+                        ante ultrices id. Phasellus suscipit tellus ante, nec dignissim elit imperdiet nec. Nullam fringilla
+                        feugiat nisl. Ut pretium, metus venenatis dictum viverra, dui metus finibus enim, ac rhoncus sem
+                        lorem vitae mauris. Suspendisse ut venenatis libero. Suspendisse lorem felis, pretium in maximus
+                        id, tempor non ipsum</p>
+                </div>
+            </div>
+            <button type="button" class="btn btn-success" onclick="toggle('uplayForm');">Edit my profile</button>
+            <!-- onclick="toggle (bascule)('uplayForm'), L'attribut onclick se déclenche lors d'un clic de souris sur l'élément et permet d'afficher le form qui est invicible -->
+        </section>
+        <br/>
+        <section class="container">
+            <article clas="row">
+                <form id="uplayForm" class="hidden">
+                    <!--  hidden permet de cacher le formulaire, cependant l'espace qu'utilise le form est present dans la page -->
+                    <div class="form-group col-md-9 ">
+                        <label for="inputSpeudo ">Speudo</label>
+                        <input name="Nickname " type="text " class="form-control " id="inputNickname " placeholder="Enter your Speudo ">
+                    </div>
+                    <div class="form-group col-md-9 ">
+                        <label for="inputImageUrl ">Avatar</label>
+                        <input name="image " type="text " class="form-control " id="inputImageUrl " placeholder="Add an image ">
+                        <input type="file" name="nom" />
+                    </div>
+                    <div class="form-group col-md-9 ">
+                        <label for="inputBio ">Bio</label>
+                        <textarea name="bio " class="form-control " id="inputLastName " placeholder="Bio "></textarea>
+                    </div>
+                    <div class="form-group col-md-3 ">
+                        <button type="submit " class="btn btn-primary ">Submit</button>
+                    </div>
+                </form>
+            </article>
+        </section>
+        <script>
+            //les fonctions Hide() et Show() permet de basculé la visibility entre visible ou hidden.
+            const Hide = (addr) => {
+                document.getElementById(addr).style.visibility = "hidden";
+            }
+            const Show = (addr) => {
+                document.getElementById(addr).style.visibility = "visible";
+            }
+
+            const toggle = (anId) => {
+                if (document.getElementById(anId).style.visibility == "hidden") { Show(anId); }
+                else { Hide(anId); }
+            }
+            // document.getElementById("myP").style.visibility = "hidden"; 
+            //La propriété visibility définit ou retourne si un élément doit être visible. 
+            window.onload = function () { Hide("uplayForm"); };
+            //chargement de la page le form est hide (cacher)
+        </script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js " integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN "
+            crossorigin="anonymous "></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js " integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q "
+            crossorigin="anonymous "></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js " integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl "
+            crossorigin="anonymous "></script>
+</body>
+
+</html>
