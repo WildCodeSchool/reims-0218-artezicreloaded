@@ -61,7 +61,7 @@ const controllers = {
                         <img src="http://via.placeholder.com/200x250" alt="avatar" class="img-thumbnail">
                     </figure>
                     <div class="col-md-3">
-                        <h2>User Speudo</h2>
+                        <h2>User Pseudo</h2>
                     </div>
                    
                     <div class="card col-md-9">
