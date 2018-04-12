@@ -87,7 +87,7 @@ const controllers = {
     },
     '/editer-mon-profil' : () => {
         render(`
-        <div clas="container">
+        <div class="container">
             <form id="editMyProfile">
                 <div class="form-group col-md-9 ">
                     <label for="inputPseudo ">Pseudo</label>
