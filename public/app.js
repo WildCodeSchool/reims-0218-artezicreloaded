@@ -83,17 +83,12 @@ const controllers = {
         <br/>
         <section class="container">
             <article clas="row">
-                <form id="uplayForm" class="hidden">
+                <form id="editMyProfile" class="hidden">
                     <!--  hidden permet de cacher le formulaire, cependant l'espace qu'utilise le form est present dans la page -->
                     <div class="form-group col-md-9 ">
                         <label for="inputSpeudo ">Speudo</label>
                         <input name="Nickname " type="text " class="form-control " id="inputNickname " placeholder="Enter your Speudo ">
-                    </div>
-                    <div class="form-group col-md-9 ">
-                        <label for="inputImageUrl ">Avatar</label>
-                        <input name="image " type="text " class="form-control " id="inputImageUrl " placeholder="Add an image ">
-                        <input type="file" name="nom" />
-                    </div>
+                    </div>             
                     <div class="form-group col-md-9 ">
                         <label for="inputBio ">Bio</label>
                         <textarea name="bio " class="form-control " id="inputLastName " placeholder="Bio "></textarea>
@@ -111,6 +106,22 @@ const controllers = {
                 </section>
             `
             ))
+        const form = document.getElementById('editMyProfile')
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            const data = serializeForm(form) //mon objet data contient toutes les valeurs des inputs du formulaire
+            // Quand je soumet le formulaire, je fais une action create (post) et j'envoie l'objet data
+            console.log(data)
+            fetch('/profil', {
+                method: 'POST',
+                headers: {
+                    // Se renseigner sur la façon de mettre en forme le message
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data) // le corps de ma requête est mon objet data jsonifié. car sqlite fonctionne en json
+            })
+        })
     },
     '/playlist/new': () => {
         render(`
