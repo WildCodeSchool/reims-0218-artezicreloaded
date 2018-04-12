@@ -86,7 +86,31 @@ const controllers = {
             `))
     },
     '/editer-mon-profil' : () => {
-        render(`mettre le formulaire ici`)
+        render(`
+        <div clas="container">
+            <form id="editMyProfile">
+                <div class="form-group col-md-9 ">
+                    <label for="inputNickname ">Speudo</label>
+                    <input name="Nickname " type="text " class="form-control " id="inputNickname " placeholder="Enter your Speudo ">
+                </div>             
+                <div class="form-group col-md-9 ">
+                    <label for="inputBio ">Bio</label>
+                    <textarea name="bio " class="form-control " id="inputBio " placeholder="Bio "></textarea>
+                </div>
+                <div class="form-group col-md-3 ">
+                    <button type="submit " class="btn btn-primary ">Submit</button>
+                </div>
+            </form>
+        </div>
+        `)
+        const formProfile = document.getElementById('editMyProfile')
+        console.log(formProfile)
+        formProfile.addEventListener('submit', e => {
+            e.preventDefault()
+            const dataProfile = serializeForm(formProfile) //mon objet data contient toutes les valeurs des inputs du formulaire
+            // Quand je soumet le formulaire, je fais une action create (post) et j'envoie l'objet data
+            console.log(dataProfile)
+        })
 
     },   
     '/newplaylist': () => {
