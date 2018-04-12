@@ -38,6 +38,14 @@ app.use(bodyParser.json()) // Sert à parser le JSON =>  analyse le JSON
     .then(({id})=> db.get('SELECT * from playlists WHERE id = ?', id)) // on sélectionne la playlist qui possède l'id indiqué
   }
 
+
+  const modifyMyProfile = newInfo => {
+    const { pseudo, bio } = newInfo
+    console.log('pseudo is ', pseudo, 'and bio is : ', bio)
+    return db.get('UPDATE wilders SET pseudo=?, bio=? WHERE id=1', pseudo, bio)
+    .then(()=> db.get('SELECT * from wilders WHERE ID=1'))
+  }
+
   const dbPromise = Promise.resolve() // insertUser reçoit l'objet data envoyé le post depuis l'app. Pour fonctionner il a besoin que db soit défini, (cf const dbPromise)
     .then(() => sqlite.open('./database.sqlite', {Promise}))
     .then(_db => {
@@ -128,6 +136,14 @@ app.post('/playlists', (req, res) => {
   .then(recordNewPlaylist => {
     res.json(recordNewPlaylist) //j'envoie comme réponse le résultat en json
   }) 
+})
+
+app.put('/membres', (req, res) => {
+  console.log("nptre reqbody: ", req.body)
+  return modifyMyProfile(req.body)
+  .then(wilderIsEdited => {
+    res.json(wilderIsEdited)
+  })
 })
 
 

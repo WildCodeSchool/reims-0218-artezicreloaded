@@ -90,12 +90,12 @@ const controllers = {
         <div clas="container">
             <form id="editMyProfile">
                 <div class="form-group col-md-9 ">
-                    <label for="inputNickname ">Speudo</label>
-                    <input name="Nickname " type="text " class="form-control " id="inputNickname " placeholder="Enter your Speudo ">
+                    <label for="inputPseudo ">Pseudo</label>
+                    <input name="pseudo" type="text " class="form-control " id="inputPseudo" placeholder="Enter your pseudo ">
                 </div>             
                 <div class="form-group col-md-9 ">
                     <label for="inputBio ">Bio</label>
-                    <textarea name="bio " class="form-control " id="inputBio " placeholder="Bio "></textarea>
+                    <textarea name="bio" class="form-control " id="inputBio " placeholder="Bio"></textarea>
                 </div>
                 <div class="form-group col-md-3 ">
                     <button type="submit " class="btn btn-primary ">Submit</button>
@@ -110,7 +110,24 @@ const controllers = {
             const dataProfile = serializeForm(formProfile) //mon objet data contient toutes les valeurs des inputs du formulaire
             // Quand je soumet le formulaire, je fais une action create (post) et j'envoie l'objet data
             console.log(dataProfile)
+            fetch('/membres', {
+                method: 'PUT',
+                headers: {
+                    // Se renseigner sur la façon de mettre en forme le message
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dataProfile) // le corps de ma requête est mon objet data jsonifié. car sqlite fonctionne en json
+            })
+                .then(res => res.json()) // Demander à THOMAS pourquoi il n'aime pas la syntaxe entre accolades
+                .then(wilderEdition => {
+                    console.log("notre wilder a bien été edité!!!: ", wilderEdition)
+                    // const alertBox = document.getElementById('alert-box')
+                    // alertBox.className = 'alert alert-success'
+                    // alertBox.innerHTML = `Votre playlist titre ${playlist.title} (${playlist.id}) a bien été créée`
+                })
         })
+        
 
     },   
     '/newplaylist': () => {
