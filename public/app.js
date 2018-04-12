@@ -56,11 +56,59 @@ const controllers = {
             //on concatène les cartes, une carte par objet du json
             .then(mesplaylists => mesplaylists.reduce((carry, playlist) => carry + makeCard(playlist), ''))
             .then(album => render(
-                `
+                `<section class="container">
+                <article class="row">
+                <figure class="col-md-3">
+                    <img src="http://via.placeholder.com/200x250" alt="avatar" class="img-thumbnail">
+                </figure>
+                <div class="col-md-3">
+                    <h2>User Speudo</h2>
+                </div>
+            </article>
+            <div class="card col-md-9">
+                <div class="card-body">
+                    <p>Bio :
+                        <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus, nulla ut commodo sagittis,
+                        sapien dui mattis dui, non pulvinar lorem felis nec erat. Aliquam egestas, velit at condimentum placerat,
+                        sem sapien laoreet mauris, dictum porttitor lacus est nec enim. Vivamus feugiat elit lorem, eu porttitor
+                        ante ultrices id. Phasellus suscipit tellus ante, nec dignissim elit imperdiet nec. Nullam fringilla
+                        feugiat nisl. Ut pretium, metus venenatis dictum viverra, dui metus finibus enim, ac rhoncus sem
+                        lorem vitae mauris. Suspendisse ut venenatis libero. Suspendisse lorem felis, pretium in maximus
+                        id, tempor non ipsum</p>
+                </div>
+            </div>
+            <button type="button" class="btn btn-success" onclick="toggle('uplayForm');">Edit my profile</button>
+            <!-- onclick="toggle (bascule)('uplayForm'), L'attribut onclick se déclenche lors d'un clic de souris sur l'élément et permet d'afficher le form qui est invicible -->
+        </section>
+        <br/>
+        <section class="container">
+            <article clas="row">
+                <form id="uplayForm" class="hidden">
+                    <!--  hidden permet de cacher le formulaire, cependant l'espace qu'utilise le form est present dans la page -->
+                    <div class="form-group col-md-9 ">
+                        <label for="inputSpeudo ">Speudo</label>
+                        <input name="Nickname " type="text " class="form-control " id="inputNickname " placeholder="Enter your Speudo ">
+                    </div>
+                    <div class="form-group col-md-9 ">
+                        <label for="inputImageUrl ">Avatar</label>
+                        <input name="image " type="text " class="form-control " id="inputImageUrl " placeholder="Add an image ">
+                        <input type="file" name="nom" />
+                    </div>
+                    <div class="form-group col-md-9 ">
+                        <label for="inputBio ">Bio</label>
+                        <textarea name="bio " class="form-control " id="inputLastName " placeholder="Bio "></textarea>
+                    </div>
+                    <div class="form-group col-md-3 ">
+                        <button type="submit " class="btn btn-primary ">Submit</button>
+                    </div>
+                </form>
+            </article>
+            
             <div class="row">
             ${album}
             </div>
                 <p><a class="btn btn-success btn-lg" href="/playlist/new" role="button">Ajouter une playlist »</a></p>
+                </section>
             `
             ))
     },
