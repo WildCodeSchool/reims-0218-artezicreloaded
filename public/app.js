@@ -40,7 +40,7 @@ const makeCardMember = item => `
         <div class="card-body">
             <h4 class="card-title">${item.url}</h4>
             <p class="card-text">${item.nbrevotes}</p>
-            <a href="viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlists</a>
+            <a href="/viewplaylists/name" class="btn btn-primary">Voir mes playlists</a>
         </div>
     </div>
         `
@@ -222,7 +222,7 @@ const controllers = {
             </div>
             `
         ))
-    },
+    }
 }
 
 
