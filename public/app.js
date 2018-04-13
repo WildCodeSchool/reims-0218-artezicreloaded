@@ -93,7 +93,6 @@ const controllers = {
         formProfile.addEventListener('submit', e => {
             e.preventDefault()
             const dataProfile = serializeForm(formProfile)
-            console.log(dataProfile)
             fetch('/membres', {
                 method: 'PUT',
                 headers: {
