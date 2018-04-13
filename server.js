@@ -25,7 +25,6 @@ const insertPlaylist = w => {
   .then(({id})=> db.get('SELECT * from playlists WHERE id = ?', id))
 }
 
-
 const modifyMyProfile = newInfo => {
   const { pseudo, bio } = newInfo
   console.log('pseudo is ', pseudo, 'and bio is : ', bio)
