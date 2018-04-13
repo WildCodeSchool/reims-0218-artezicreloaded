@@ -34,6 +34,16 @@ const makeCardMember = item => `
         </div>
     </div>
         `
+        const makeresultat = item => `
+    <div class="card" style="width:400px">
+        <img class="card-img-top" src="${item.titre}" alt="Card image">
+        <div class="card-body">
+            <h4 class="card-title">${item.url}</h4>
+            <p class="card-text">${item.nbrevotes}</p>
+            <a href="" class="btn btn-primary">Voir mes playlists</a>
+        </div>
+    </div>
+        `
 
 const serializeForm = form => {
     const data = {}
@@ -199,8 +209,22 @@ const controllers = {
         </div>
         `
       ))
-    }
+    },
+
+    '/concours': () => {
+        fetch('/playlists')
+        .then(res => res.json())
+        .then(result => result.reduce((carry, user) => carry + makeresultat(user), ''))
+        .then(book => render(
+            `
+            <div class="row">
+            ${book}
+            </div>
+            `
+        ))
+    },
 }
+
 
 const route = pathname => {
 
@@ -208,7 +232,7 @@ const route = pathname => {
 
 
 (() => {
-    ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug'].forEach(
+    ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours'].forEach(
         path => page(path, controllers[path])
     )
     page()
