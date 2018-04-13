@@ -1,4 +1,3 @@
-console.log("je suis le app.js, keskispasse?")
 const mainDiv = document.getElementById('main')
 
 const render = html => {
@@ -17,14 +16,24 @@ const makeCard = item => `
     `
 const makeWilder = item => `
     <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="..." alt="Card image cap">
         <div class="card-body">
+            <img class="card-img-top" src="${item.avatar}" alt="Card image">
             <h5 class="card-title">${item.pseudo}</h5>
-            <p class="card-text">${item.password}</p>
-            <a href="${item.email}" class="btn btn-primary">Voir ma playlist</a>
+            <p class="card-text">${item.bio}</p>
+            <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlist</a>
         </div>
     </div>
     `
+const makeCardMember = item => `
+    <div class="card" style="width:400px">
+        <img class="card-img-top" src="${item.avatar}" alt="Card image">
+        <div class="card-body">
+            <h4 class="card-title">${item.pseudo}</h4>
+            <p class="card-text">${item.bio}</p>
+            <a href="" class="btn btn-primary">Voir mes playlists</a>
+        </div>
+    </div>
+        `
 
 const serializeForm = form => {
     const data = {}
@@ -32,7 +41,7 @@ const serializeForm = form => {
     for (el of elements) {
         data[el.name] = el.value
     }
-    console.log(data)
+    //console.log(data)
     return data
 }
 
@@ -47,43 +56,24 @@ const controllers = {
         </li>`)
     },
     '/monprofil': () => {
-        console.log("coucou je suis le console log du controller pour le path /")
-        fetch('/membres')
-            .then(res => {
-                console.log("dans le fetch, on s'occupe de la res")
-                return res.json()
-            })
-            //on concatène les cartes, une carte par objet du json
-            .then(mesplaylists => mesplaylists.reduce((carry, playlist) => carry + makeCard(playlist), ''))
-            .then(album => render(`
-            <article class="row">
-                    <figure class="col-md-3">
-                        <img src="http://via.placeholder.com/200x250" alt="avatar" class="img-thumbnail">
-                    </figure>
-                    <div class="col-md-3">
-                        <h2>User Pseudo</h2>
-                    </div>
-                   
-                    <div class="card col-md-9">
-                        <div class="card-body">
-                            <p>Bio :
-                                <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus, nulla ut commodo sagittis,
-                                sapien dui mattis dui, non pulvinar lorem felis nec erat. Aliquam egestas, velit at condimentum placerat,
-                                sem sapien laoreet mauris, dictum porttitor lacus est nec enim. Vivamus feugiat elit lorem, eu porttitor
-                                ante ultrices id. Phasellus suscipit tellus ante, nec dignissim elit imperdiet nec. Nullam fringilla
-                                feugiat nisl. Ut pretium, metus venenatis dictum viverra, dui metus finibus enim, ac rhoncus sem
-                                lorem vitae mauris. Suspendisse ut venenatis libero. Suspendisse lorem felis, pretium in maximus
-                                id, tempor non ipsum</p>
-                        </div>
-                    </div>
-                    <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
+        //console.log("coucou je suis le console log du controller pour le path /")
+        fetch('/membre')
+        .then(res => {
+            //console.log("dans le fetch, on s'occupe de la res")
+            return res.json()
+        })
+        //on concatène les cartes, une carte par objet du json
+        .then(membre => membre.reduce((carry, user) => carry + makeCardMember(user), ''))
+        .then(book => render(
+            `
+            <div class="row">
+            ${book}
+            <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
 
-                    </article>
-                    <div class="row">
-                        ${album}
-                    </div>
-                    <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
-            `))
+            </div>
+                <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
+            `
+        ))
     },
     '/editer-mon-profil' : () => {
         render(`
@@ -172,26 +162,49 @@ const controllers = {
                 },
                 body: JSON.stringify(data) // le corps de ma requête est mon objet data jsonifié. car sqlite fonctionne en json
             })
-                .then(res => res.json()) // Demander à THOMAS pourquoi il n'aime pas la syntaxe entre accolades
-                .then(playlist => {
-                    console.log("alerte ?")
-                    const alertBox = document.getElementById('alert-box')
-                    alertBox.className = 'alert alert-success'
-                    alertBox.innerHTML = `Votre playlist titre ${playlist.title} (${playlist.id}) a bien été créée`
-                })
+            .then(res => res.json())
+            .then(playlist => {
+                //console.log("resultat du form: ", playlist)
+                //console.log("alerte ?")
+                const alertBox = document.getElementById('alert-box')
+                alertBox.className = 'alert alert-success'
+                alertBox.innerHTML = `Votre playlist titre ${playlist.title} (${playlist.id}) a bien été créée`
+            })
         })
     },
     '/wilders': () => {
-        fetch('/wilders')
-            .then(res => res.json())
-            .then(listusers => listusers.reduce((carry, user) => carry + makeWilder(user), ''))
-            .then(book => render(
-                `
+        fetch('/membres')
+        .then(res => res.json())
+        .then(listusers => listusers.reduce((carry, user) => carry + makeWilder(user), ''))
+        .then(book => render(
+            `
             <div class="row">
             ${book}
             </div>
             `
-            ))
+        ))
+    },
+    '/viewplaylists/:slug': ctx => {
+      const { slug } = ctx.params
+      //console.log('constante slug', slug)
+      fetch('/membres')
+      .then(res => res.json())
+      .then(members => members.find(member => member.pseudo.toLowerCase() === slug))
+      .then(returnMember => render(
+        `
+        <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+            <img src="${returnMember.avatar}" alt="${returnMember.avatar} ${returnMember.user}" class="img-fluid" />
+            </div>
+            <div class="col-md-6">
+            <h1>${returnMember.pseudo}</h1>
+            <p>${returnMember.bio}</p>
+            </div>
+        </div>
+        </div>
+        `
+      ))
     }
 }
 
@@ -201,7 +214,7 @@ const route = pathname => {
 
 
 (() => {
-    ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil'].forEach(
+    ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug'].forEach(
         path => page(path, controllers[path])
     )
     page()
