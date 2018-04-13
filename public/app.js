@@ -41,12 +41,10 @@ const serializeForm = form => {
     for (el of elements) {
         data[el.name] = el.value
     }
-    //console.log(data)
     return data
 }
 
 const controllers = {
-    //chaque propriété est une fonction
     '/': () => {
         render(`
         <h2>Ce que vous pouvez faire:</h2>
@@ -56,13 +54,10 @@ const controllers = {
         </li>`)
     },
     '/monprofil': () => {
-        //console.log("coucou je suis le console log du controller pour le path /")
         fetch('/membre')
         .then(res => {
-            //console.log("dans le fetch, on s'occupe de la res")
             return res.json()
         })
-        //on concatène les cartes, une carte par objet du json
         .then(membre => membre.reduce((carry, user) => carry + makeCardMember(user), ''))
         .then(book => render(
             `
@@ -78,6 +73,8 @@ const controllers = {
     '/editer-mon-profil' : () => {
         render(`
         <div class="container">
+            <div id="alert-box" class="hidden">
+            </div>
             <form id="editMyProfile">
                 <div class="form-group col-md-9 ">
                     <label for="inputPseudo ">Pseudo</label>
@@ -97,24 +94,22 @@ const controllers = {
         console.log(formProfile)
         formProfile.addEventListener('submit', e => {
             e.preventDefault()
-            const dataProfile = serializeForm(formProfile) //mon objet data contient toutes les valeurs des inputs du formulaire
-            // Quand je soumet le formulaire, je fais une action create (post) et j'envoie l'objet data
+            const dataProfile = serializeForm(formProfile)
             console.log(dataProfile)
             fetch('/membres', {
                 method: 'PUT',
                 headers: {
-                    // Se renseigner sur la façon de mettre en forme le message
                     'Accept': 'application/json, text/plain, */*',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(dataProfile) // le corps de ma requête est mon objet data jsonifié. car sqlite fonctionne en json
+                body: JSON.stringify(dataProfile) 
             })
-                .then(res => res.json()) // Demander à THOMAS pourquoi il n'aime pas la syntaxe entre accolades
+                .then(res => res.json())
                 .then(wilderEdition => {
                     console.log("notre wilder a bien été edité!!!: ", wilderEdition)
-                    // const alertBox = document.getElementById('alert-box')
-                    // alertBox.className = 'alert alert-success'
-                    // alertBox.innerHTML = `Votre playlist titre ${playlist.title} (${playlist.id}) a bien été créée`
+                    const alertBox = document.getElementById('alert-box')
+                    alertBox.className = 'alert alert-success'
+                    alertBox.innerHTML = `Votre profil titre été édité`
                 })
         })
         
@@ -124,7 +119,6 @@ const controllers = {
         render(`
         <div class="container">
           <div id="alert-box" class="hidden">
-
           </div>
           <form id="add-playlist">
             <div class="form-group">
@@ -151,12 +145,11 @@ const controllers = {
         const form = document.getElementById('add-playlist')
         form.addEventListener('submit', e => {
             e.preventDefault()
-            const data = serializeForm(form) //mon objet data contient toutes les valeurs des inputs du formulaire
-            // Quand je soumet le formulaire, je fais une action create (post) et j'envoie l'objet data
+            const data = serializeForm(form) 
             fetch('/playlists', {
                 method: 'POST',
                 headers: {
-                    // Se renseigner sur la façon de mettre en forme le message
+                    
                     'Accept': 'application/json, text/plain, */*',
                     'Content-Type': 'application/json'
                 },
@@ -164,8 +157,6 @@ const controllers = {
             })
             .then(res => res.json())
             .then(playlist => {
-                //console.log("resultat du form: ", playlist)
-                //console.log("alerte ?")
                 const alertBox = document.getElementById('alert-box')
                 alertBox.className = 'alert alert-success'
                 alertBox.innerHTML = `Votre playlist titre ${playlist.title} (${playlist.id}) a bien été créée`
@@ -186,7 +177,6 @@ const controllers = {
     },
     '/viewplaylists/:slug': ctx => {
       const { slug } = ctx.params
-      //console.log('constante slug', slug)
       fetch('/membres')
       .then(res => res.json())
       .then(members => members.find(member => member.pseudo.toLowerCase() === slug))
