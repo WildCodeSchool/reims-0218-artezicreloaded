@@ -101,13 +101,12 @@ const controllers = {
                 },
                 body: JSON.stringify(dataProfile) 
             })
-                .then(res => res.json())
-                .then(wilderEdition => {
-                    console.log("notre wilder a bien été edité!!!: ", wilderEdition)
-                    const alertBox = document.getElementById('alert-box')
-                    alertBox.className = 'alert alert-success'
-                    alertBox.innerHTML = `Votre profil titre été édité`
-                })
+            .then(res => res.json())
+            .then(wilderEdition => {
+                const alertBox = document.getElementById('alert-box')
+                alertBox.className = 'alert alert-success'
+                alertBox.innerHTML = `Votre profil titre été édité`
+            })
         })
         
 
