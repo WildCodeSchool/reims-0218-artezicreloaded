@@ -87,7 +87,6 @@ const controllers = {
         </div>
         `)
         const formProfile = document.getElementById('editMyProfile')
-        console.log(formProfile)
         formProfile.addEventListener('submit', e => {
             e.preventDefault()
             const dataProfile = serializeForm(formProfile)
