@@ -30,7 +30,7 @@ const makeCardMember = item => `
         <div class="card-body">
             <h4 class="card-title">${item.pseudo}</h4>
             <p class="card-text">${item.bio}</p>
-            <a href="" class="btn btn-primary">Voir mes playlists</a>
+            <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlists</a>
         </div>
     </div>
         `
@@ -40,7 +40,7 @@ const makeCardMember = item => `
         <div class="card-body">
             <h4 class="card-title">${item.url}</h4>
             <p class="card-text">${item.nbrevotes}</p>
-            <a href="" class="btn btn-primary">Voir mes playlists</a>
+            <a href="/viewplaylists/name" class="btn btn-primary">Voir mes playlists</a>
         </div>
     </div>
         `
@@ -81,9 +81,9 @@ const controllers = {
         .then(book => render(
             `<div class="row">
                 ${book}
-                <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
             </div>
-                <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
+            <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
+            <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
             `
         ))
     },
@@ -191,19 +191,19 @@ const controllers = {
     },
     '/viewplaylists/:slug': ctx => {
       const { slug } = ctx.params
-      fetch('/membres')
+      fetch('/playlists')
       .then(res => res.json())
-      .then(members => members.find(member => member.pseudo.toLowerCase() === slug))
-      .then(returnMember => render(
+      .then(playlists => render(
         `
         <div class="container">
         <div class="row">
+            <h2>Mes Playlists</h2>
             <div class="col-md-6">
-            <img src="${returnMember.avatar}" alt="${returnMember.avatar} ${returnMember.user}" class="img-fluid" />
             </div>
             <div class="col-md-6">
-            <h1>${returnMember.pseudo}</h1>
-            <p>${returnMember.bio}</p>
+            <h1>${playlists[0].titre}</h1>
+            <p>${playlists[0].genre}</p>
+            <a href="/monprofil">${playlists[0].url}</> 
             </div>
         </div>
         </div>
@@ -222,7 +222,7 @@ const controllers = {
             </div>
             `
         ))
-    },
+    }
 }
 
 
