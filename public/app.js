@@ -38,7 +38,7 @@ const makeCardMember = item => `
 const serializeForm = form => {
     const data = {}
     const elements = form.getElementsByClassName('form-control')
-    for (el of elements) {
+    for (let el of elements) {
         data[el.name] = el.value
     }
     return data
