@@ -55,9 +55,7 @@ const controllers = {
     },
     '/monprofil': () => {
         fetch('/membre')
-        .then(res => {
-            return res.json()
-        })
+        .then(res => res.json())
         .then(membre => membre.reduce((carry, user) => carry + makeCardMember(user), ''))
         .then(book => render(
             `<div class="row">
