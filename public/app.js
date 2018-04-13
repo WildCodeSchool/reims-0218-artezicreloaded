@@ -38,17 +38,15 @@ const makeCardMember = item => `
 const serializeForm = form => {
     const data = {}
     const elements = form.getElementsByClassName('form-control')
-    for(el of elements) {
+    for (let el of elements) {
         data[el.name] = el.value
     }
-    //console.log(data)
     return data
 }
 
 const controllers = {
-  //chaque propriété est une fonction
     '/': () => {
-      render(`
+        render(`
         <h2>Ce que vous pouvez faire:</h2>
         <li> Ajouter une playlist sur votre page profil
         </li>
@@ -56,28 +54,64 @@ const controllers = {
         </li>`)
     },
     '/monprofil': () => {
-        //console.log("coucou je suis le console log du controller pour le path /")
         fetch('/membre')
-        .then(res => {
-            //console.log("dans le fetch, on s'occupe de la res")
-            return res.json()
-        })
-        //on concatène les cartes, une carte par objet du json
+        .then(res => res.json())
         .then(membre => membre.reduce((carry, user) => carry + makeCardMember(user), ''))
         .then(book => render(
-            `
-            <div class="row">
-            ${book}
+            `<div class="row">
+                ${book}
+                <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
             </div>
                 <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
             `
         ))
     },
+    '/editer-mon-profil' : () => {
+        render(`
+        <div class="container">
+            <div id="alert-box" class="hidden">
+            </div>
+            <form id="editMyProfile">
+                <div class="form-group col-md-9 ">
+                    <label for="inputPseudo ">Pseudo</label>
+                    <input name="pseudo" type="text " class="form-control " id="inputPseudo" placeholder="Enter your pseudo ">
+                </div>             
+                <div class="form-group col-md-9 ">
+                    <label for="inputBio ">Bio</label>
+                    <textarea name="bio" class="form-control " id="inputBio " placeholder="Bio"></textarea>
+                </div>
+                <div class="form-group col-md-3 ">
+                    <button type="submit " class="btn btn-primary ">Submit</button>
+                </div>
+            </form>
+        </div>
+        `)
+        const formProfile = document.getElementById('editMyProfile')
+        formProfile.addEventListener('submit', e => {
+            e.preventDefault()
+            const dataProfile = serializeForm(formProfile)
+            fetch('/membres', {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dataProfile) 
+            })
+            .then(res => res.json())
+            .then(wilderEdition => {
+                const alertBox = document.getElementById('alert-box')
+                alertBox.className = 'alert alert-success'
+                alertBox.innerHTML = `Votre profil titre été édité`
+            })
+        })
+        
+
+    },   
     '/newplaylist': () => {
         render(`
         <div class="container">
           <div id="alert-box" class="hidden">
-
           </div>
           <form id="add-playlist">
             <div class="form-group">
@@ -104,12 +138,11 @@ const controllers = {
         const form = document.getElementById('add-playlist')
         form.addEventListener('submit', e => {
             e.preventDefault()
-            const data = serializeForm(form) //mon objet data contient toutes les valeurs des inputs du formulaire
-            // Quand je soumet le formulaire, je fais une action create (post) et j'envoie l'objet data
+            const data = serializeForm(form) 
             fetch('/playlists', {
                 method: 'POST',
                 headers: {
-                  // Se renseigner sur la façon de mettre en forme le message
+                    
                     'Accept': 'application/json, text/plain, */*',
                     'Content-Type': 'application/json'
                 },
@@ -117,8 +150,6 @@ const controllers = {
             })
             .then(res => res.json())
             .then(playlist => {
-                //console.log("resultat du form: ", playlist)
-                //console.log("alerte ?")
                 const alertBox = document.getElementById('alert-box')
                 alertBox.className = 'alert alert-success'
                 alertBox.innerHTML = `Votre playlist titre ${playlist.title} (${playlist.id}) a bien été créée`
@@ -139,7 +170,6 @@ const controllers = {
     },
     '/viewplaylists/:slug': ctx => {
       const { slug } = ctx.params
-      //console.log('constante slug', slug)
       fetch('/membres')
       .then(res => res.json())
       .then(members => members.find(member => member.pseudo.toLowerCase() === slug))
@@ -167,9 +197,9 @@ const route = pathname => {
 
 
 (() => {
-    ['/', '/wilders', '/monprofil', '/newplaylist', '/viewplaylists/:slug'].forEach(
+    ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug'].forEach(
         path => page(path, controllers[path])
     )
     page()
-// route()
+    // route()
 })()
