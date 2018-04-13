@@ -46,12 +46,23 @@ const serializeForm = form => {
 
 const controllers = {
     '/': () => {
-        render(`
-        <h2>Ce que vous pouvez faire:</h2>
-        <li> Ajouter une playlist sur votre page profil
-        </li>
-        <li>Consulter la page membre
-        </li>`)
+
+        fetch('/membre')
+        .then(res => res.json())
+        .then(connectedMember => {
+            render(`
+            <h1>Bienvenue ${connectedMember[0].pseudo}</h1>
+            <h2>Ce que vous pouvez faire:</h2>
+            <ul>
+                <li> 
+                    Ajouter une playlist sur votre page profil
+                </li>
+                <li>
+                    Consulter la page membre
+                </li>
+            </ul>`)
+       }) 
+        
     },
     '/monprofil': () => {
         fetch('/membre')
