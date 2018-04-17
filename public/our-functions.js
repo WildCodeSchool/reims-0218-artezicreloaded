@@ -1,16 +1,18 @@
-module.exports =  {
-    makeArtezicObject: (arrOfObj) => {
+function makeArtezicObject(arrOfObj) {
     const arr = arrOfObj.map(el => el.id_wilders)
-    console.log(arr)
-    let newArr = []
+    let idArr = []
     for (let el of arr) {
         if (el !== null) {
-            if (!newArr.includes(el) ) {
-                newArr.push(el)
-
+            if (!idArr.includes(el) ) {
+                idArr.push(el)
             }
         }
     }
-    return newArr
-    }
+    let obj = idArr.reduce((acc, id) => {
+        acc[id] = []
+        return acc
+    },{})
+    return obj
 }
+
+   // export default makeArtezicObject
