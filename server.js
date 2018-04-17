@@ -134,6 +134,18 @@ app.get('/playlists', (req, res) => {
   })
 })
 
+//HERE SHOW supposedly connected user playlists. His id_wilders is 1.
+app.get('/playlists/1', (req, res) => {
+  console.log("on est en train de requeter playlists/1") 
+  //db.all("SELECT * from playlists WHERE titre='pioupiou'") //this works. Just a test, erase it when feature is completed
+  //TODO: we need some kind of inner join because we cannot request 
+  //WHERE id_wilders directly.
+  db.all("SELECT * from playlists WHERE ..........)
+  .then(allPlaylists => {
+    res.json(allPlaylists)
+  })
+})
+
 app.get('*', (req, res) => {
   res.send(html)
   res.end()

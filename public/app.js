@@ -203,7 +203,8 @@ const controllers = {
     },
     '/viewplaylists/:slug': ctx => {
       const { slug } = ctx.params
-      fetch('/playlists')
+      //hardcoding fetch route but we should be able to get idwilder from slug?
+      fetch('/playlists/1')
       .then(res => res.json())
       .then(playlists => render(
         `
