@@ -42,8 +42,12 @@ const dbPromise = Promise.resolve()
   Promise.map(users, w => {
     insertWilder(w)
     })
-  }
-) 
+  })
+  .then(() => {
+    Promise.map(users, w => {
+      insertPlaylist(w)
+      })
+    })
 
 const html = `
 <!doctype html>

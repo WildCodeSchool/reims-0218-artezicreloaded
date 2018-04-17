@@ -30,7 +30,9 @@ id_playlists INTEGER );
 CREATE TABLE votes (
 id INTEGER PRIMARY KEY,
 id_playlists INTEGER,
-votes INTEGER );
+votes INTEGER,
+FOREIGN KEY(id_wilders) REFERENCES wilders(id)
+);
 
 -- Down 
 DROP TABLE playlists;
