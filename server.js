@@ -45,6 +45,7 @@ const dbPromise = Promise.resolve()
   })
   .then(() => {
     Promise.map(users, w => {
+      console.log("on va peupler la db avec les playlists")
       insertPlaylist(w)
       })
     })
@@ -132,9 +133,21 @@ app.put('/membres', (req, res) => {
 })
 
 app.get('/playlists', (req, res) => { 
-  db.all('SELECT * from playlists')
+  db.all('SELECT * from membres')
   .then(allPlaylists => {
     res.json(allPlaylists)
+  })
+})
+
+app.get('/playlistsWilders', (req, res) => { 
+  db.all(
+    `SELECT * 
+      from wilders
+      left join playlists on wilders.id = playlists.id_wilders
+    `
+  )
+  .then(playlistsByWilders => {
+    res.json(playlistsByWilders)
   })
 })
 
