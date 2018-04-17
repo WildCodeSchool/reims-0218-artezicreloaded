@@ -159,7 +159,19 @@ const controllers = {
         const form = document.getElementById('add-playlist')
         form.addEventListener('submit', e => {
             e.preventDefault()
-            const data = serializeForm(form) 
+           
+            const data = serializeForm(form)
+            
+            const dataWithId = {
+                titre: data.title,
+                genre: data.genre,
+                url: data.url,
+                compete: data.competition,
+                id_wilders:1
+            }
+           //why no console.log? 
+            console.log("data object: ", dataWithId) 
+            
             fetch('/playlists', {
                 method: 'POST',
                 headers: {
@@ -167,13 +179,13 @@ const controllers = {
                     'Accept': 'application/json, text/plain, */*',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data) // le corps de ma requête est mon objet data jsonifié. car sqlite fonctionne en json
+                body: JSON.stringify(dataWithId) // le corps de ma requête est mon objet data jsonifié. car sqlite fonctionne en json
             })
             .then(res => res.json())
             .then(playlist => {
                 const alertBox = document.getElementById('alert-box')
                 alertBox.className = 'alert alert-success'
-                alertBox.innerHTML = `Votre playlist titre ${playlist.title} (${playlist.id}) a bien été créée`
+                alertBox.innerHTML = `Votre playlist titre ${playlist.titre} (${playlist.id}) a bien été créée`
             })
         })
     },

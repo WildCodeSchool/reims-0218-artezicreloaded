@@ -112,7 +112,8 @@ app.get('/membres', (req, res) => {
   })
 })
 
-app.post('/playlists', (req, res) => { 
+app.post('/playlists', (req, res) => {
+  console.log("the req sends: ", req.body)
   return insertPlaylist(req.body)
   .then(recordNewPlaylist => {
     res.json(recordNewPlaylist)
