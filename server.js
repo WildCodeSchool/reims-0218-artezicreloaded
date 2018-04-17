@@ -140,7 +140,7 @@ app.get('/playlists/1', (req, res) => {
   //db.all("SELECT * from playlists WHERE titre='pioupiou'") //this works. Just a test, erase it when feature is completed
   //TODO: we need some kind of inner join because we cannot request 
   //WHERE id_wilders directly.
-  db.all("SELECT * from playlists WHERE ..........)
+  db.all("SELECT * from playlists")
   .then(allPlaylists => {
     res.json(allPlaylists)
   })
