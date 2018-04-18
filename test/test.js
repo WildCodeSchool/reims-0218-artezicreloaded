@@ -11,11 +11,11 @@ describe('Make Artezic Object with playlists by wilder', () => {
     // it('should return an object', ()=> {
     //     chai.typeOf(result, 'object')
     // })
-    it('should return an array', ()=> {
-        chai.isArray(result)
+    it('should return be an object', ()=> {
+        chai.isObject(result, "result is an object")
     })
-    it('should be 4 elements long', ()=> {
-        chai.equal(result.length, 4)
+    it('should be have 4 props', ()=> {
+        chai.equal(result['1'].length, 4)
     })
     
     
