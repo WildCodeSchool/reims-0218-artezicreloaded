@@ -207,8 +207,16 @@ const controllers = {
       //hardcoding fetch route but we should be able to get idwilder from slug?
       fetch(`/membre/${slug}`)
       .then(res => res.json())
-      .then(playlists => render(
-          `Hello ${slug}`
+      .then(gontran => {
+          const playlists = gontran[0].playlists
+         // console.log(gontran.playlists)
+          const gontranPlaylistsCards = playlists.reduce((acc, playlist) => acc + makeresultat(playlist), '')
+        render(`
+        <h2>Hello ${slug}, voici vos playlists:</h2>
+        <div class="row>
+            ${gontranPlaylistsCards}
+        </div>`)
+        }
         // `
         // <div class="container">
         // <div class="row">
@@ -223,7 +231,7 @@ const controllers = {
         // </div>
         // </div>
         // `
-      ))
+      )
     },
 
     '/concours': () => {
