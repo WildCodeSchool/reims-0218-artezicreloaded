@@ -2,6 +2,10 @@ console.log("je suis le serveur, je commence")
 const sqlite = require('sqlite')
 const express = require('express')
 const Promise = require('bluebird')
+
+const { wildersWithPlaylists } = require('./playlists.js')
+const { isolatePlaylist } = require('./playlists.js')
+
 const app = express() 
 
 const users = require('./public/user-playlists.json') 
@@ -102,8 +106,14 @@ app.post('/membres', (req, res) => {
   }) 
 })
 
-app.get('/membre', (req, res) => { 
-  db.all("SELECT * from wilders WHERE id='1'")
+app.get('/membre/gontran', (req, res) => { 
+  db.all(`
+    SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
+    from wilders
+    left join playlists on wilders.id = playlists.id_wilders
+    WHERE pseudo = "gontran"
+    ; 
+    `)
   .then(oneWilder => {
     res.json(oneWilder)
   })
@@ -133,7 +143,7 @@ app.put('/membres', (req, res) => {
 })
 
 app.get('/playlists', (req, res) => { 
-  db.all('SELECT * from membres')
+  db.all('SELECT * from wilders')
   .then(allPlaylists => {
     res.json(allPlaylists)
   })
