@@ -55,7 +55,6 @@ const serializeForm = form => {
 
 const controllers = {
     '/': () => {
-
         fetch('/membre/gontran')
         .then(res => res.json())
         .then(connectedMember => {
@@ -126,8 +125,6 @@ const controllers = {
                 alertBox.innerHTML = `Votre profil titre été édité`
             })
         })
-        
-
     },   
     '/newplaylist': () => {
         render(`
@@ -158,19 +155,15 @@ const controllers = {
         )
         const form = document.getElementById('add-playlist')
         form.addEventListener('submit', e => {
-            e.preventDefault()
-           
+            e.preventDefault() 
             const data = serializeForm(form)
-            
             const dataWithId = {
                 titre: data.title,
                 genre: data.genre,
                 url: data.url,
                 compete: data.competition,
                 id_wilders:1
-            }
-           //why no console.log? 
-            console.log("data object: ", dataWithId) 
+            } 
             
             fetch('/playlists', {
                 method: 'POST',
@@ -198,41 +191,25 @@ const controllers = {
             <div class="row">
             ${book}
             </div>
-            `
-        ))
+            `)
+        )
     },
     '/viewplaylists/:slug': ctx => {
-      const { slug } = ctx.params
-      //hardcoding fetch route but we should be able to get idwilder from slug?
-      fetch(`/membre/${slug}`)
-      .then(res => res.json())
-      .then(gontran => {
-          const playlists = gontran[0].playlists
-         // console.log(gontran.playlists)
-          const gontranPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
-        render(`
-        <h2>Hello ${slug}, voici vos playlists:</h2>
-        <div class="row>
-            ${gontranPlaylistsCards}
-        </div>`)
+        const { slug } = ctx.params
+        //hardcoding fetch route but we should be able to get idwilder from slug?
+        fetch(`/membre/${slug}`)
+        .then(res => res.json())
+        .then(gontran => {
+            const playlists = gontran[0].playlists
+            const gontranPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
+            render(`
+            <h2>Hello ${slug}, voici vos playlists:</h2>
+            <div class="row>
+                ${gontranPlaylistsCards}
+            </div>`)
         }
-        // `
-        // <div class="container">
-        // <div class="row">
-        //     <h2>Mes Playlists</h2>
-        //     <div class="col-md-6">
-        //     </div>
-        //     <div class="col-md-6">
-        //     <h1>${playlists[0].titre}</h1>
-        //     <p>${playlists[0].genre}</p>
-        //     <a href="/monprofil">${playlists[0].url}</> 
-        //     </div>
-        // </div>
-        // </div>
-        // `
       )
     },
-
     '/concours': () => {
         fetch('/playlists')
         .then(res => res.json())
@@ -242,16 +219,14 @@ const controllers = {
             <div class="row">
             ${book}
             </div>
-            `
-        ))
+            `)
+        )
     }
 }
 
 
 const route = pathname => {
-
 }
-
 
 (() => {
     ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours'].forEach(
