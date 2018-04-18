@@ -225,7 +225,7 @@ const controllers = {
     },
 
     '/concours': () => {
-        fetch('/playlists')
+        fetch('/playlistsWilders')
         .then(res => res.json())
         .then(result => result.reduce((carry, user) => carry + makeresultat(user), ''))
         .then(book => render(
