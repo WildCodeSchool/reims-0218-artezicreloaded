@@ -77,6 +77,7 @@ const controllers = {
     '/monprofil': () => {
         fetch('/membre/gontran')
         .then(res => res.json())
+        //TODO we don't need a reduce here because we're gettingonly one object, not severals.
         .then(membre => membre.reduce((carry, user) => carry + makeCardMember(user), ''))
         .then(book => render(
             `<div class="row">
@@ -204,23 +205,24 @@ const controllers = {
     '/viewplaylists/:slug': ctx => {
       const { slug } = ctx.params
       //hardcoding fetch route but we should be able to get idwilder from slug?
-      fetch('/playlists/1')
+      fetch(`/membre/${slug}`)
       .then(res => res.json())
       .then(playlists => render(
-        `
-        <div class="container">
-        <div class="row">
-            <h2>Mes Playlists</h2>
-            <div class="col-md-6">
-            </div>
-            <div class="col-md-6">
-            <h1>${playlists[0].titre}</h1>
-            <p>${playlists[0].genre}</p>
-            <a href="/monprofil">${playlists[0].url}</> 
-            </div>
-        </div>
-        </div>
-        `
+          `Hello ${slug}`
+        // `
+        // <div class="container">
+        // <div class="row">
+        //     <h2>Mes Playlists</h2>
+        //     <div class="col-md-6">
+        //     </div>
+        //     <div class="col-md-6">
+        //     <h1>${playlists[0].titre}</h1>
+        //     <p>${playlists[0].genre}</p>
+        //     <a href="/monprofil">${playlists[0].url}</> 
+        //     </div>
+        // </div>
+        // </div>
+        // `
       ))
     },
 
