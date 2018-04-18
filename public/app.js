@@ -57,7 +57,7 @@ const serializeForm = form => {
 const controllers = {
     '/': () => {
 
-        fetch('/membre')
+        fetch('/membre/gontran')
         .then(res => res.json())
         .then(connectedMember => {
             render(`
