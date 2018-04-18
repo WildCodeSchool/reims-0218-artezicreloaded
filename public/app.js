@@ -4,11 +4,10 @@ const render = html => {
     mainDiv.innerHTML = html
 }
 
-const makeCard = item => `
+const makePlaylistCard = item => `
     <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="..." alt="Card image cap">
         <div class="card-body">
-            <h5 class="card-title">${item.title}</h5>
+            <h5 class="card-title">${item.titre}</h5>
             <p class="card-text">${item.genre}</p>
             <a href="${item.url}" class="btn btn-primary">Voir ma playlist</a>
         </div>
@@ -56,8 +55,7 @@ const serializeForm = form => {
 
 const controllers = {
     '/': () => {
-
-        fetch('/membre')
+        fetch('/membre/gontran')
         .then(res => res.json())
         .then(connectedMember => {
             render(`
@@ -75,12 +73,13 @@ const controllers = {
         
     },
     '/monprofil': () => {
-        fetch('/membre')
+        fetch('/membre/gontran')
         .then(res => res.json())
-        .then(membre => membre.reduce((carry, user) => carry + makeCardMember(user), ''))
-        .then(book => render(
+        //TODO we don't need a reduce here because we're gettingonly one object, not severals.
+        .then(membre => makeCardMember(membre[0]))
+        .then(mesInfos=> render(
             `<div class="row">
-                ${book}
+                ${mesInfos}
             </div>
             <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
             <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
@@ -126,8 +125,6 @@ const controllers = {
                 alertBox.innerHTML = `Votre profil titre été édité`
             })
         })
-        
-
     },   
     '/newplaylist': () => {
         render(`
@@ -158,8 +155,16 @@ const controllers = {
         )
         const form = document.getElementById('add-playlist')
         form.addEventListener('submit', e => {
-            e.preventDefault()
-            const data = serializeForm(form) 
+            e.preventDefault() 
+            const data = serializeForm(form)
+            const dataWithId = {
+                titre: data.title,
+                genre: data.genre,
+                url: data.url,
+                compete: data.competition,
+                id_wilders:1
+            } 
+            
             fetch('/playlists', {
                 method: 'POST',
                 headers: {
@@ -167,13 +172,13 @@ const controllers = {
                     'Accept': 'application/json, text/plain, */*',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data) // le corps de ma requête est mon objet data jsonifié. car sqlite fonctionne en json
+                body: JSON.stringify(dataWithId) // le corps de ma requête est mon objet data jsonifié. car sqlite fonctionne en json
             })
             .then(res => res.json())
             .then(playlist => {
                 const alertBox = document.getElementById('alert-box')
                 alertBox.className = 'alert alert-success'
-                alertBox.innerHTML = `Votre playlist titre ${playlist.title} (${playlist.id}) a bien été créée`
+                alertBox.innerHTML = `Votre playlist titre ${playlist.titre} (${playlist.id}) a bien été créée`
             })
         })
     },
@@ -186,31 +191,25 @@ const controllers = {
             <div class="row">
             ${book}
             </div>
-            `
-        ))
+            `)
+        )
     },
     '/viewplaylists/:slug': ctx => {
-      const { slug } = ctx.params
-      fetch('/playlists')
-      .then(res => res.json())
-      .then(playlists => render(
-        `
-        <div class="container">
-        <div class="row">
-            <h2>Mes Playlists</h2>
-            <div class="col-md-6">
-            </div>
-            <div class="col-md-6">
-            <h1>${playlists[0].titre}</h1>
-            <p>${playlists[0].genre}</p>
-            <a href="/monprofil">${playlists[0].url}</> 
-            </div>
-        </div>
-        </div>
-        `
-      ))
+        const { slug } = ctx.params
+        //hardcoding fetch route but we should be able to get idwilder from slug?
+        fetch(`/membre/${slug}`)
+        .then(res => res.json())
+        .then(gontran => {
+            const playlists = gontran[0].playlists
+            const gontranPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
+            render(`
+            <h2>Hello ${slug}, voici vos playlists:</h2>
+            <div class="row>
+                ${gontranPlaylistsCards}
+            </div>`)
+        }
+      )
     },
-
     '/concours': () => {
         fetch('/playlists')
         .then(res => res.json())
@@ -220,16 +219,14 @@ const controllers = {
             <div class="row">
             ${book}
             </div>
-            `
-        ))
+            `)
+        )
     }
 }
 
 
 const route = pathname => {
-
 }
-
 
 (() => {
     ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours'].forEach(

@@ -1,7 +1,10 @@
-console.log("je suis le serveur, je commence")
 const sqlite = require('sqlite')
 const express = require('express')
 const Promise = require('bluebird')
+
+const { wildersWithPlaylists } = require('./playlists.js')
+const { isolatePlaylist } = require('./playlists.js')
+
 const app = express() 
 
 const users = require('./public/user-playlists.json') 
@@ -42,48 +45,52 @@ const dbPromise = Promise.resolve()
   Promise.map(users, w => {
     insertWilder(w)
     })
-  }
-) 
+  })
+  .then(() => {
+    Promise.map(users, w => {
+      console.log("on va peupler la db avec les playlists")
+      insertPlaylist(w)
+      })
+    })
 
 const html = `
-<!doctype html>
-<html class="no-js" lang="">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Artezic Reloaded</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  </head>
-  <body>
-    <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="/">Artezic</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/monprofil">Mon profil<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/wilders">Equipe</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/concours">Concours</a>
-        </li>
-      </ul>
-      </div>
-      </nav>
-      <div id="main">
+  <!doctype html>
+  <html class="no-js" lang="">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>Artezic Reloaded</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+    <body>
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="/">Artezic</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="/monprofil">Mon profil<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/wilders">Equipe</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/concours">Concours</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <div id="main">
 
+        </div>
       </div>
-    </div>
-    <script src="/page.js"></script>
-    <script src="/app.js"></script>
-  </body>
-</html>`
-
+      <script src="/page.js"></script>
+      <script src="/app.js"></script>
+    </body>
+  </html>`
 
 app.get('/', (req, res) => {
   res.send(html)
@@ -97,10 +104,16 @@ app.post('/membres', (req, res) => {
   }) 
 })
 
-app.get('/membre', (req, res) => { 
-  db.all("SELECT * from wilders WHERE id='1'")
-  .then(oneWilder => {
-    res.json(oneWilder)
+app.get('/membre/gontran', (req, res) => { 
+  db.all(`
+    SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
+    from wilders
+    left join playlists on wilders.id = playlists.id_wilders
+    WHERE pseudo = "gontran"
+    ; 
+    `)
+  .then(gontranPlaylists => {
+    res.json(wildersWithPlaylists(gontranPlaylists))
   })
 })
 
@@ -112,7 +125,7 @@ app.get('/membres', (req, res) => {
   })
 })
 
-app.post('/playlists', (req, res) => { 
+app.post('/playlists', (req, res) => {
   return insertPlaylist(req.body)
   .then(recordNewPlaylist => {
     res.json(recordNewPlaylist)
@@ -127,7 +140,26 @@ app.put('/membres', (req, res) => {
 })
 
 app.get('/playlists', (req, res) => { 
-  db.all('SELECT * from playlists')
+  db.all('SELECT * from wilders')
+  .then(allPlaylists => {
+    res.json(allPlaylists)
+  })
+})
+
+app.get('/playlistsWilders', (req, res) => { 
+  db.all(
+    `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
+      from wilders
+      left join playlists on wilders.id = playlists.id_wilders
+    `
+  )
+  .then(playlistsByWilders => {
+    res.json(playlistsByWilders)
+  })
+})
+
+app.get('/playlists/1', (req, res) => {
+  db.all("SELECT * from playlists")
   .then(allPlaylists => {
     res.json(allPlaylists)
   })
