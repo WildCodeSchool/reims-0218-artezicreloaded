@@ -133,7 +133,7 @@ app.put('/membres', (req, res) => {
 })
 
 app.get('/playlists', (req, res) => { 
-  db.all('SELECT * from membres')
+  db.all('SELECT * from wilders')
   .then(allPlaylists => {
     res.json(allPlaylists)
   })
