@@ -9,9 +9,17 @@ function makeArtezicObject(arrOfObj) {
         }
     }
     let obj = idArr.reduce((acc, id) => {
-        acc[id] = []
+        
+        acc[id] = {
+            peudo: null,
+            avatar: null,
+            bio: null,
+            playlists: []
+        }
+        
         return acc
-    },{})
+    }, {})
+    console.log(obj)
     return obj
 }
 
