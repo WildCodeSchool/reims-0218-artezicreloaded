@@ -141,7 +141,7 @@ app.get('/playlists', (req, res) => {
 
 app.get('/playlistsWilders', (req, res) => { 
   db.all(
-    `SELECT * 
+    `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
       from wilders
       left join playlists on wilders.id = playlists.id_wilders
     `
