@@ -1,4 +1,3 @@
-console.log("je suis le serveur, je commence")
 const sqlite = require('sqlite')
 const express = require('express')
 const Promise = require('bluebird')
@@ -55,44 +54,43 @@ const dbPromise = Promise.resolve()
     })
 
 const html = `
-<!doctype html>
-<html class="no-js" lang="">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Artezic Reloaded</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  </head>
-  <body>
-    <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="/">Artezic</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/monprofil">Mon profil<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/wilders">Equipe</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/concours">Concours</a>
-        </li>
-      </ul>
-      </div>
-      </nav>
-      <div id="main">
+  <!doctype html>
+  <html class="no-js" lang="">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>Artezic Reloaded</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+    <body>
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="/">Artezic</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="/monprofil">Mon profil<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/wilders">Equipe</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/concours">Concours</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <div id="main">
 
+        </div>
       </div>
-    </div>
-    <script src="/page.js"></script>
-    <script src="/app.js"></script>
-  </body>
-</html>`
-
+      <script src="/page.js"></script>
+      <script src="/app.js"></script>
+    </body>
+  </html>`
 
 app.get('/', (req, res) => {
   res.send(html)
@@ -128,7 +126,6 @@ app.get('/membres', (req, res) => {
 })
 
 app.post('/playlists', (req, res) => {
-  console.log("the req sends: ", req.body)
   return insertPlaylist(req.body)
   .then(recordNewPlaylist => {
     res.json(recordNewPlaylist)
@@ -161,12 +158,7 @@ app.get('/playlistsWilders', (req, res) => {
   })
 })
 
-//HERE SHOW supposedly connected user playlists. His id_wilders is 1.
 app.get('/playlists/1', (req, res) => {
-  console.log("on est en train de requeter playlists/1") 
-  //db.all("SELECT * from playlists WHERE titre='pioupiou'") //this works. Just a test, erase it when feature is completed
-  //TODO: we need some kind of inner join because we cannot request 
-  //WHERE id_wilders directly.
   db.all("SELECT * from playlists")
   .then(allPlaylists => {
     res.json(allPlaylists)
