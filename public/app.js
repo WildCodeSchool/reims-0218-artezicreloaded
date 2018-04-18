@@ -4,11 +4,10 @@ const render = html => {
     mainDiv.innerHTML = html
 }
 
-const makeCard = item => `
+const makePlaylistCard = item => `
     <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="..." alt="Card image cap">
         <div class="card-body">
-            <h5 class="card-title">${item.title}</h5>
+            <h5 class="card-title">${item.titre}</h5>
             <p class="card-text">${item.genre}</p>
             <a href="${item.url}" class="btn btn-primary">Voir ma playlist</a>
         </div>
@@ -210,7 +209,7 @@ const controllers = {
       .then(gontran => {
           const playlists = gontran[0].playlists
          // console.log(gontran.playlists)
-          const gontranPlaylistsCards = playlists.reduce((acc, playlist) => acc + makeresultat(playlist), '')
+          const gontranPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
         render(`
         <h2>Hello ${slug}, voici vos playlists:</h2>
         <div class="row>
