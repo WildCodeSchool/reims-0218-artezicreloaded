@@ -34,15 +34,16 @@ const makeCardMember = item => `
         </div>
     </div>
         `
-        const makeresultat = item => `
-    <div class="card" style="width:400px">
-        <img class="card-img-top" src="${item.titre}" alt="Card image">
-        <div class="card-body">
-            <h4 class="card-title">${item.url}</h4>
-            <p class="card-text">${item.nbrevotes}</p>
-            <a href="/viewplaylists/name" class="btn btn-primary">Voir mes playlists</a>
+
+    const makeWinningCard = item => `
+        <div class="card" style="width:400px">
+            <img class="card-img-top" src="https://png.pngtree.com/element_origin_min_pic/17/07/23/473f204a1589862d0264b14f926b4b59.jpg" alt="Card image">
+            <div class="card-body">
+                <h4 class="card-title">${item.playlists[0].titre}</h4>
+                <p class="card-text">${item.playlists[0].nbrevotes} votes</p>
+                <a href="${item.playlists[0].url}" class="btn btn-primary">Voir la playlist</a>
+            </div>
         </div>
-    </div>
         `
 
 const serializeForm = form => {
@@ -123,7 +124,7 @@ const controllers = {
             .then(wilderEdition => {
                 const alertBox = document.getElementById('alert-box')
                 alertBox.className = 'alert alert-success'
-                alertBox.innerHTML = `Votre profil titre été édité`
+                alertBox.innerHTML = `Votre profil titre ét[{"wilderId":1,"pseudo":"gontran","avatar":"http://i.pravatar.cc/150","bio":"lorem ipsum developer at WCS lorem ipsum developer at WCS lorem ipsum developer at WCS","playlists":[{"playlistId":1,"titre":"jaime le rock","genre":"rock","url":"www.truc.com","compete":"true","nbrevotes":17}]}]é édité`
             })
         })
         
@@ -225,11 +226,12 @@ const controllers = {
     },
 
     '/concours': () => {
-        fetch('/playlistsWilders')
+        fetch('/playlistsCompete')
         .then(res => res.json())
-        .then(result => result.reduce((carry, user) => carry + makeresultat(user), ''))
+        .then(result => result.reduce((carry, user) => carry + makeWinningCard(user), ''))
         .then(book => render(
             `
+            <h3>La playlist gagnante de la semaine est :</h3>
             <div class="row">
             ${book}
             </div>
