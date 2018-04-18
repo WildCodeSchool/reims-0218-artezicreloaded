@@ -78,10 +78,10 @@ const controllers = {
         fetch('/membre/gontran')
         .then(res => res.json())
         //TODO we don't need a reduce here because we're gettingonly one object, not severals.
-        .then(membre => membre.reduce((carry, user) => carry + makeCardMember(user), ''))
-        .then(book => render(
+        .then(membre => makeCardMember(membre[0]))
+        .then(mesInfos=> render(
             `<div class="row">
-                ${book}
+                ${mesInfos}
             </div>
             <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
             <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
