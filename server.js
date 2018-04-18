@@ -114,8 +114,8 @@ app.get('/membre/gontran', (req, res) => {
     WHERE pseudo = "gontran"
     ; 
     `)
-  .then(oneWilder => {
-    res.json(oneWilder)
+  .then(gontranPlaylists => {
+    res.json(wildersWithPlaylists(gontranPlaylists))
   })
 })
 
