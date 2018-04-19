@@ -25,8 +25,8 @@ const makeWilder = item => `
     </div>
     `
 const makeCardMember = item => `
-    <div class="card" style="width:400px">
-        <img class="card-img-top" src="${item.imageURL}" alt="Card image">
+    <div class="card" style="width:200px">
+        <img class="card-img-top" src="${item.avatar}" alt="Card image">
         <div class="card-body">
             <h4 class="card-title">${item.pseudo}</h4>
             <p class="card-text">${item.bio}</p>
@@ -102,8 +102,8 @@ const controllers = {
                     <textarea name="bio" class="form-control " id="inputBio " placeholder="Bio"></textarea>
                 </div>
                 <div class="form-group col-md-9 ">
-                    <label for="inputImageUrl ">imageURL</label>
-                    <input name="image" type="text " class="form-control " id="inputImageUrl" placeholder="Enter image URL ">
+                    <label for="inputAvatar ">Avatar</label>
+                    <input name="avatar" type="text " class="form-control " id="inputAvatar" placeholder="Enter image URL ">
                 </div>
                 <div class="form-group col-md-3 ">
                     <button type="submit " class="btn btn-primary ">Submit</button>
@@ -115,6 +115,7 @@ const controllers = {
         formProfile.addEventListener('submit', e => {
             e.preventDefault()
             const dataProfile = serializeForm(formProfile)
+
             fetch('/membres', {
                 method: 'PUT',
                 headers: {
