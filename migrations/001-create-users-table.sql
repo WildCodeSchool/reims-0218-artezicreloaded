@@ -6,7 +6,7 @@ avatar VARCHAR(255),
 bio TEXT );
 
 INSERT INTO wilders(pseudo, avatar, bio)
-VALUES ('gontran', 'http://i.pravatar.cc/150', 'lorem ipsum developer at WCS lorem ipsum developer at WCS lorem ipsum developer at WCS');
+VALUES ('Gontran', 'http://i.pravatar.cc/150', 'lorem ipsum developer at WCS lorem ipsum developer at WCS lorem ipsum developer at WCS');
 
 CREATE TABLE playlists (
 id INTEGER PRIMARY KEY,
