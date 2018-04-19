@@ -116,8 +116,8 @@ app.get('/membre/:slug', (req, res) => {
     WHERE pseudo = "${pseudoFromSlug}"
     ; 
     `)
-  .then(gontranPlaylists => {
-    res.json(wildersWithPlaylists(gontranPlaylists))
+  .then(wilderPlaylists => {
+    res.json(wildersWithPlaylists(wilderPlaylists))
   })
 })
 
