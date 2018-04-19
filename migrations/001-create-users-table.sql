@@ -20,9 +20,9 @@ FOREIGN KEY(id_wilders) REFERENCES wilders(id)
 );
 
 INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes)
-VALUES ('jaime le rock', 'rock', 'www.truc.com', 1, 'true', 17);
+VALUES ('J''aime le rock', 'rock', 'www.truc.com', 1, 'true', 17);
 INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes)
-VALUES ('gontran the best', 'rap', 'www.blu.com', 1, 'false', 2);
+VALUES ('Gontran the best', 'rap', 'www.blu.com', 1, 'false', 2);
 
 INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes)
 VALUES ('SQL le retour', 'chill', 'www.sqlite.com', 2, 'false', 8);
@@ -30,14 +30,14 @@ INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes)
 VALUES ('linux forever', 'slow', 'www.linux.com', 2, 'true', 15);
 
 INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes)
-VALUES ('express', 'varietoche', 'www.express.com', 3, 'false', 5);
+VALUES ('Concentration pour coder', 'musique bizarre', 'https://youtu.be/0r6C3z3TEKw', 3, 'false', 5);
 INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes)
-VALUES ('pugs life', 'rnb', 'www.pug.com', 3, 'true', 11);
+VALUES ('Pugs life', 'relax your pug', 'https://youtu.be/xSH7LvjHDiA', 3, 'true', 11);
 
 INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes)
-VALUES ('node', 'serveur', 'www.express.com', 4, 'false', 6);
+VALUES ('node', 'serveur', 'https://play.soundsgood.co/playlist/example', 4, 'false', 6);
 INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes)
-VALUES ('npm', 'rap français', 'www.npm.com', 4, 'true', 7);
+VALUES ('NPM', 'rap français', 'https://youtu.be/biYdUZXfz9I', 4, 'true', 7);
 
 CREATE TABLE competitions (
 id INTEGER PRIMARY KEY,
