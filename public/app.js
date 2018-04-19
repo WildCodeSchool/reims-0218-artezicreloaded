@@ -5,8 +5,8 @@ const render = html => {
 }
 
 const makePlaylistCard = item => `
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
+    <div class="card class"col-12 col-sm-12 col-md-4" style="width: 18rem;">
+        <div class="card-body>
             <h5 class="card-title">${item.titre}</h5>
             <p class="card-text">${item.genre}</p>
             <a href="${item.url}" class="btn btn-primary">Voir ma playlist</a>
@@ -129,27 +129,28 @@ const controllers = {
   '/newplaylist': () => {
     render(`
         <div class="container">
-          <div id="alert-box" class="hidden"></div>
-            <form id="add-playlist">
-              <div class="form-group">
-                <label for="inputTitle">Titre</label>
-                  <input name="title" type="text" class="form-control" id="inputTitle" placeholder="Entrez le titre de votre playlist">
-              </div>
-              <div class="form-group">
-                <label for="inputGenre">Genre musical</label>
-                  <input name="genre" type="text" class="form-control" id="inputGenre" placeholder="Quel est le genre de votre playlist ?">
-              </div>
-              <div class="form-group">
-                  <label for="inputUrl">Url de votre playlist</label>
-                    <input name="url" type="text" class="form-control" id="inputUrl" placeholder="Entrez l'url de votre playlist">
-              </div>
-              <div class="form-group">
-                  <label for="competition">Concourir avec cette playlist?</label>
-                    <input name="competition" type="radio" id="competition" class="form-control" value="true">
-              </div>        
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-              <a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil</a>
+          <div id="alert-box" class="hidden">
+          </div>
+          <form id="add-playlist">
+            <div class="form-group">
+              <label for="inputTitle">Titre</label>
+              <input name="title" type="text" class="form-control" id="inputTitle" placeholder="Entrez le titre de votre playlist">
+            </div>
+            <div class="form-group">
+              <label for="inputGenre">Genre musical</label>
+              <input name="genre" type="text" class="form-control" id="inputGenre" placeholder="Quel est le genre de votre playlist ?">
+            </div>
+            <div class="form-group">
+                <label for="inputUrl">Url de votre playlist</label>
+                <input name="url" type="text" class="form-control" id="inputUrl" placeholder="Entrez l'url de votre playlist">
+            </div>
+            <div class="form-group">
+                <label for="competition">Concourir avec cette playlist?</label>
+                <input name="competition" type="radio" id="competition" class="form-control" value="true">
+            </div>        
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+          <a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil</a>
         </div>`)
     const form = document.getElementById('add-playlist')
     form.addEventListener('submit', e => {
@@ -187,7 +188,7 @@ const controllers = {
       .then(book => render(
         `
             <div class="row">
-            ${book}
+              ${book}
             </div>
             `))
   },
