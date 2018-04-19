@@ -56,12 +56,24 @@ const serializeForm = form => {
 
 const controllers = {
     '/': () => {
+        let resultPlaylistCompete
+        fetch('/playlistsCompete')
+        .then(res => res.json())
+        .then(result => result.reduce((carry, user) => carry + user))
+        .then(user => {
+            resultPlaylistCompete = user
+            console.log(resultPlaylistCompete)
+        })
         fetch('/membre/gontran')
         .then(res => res.json())
         .then(connectedMember => {
             render(`
             <br/>
-            <button type="button" id="hidePlaylist" class="btn btn-warning">La playlist gagnante de la semaine est : </button>
+            <div class="container text-center"">
+                <row>
+                    <button type="button" id="hidePlaylist" class="btn btn-warning">La playlist gagnante de la semaine est : ${resultPlaylistCompete.playlists[0].titre} - Elle a obtenu ${resultPlaylistCompete.playlists[0].nbrevotes} votes</button>
+                </row>
+            </div>
             <br/>
             <h1>Bienvenue ${connectedMember[0].pseudo}</h1>
             <h2>Ce que vous pouvez faire:</h2>
@@ -73,17 +85,8 @@ const controllers = {
                     Consulter la page membre
                 </li>
             </ul>
-            <script type="text/javascript">
-                console.log('test')
-                const hidePlaylistButton = document.getElementById('hidePlaylist')
-                console.log(hidePlaylistButton)
-                hidePlaylistButton.addEventListener('click', function () {
-                    console.log('clickkkkk')
-                })
-            </script>
         `)
-       }) 
-        
+       })
     },
     '/monprofil': () => {
         fetch('/membre/gontran')
