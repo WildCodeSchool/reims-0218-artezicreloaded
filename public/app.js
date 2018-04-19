@@ -199,7 +199,6 @@ const controllers = {
         fetch(`/membre/${slug}`)
         .then(res => res.json())
         .then(wilder => {
-            console.log("wilder?", wilder)
             const playlists = wilder[0].playlists
             const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
             render(`
