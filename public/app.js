@@ -4,18 +4,20 @@ const render = html => {
     mainDiv.innerHTML = html
 }
 
-const makePlaylistCard = item => `
+const makePlaylistCard = item => {
+    console.log(item)
+    return `
     <div class="card" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title">${item.titre}</h5>
             <p class="card-text">${item.genre}</p>
             <a href="${item.url}" class="btn btn-primary">Voir ma playlist</a>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
             Lancer ma playlist
             </button>
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="modal${item.playlistId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -32,7 +34,7 @@ const makePlaylistCard = item => `
             </div>
         </div>
     </div>
-    `
+    `}
 const makeWilder = item => `
     <div class="card" style="width: 18rem;">
         <div class="card-body">
