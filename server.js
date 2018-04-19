@@ -109,7 +109,7 @@ app.get('/connected', (req, res) => {
     SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
     from wilders
     left join playlists on wilders.id = playlists.id_wilders
-    WHERE id_wilders = 1"
+    WHERE id_wilders = 1
     ; 
     `)
   .then(wilderPlaylists => {
