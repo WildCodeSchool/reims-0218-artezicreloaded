@@ -40,7 +40,7 @@ const makeCardMember = item => `
             <div class="card-body">
                 <h4 class="card-title">${item.playlists[0].titre}</h4>
                 <p class="card-text">${item.playlists[0].nbrevotes} votes</p>
-                <a href="${item.playlists[0].url}" class="btn btn-primary">Voir la playlist</a>
+                <a href="https://${item.playlists[0].url}" target="_blank" class="btn btn-primary">Voir la playlist</a>
             </div>
         </div>
         `
