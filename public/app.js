@@ -9,7 +9,7 @@ const makePlaylistCard = item => `
         <div class="card-body">
             <h5 class="card-title">${item.titre}</h5>
             <p class="card-text">${item.genre}</p>
-            <a href="${item.url}" class="btn btn-primary">Voir ma playlist</a>
+            <a href="https://${item.url}" target="_blank" class="btn btn-primary">Voir ma playlist</a>
         </div>
     </div>
     `
@@ -40,7 +40,7 @@ const makeCardMember = item => `
             <div class="card-body">
                 <h4 class="card-title">${item.playlists[0].titre}</h4>
                 <p class="card-text">${item.playlists[0].nbrevotes} votes</p>
-                <a href="${item.playlists[0].url}" class="btn btn-primary">Voir la playlist</a>
+                <a href="https://${item.playlists[0].url}" target="_blank" class="btn btn-primary">Voir la playlist</a>
             </div>
         </div>
         `
@@ -56,7 +56,7 @@ const serializeForm = form => {
 
 const controllers = {
     '/': () => {
-        fetch('/membre/gontran')
+        fetch('/connected')
         .then(res => res.json())
         .then(connectedMember => {
             render(`
@@ -74,7 +74,7 @@ const controllers = {
         
     },
     '/monprofil': () => {
-        fetch('/membre/gontran')
+        fetch('/connected')
         .then(res => res.json())
         .then(membre => makeCardMember(membre[0]))
         .then(mesInfos=> render(
@@ -198,13 +198,13 @@ const controllers = {
         const { slug } = ctx.params
         fetch(`/membre/${slug}`)
         .then(res => res.json())
-        .then(gontran => {
-            const playlists = gontran[0].playlists
-            const gontranPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
+        .then(wilder => {
+            const playlists = wilder[0].playlists
+            const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
             render(`
             <h2>Hello ${slug}, voici vos playlists:</h2>
             <div class="row>
-                ${gontranPlaylistsCards}
+                ${wilderPlaylistsCards}
             </div>`)
         }
       )
@@ -223,7 +223,6 @@ const controllers = {
         )
     }
 }
-
 
 const route = pathname => {
 }

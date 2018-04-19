@@ -30,7 +30,6 @@ const insertPlaylist = w => {
 
 const modifyMyProfile = newInfo => {
   const { pseudo, bio } = newInfo
-  console.log('pseudo is ', pseudo, 'and bio is : ', bio)
   return db.get('UPDATE wilders SET pseudo=?, bio=? WHERE id=1', pseudo, bio)
   .then(()=> db.get('SELECT * from wilders WHERE ID=1'))
 }
@@ -48,7 +47,6 @@ const dbPromise = Promise.resolve()
   })
   .then(() => {
     Promise.map(users, w => {
-      console.log("on va peupler la db avec les playlists")
       insertPlaylist(w)
       })
     })
@@ -104,16 +102,31 @@ app.post('/membres', (req, res) => {
   }) 
 })
 
-app.get('/membre/gontran', (req, res) => { 
+app.get('/connected', (req, res) => { 
+    db.all(`
+      SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
+      from wilders
+      left join playlists on wilders.id = playlists.id_wilders
+      WHERE id_wilders = 1
+      ; 
+      `)
+  .then(wilderPlaylists => {
+    res.json(wildersWithPlaylists(wilderPlaylists))
+  })
+})
+
+app.get('/membre/:slug', (req, res) => { 
+  const slug = req.params
+  const pseudoFromSlug = [...slug.slug][0].toUpperCase() + slug.slug.slice(1)
   db.all(`
     SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
     from wilders
     left join playlists on wilders.id = playlists.id_wilders
-    WHERE pseudo = "gontran"
+    WHERE pseudo = "${pseudoFromSlug}"
     ; 
     `)
-  .then(gontranPlaylists => {
-    res.json(wildersWithPlaylists(gontranPlaylists))
+  .then(wilderPlaylists => {
+    res.json(wildersWithPlaylists(wilderPlaylists))
   })
 })
 
