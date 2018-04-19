@@ -48,7 +48,6 @@ const dbPromise = Promise.resolve()
   })
   .then(() => {
     Promise.map(users, w => {
-      console.log("on va peupler la db avec les playlists")
       insertPlaylist(w)
       })
     })
