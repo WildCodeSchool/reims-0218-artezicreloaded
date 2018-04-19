@@ -196,7 +196,6 @@ const controllers = {
     },
     '/viewplaylists/:slug': ctx => {
         const { slug } = ctx.params
-        //hardcoding fetch route but we should be able to get idwilder from slug?
         fetch(`/membre/${slug}`)
         .then(res => res.json())
         .then(wilder => {
