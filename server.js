@@ -9,7 +9,7 @@ const app = express()
 
 const users = require('./public/user-playlists.json') 
 const bodyParser = require('body-parser')
-let db 
+let db
 
 app.use(express.static('public')) 
 app.use(bodyParser.json())
@@ -117,7 +117,6 @@ app.get('/membre/gontran', (req, res) => {
   })
 })
 
-
 app.get('/membres', (req, res) => { 
   db.all('SELECT * from wilders')
   .then(allWilders => {
@@ -155,6 +154,21 @@ app.get('/playlistsWilders', (req, res) => {
   )
   .then(playlistsByWilders => {
     res.json(playlistsByWilders)
+  })
+})
+
+app.get('/playlistsCompete', (req, res) => { 
+  db.all(
+    `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
+      from wilders
+      left join playlists on wilders.id = playlists.id_wilders
+      where compete = "true"
+      order by nbrevotes desc
+      limit 1
+    `
+  )
+  .then(playlistsReturn => {
+    return res.json(wildersWithPlaylists(playlistsReturn))
   })
 })
 
