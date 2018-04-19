@@ -114,15 +114,18 @@ const controllers = {
         const formProfile = document.getElementById('editMyProfile')
         formProfile.addEventListener('submit', e => {
             e.preventDefault()
-            const dataProfile = serializeForm(formProfile)
-
+            const data = serializeForm(formProfile)
+            if(! data.avatar) {
+                const fullName = encodeURIComponent(`${data.bio} ${data.pseudo}`)
+                data.avatar = `https://via.placeholder.com/640x480/?text=${fullName}`
+            }
             fetch('/membres', {
                 method: 'PUT',
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(dataProfile) 
+                body: JSON.stringify(data) 
             })
             .then(res => res.json())
             .then(wilderEdition => {
