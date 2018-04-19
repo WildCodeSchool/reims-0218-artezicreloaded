@@ -123,7 +123,7 @@ const controllers = {
             .then(wilderEdition => {
                 const alertBox = document.getElementById('alert-box')
                 alertBox.className = 'alert alert-success'
-                alertBox.innerHTML = `Votre profil titre ét[{"wilderId":1,"pseudo":"gontran","avatar":"http://i.pravatar.cc/150","bio":"lorem ipsum developer at WCS lorem ipsum developer at WCS lorem ipsum developer at WCS","playlists":[{"playlistId":1,"titre":"jaime le rock","genre":"rock","url":"www.truc.com","compete":"true","nbrevotes":17}]}]é édité`
+                alertBox.innerHTML = `${wilderEdition.pseudo}, votre profil titre été édité.`
             })
         })
     },   
