@@ -1,10 +1,11 @@
 const sqlite = require('sqlite')
 const express = require('express')
 const Promise = require('bluebird')
-const app = express() 
 
 const { wildersWithPlaylists } = require('./playlists.js')
 const { isolatePlaylist } = require('./playlists.js')
+
+const app = express() 
 
 const users = require('./public/user-playlists.json') 
 const bodyParser = require('body-parser')
@@ -64,23 +65,23 @@ const html = `
     <body>
       <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">Artezic</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="/monprofil">Mon profil<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/wilders">Equipe</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/concours">Concours</a>
-            </li>
-          </ul>
-        </div>
+          <a class="navbar-brand" href="/">Artezic</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="/monprofil">Mon profil<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/wilders">Equipe</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/concours">Concours</a>
+              </li>
+            </ul>
+          </div>
         </nav>
         <div id="main">
 
@@ -103,10 +104,16 @@ app.post('/membres', (req, res) => {
   }) 
 })
 
-app.get('/membre', (req, res) => { 
-  db.all("SELECT * from wilders WHERE id='1'")
-  .then(oneWilder => {
-    res.json(oneWilder)
+app.get('/membre/gontran', (req, res) => { 
+  db.all(`
+    SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
+    from wilders
+    left join playlists on wilders.id = playlists.id_wilders
+    WHERE pseudo = "gontran"
+    ; 
+    `)
+  .then(gontranPlaylists => {
+    res.json(wildersWithPlaylists(gontranPlaylists))
   })
 })
 
@@ -118,7 +125,6 @@ app.get('/membres', (req, res) => {
 })
 
 app.post('/playlists', (req, res) => {
-  console.log("the req sends: ", req.body)
   return insertPlaylist(req.body)
   .then(recordNewPlaylist => {
     res.json(recordNewPlaylist)
