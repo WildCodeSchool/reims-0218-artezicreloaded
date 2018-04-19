@@ -9,7 +9,7 @@ const makePlaylistCard = item => `
         <div class="card-body">
             <h5 class="card-title">${item.titre}</h5>
             <p class="card-text">${item.genre}</p>
-            <a href="${item.url}" class="btn btn-primary">Voir ma playlist</a>
+            <a href="https://${item.url}" target="_blank" class="btn btn-primary">Voir ma playlist</a>
         </div>
     </div>
     `
@@ -33,15 +33,16 @@ const makeCardMember = item => `
         </div>
     </div>
         `
-const makeresultat = item => `
-    <div class="card" style="width:400px">
-        <img class="card-img-top" src="${item.titre}" alt="Card image">
-        <div class="card-body">
-            <h4 class="card-title">${item.url}</h4>
-            <p class="card-text">${item.nbrevotes}</p>
-            <a href="/viewplaylists/name" class="btn btn-primary">Voir mes playlists</a>
+
+const makeWinningCard = item => `
+        <div class="card" style="width:400px">
+            <img class="card-img-top" src="https://png.pngtree.com/element_origin_min_pic/17/07/23/473f204a1589862d0264b14f926b4b59.jpg" alt="Card image">
+            <div class="card-body">
+                <h4 class="card-title">${item.playlists[0].titre}</h4>
+                <p class="card-text">${item.playlists[0].nbrevotes} votes</p>
+                <a href="https://${item.playlists[0].url}" target="_blank" class="btn btn-primary">Voir la playlist</a>
+            </div>
         </div>
-    </div>
         `
 
 const serializeForm = form => {
@@ -55,7 +56,7 @@ const serializeForm = form => {
 
 const controllers = {
   '/': () => {
-    fetch('/membre/gontran')
+    fetch('/connected')
       .then(res => res.json())
       .then(connectedMember => {
         render(`
@@ -73,9 +74,8 @@ const controllers = {
 
   },
   '/monprofil': () => {
-    fetch('/membre/gontran')
+    fetch('/connected')
       .then(res => res.json())
-      //TODO we don't need a reduce here because we're gettingonly one object, not severals.
       .then(membre => makeCardMember(membre[0]))
       .then(mesInfos => render(
         `<div class="row">
@@ -122,34 +122,35 @@ const controllers = {
         .then(wilderEdition => {
           const alertBox = document.getElementById('alert-box')
           alertBox.className = 'alert alert-success'
-          alertBox.innerHTML = `Votre profil titre été édité`
+          alertBox.innerHTML = `${wilderEdition.pseudo}, votre profil titre été édité.`
         })
     })
   },
   '/newplaylist': () => {
     render(`
         <div class="container">
-          <div id="alert-box" class="hidden"></div>
-            <form id="add-playlist">
-              <div class="form-group">
-                <label for="inputTitle">Titre</label>
-                  <input name="title" type="text" class="form-control" id="inputTitle" placeholder="Entrez le titre de votre playlist">
-              </div>
-              <div class="form-group">
-                <label for="inputGenre">Genre musical</label>
-                  <input name="genre" type="text" class="form-control" id="inputGenre" placeholder="Quel est le genre de votre playlist ?">
-              </div>
-              <div class="form-group">
-                  <label for="inputUrl">Url de votre playlist</label>
-                    <input name="url" type="text" class="form-control" id="inputUrl" placeholder="Entrez l'url de votre playlist">
-              </div>
-              <div class="form-group">
-                  <label for="competition">Concourir avec cette playlist?</label>
-                    <input name="competition" type="radio" id="competition" class="form-control" value="true">
-              </div>        
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-              <a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil</a>
+          <div id="alert-box" class="hidden">
+          </div>
+          <form id="add-playlist">
+            <div class="form-group">
+              <label for="inputTitle">Titre</label>
+              <input name="title" type="text" class="form-control" id="inputTitle" placeholder="Entrez le titre de votre playlist">
+            </div>
+            <div class="form-group">
+              <label for="inputGenre">Genre musical</label>
+              <input name="genre" type="text" class="form-control" id="inputGenre" placeholder="Quel est le genre de votre playlist ?">
+            </div>
+            <div class="form-group">
+                <label for="inputUrl">Url de votre playlist</label>
+                <input name="url" type="text" class="form-control" id="inputUrl" placeholder="Entrez l'url de votre playlist">
+            </div>
+            <div class="form-group">
+                <label for="competition">Concourir avec cette playlist?</label>
+                <input name="competition" type="radio" id="competition" class="form-control" value="true">
+            </div>        
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+          <a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil</a>
         </div>`)
     const form = document.getElementById('add-playlist')
     form.addEventListener('submit', e => {
@@ -170,7 +171,7 @@ const controllers = {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(dataWithId) // le corps de ma requête est mon objet data jsonifié. car sqlite fonctionne en json
+          body: JSON.stringify(dataWithId)
         })
         .then(res => res.json())
         .then(playlist => {
@@ -195,32 +196,31 @@ const controllers = {
     const {
       slug
     } = ctx.params
-    //hardcoding fetch route but we should be able to get idwilder from slug?
     fetch(`/membre/${slug}`)
       .then(res => res.json())
-      .then(gontran => {
-        const playlists = gontran[0].playlists
-        const gontranPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
+      .then(wilder => {
+        const playlists = wilder[0].playlists
+        const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
         render(`
             <h2>Hello ${slug}, voici vos playlists:</h2>
             <div class="row>
-                ${gontranPlaylistsCards}
+                ${wilderPlaylistsCards}
             </div>`)
       })
   },
   '/concours': () => {
-    fetch('/playlists')
+    fetch('/playlistsCompete')
       .then(res => res.json())
-      .then(result => result.reduce((carry, user) => carry + makeresultat(user), ''))
+      .then(result => result.reduce((carry, user) => carry + makeWinningCard(user), ''))
       .then(book => render(
         `
+            <h3>La playlist gagnante de la semaine est :</h3>
             <div class="row">
             ${book}
             </div>
             `))
   }
 }
-
 
 const route = pathname => {}
 
@@ -229,5 +229,4 @@ const route = pathname => {}
     path => page(path, controllers[path])
   )
   page()
-  // route()
 })()
