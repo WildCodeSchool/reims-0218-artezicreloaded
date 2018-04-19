@@ -172,7 +172,7 @@ const controllers = {
                     'Accept': 'application/json, text/plain, */*',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(dataWithId) // le corps de ma requête est mon objet data jsonifié. car sqlite fonctionne en json
+                body: JSON.stringify(dataWithId)
             })
             .then(res => res.json())
             .then(playlist => {
@@ -232,5 +232,4 @@ const route = pathname => {
         path => page(path, controllers[path])
     )
     page()
-    // route()
 })()
