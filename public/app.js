@@ -5,26 +5,34 @@ const render = html => {
 }
 
 const makePlaylistCard = item => `
-    <div class="card class"col-12 col-sm-12 col-md-4" style="width: 18rem;">
-        <div class="card-body>
+<div class="col-12 col-sm-12 col-md-3">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
             <h5 class="card-title">${item.titre}</h5>
             <p class="card-text">${item.genre}</p>
             <a href="${item.url}" class="btn btn-primary">Voir ma playlist</a>
         </div>
     </div>
+</div>
     `
 const makeWilder = item => `
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <img class="card-img-top" src="${item.avatar}" alt="Card image">
-            <h5 class="card-title">${item.pseudo}</h5>
-            <p class="card-text">${item.bio}</p>
-            <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlist</a>
+<div class="col-12 col-sm-12 col-md-3">
+    <div class="card-deck" >
+      <div class="card">
+        <div class="card" "style="width: 18rem;">
+            <div class="card-body">
+                <img class="card-img-fluid-top" src="${item.avatar}" alt="Card image">
+                <h5 class="card-title">${item.pseudo}</h5>
+                <p class="card-text">${item.bio}</p>
+                <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlists</a>
+            </div>
         </div>
-    </div>
+      </div>    
+    </div>  
+</div>    
     `
 const makeCardMember = item => `
-    <div class="card" style="width:400px">
+    <div class="card " style="width:400px">
         <img class="card-img-top" src="${item.avatar}" alt="Card image">
         <div class="card-body">
             <h4 class="card-title">${item.pseudo}</h4>
@@ -34,7 +42,8 @@ const makeCardMember = item => `
     </div>
         `
 const makeresultat = item => `
-    <div class="card" style="width:400px">
+<div class="col-12 col-sm-12 col-md-4">
+    <div class="card" style="width:18 rem;">
         <img class="card-img-top" src="${item.titre}" alt="Card image">
         <div class="card-body">
             <h4 class="card-title">${item.url}</h4>
@@ -42,6 +51,7 @@ const makeresultat = item => `
             <a href="/viewplaylists/name" class="btn btn-primary">Voir mes playlists</a>
         </div>
     </div>
+</div>    
         `
 
 const serializeForm = form => {
@@ -59,6 +69,7 @@ const controllers = {
       .then(res => res.json())
       .then(connectedMember => {
         render(`
+        <div class="container">
             <h1>Bienvenue ${connectedMember[0].pseudo}</h1>
             <h2>Ce que vous pouvez faire:</h2>
             <ul>
@@ -68,7 +79,8 @@ const controllers = {
                 <li>
                     Consulter la page membre
                 </li>
-            </ul>`)
+            </ul>
+        </div>`)
       })
 
   },
@@ -78,12 +90,15 @@ const controllers = {
       //TODO we don't need a reduce here because we're gettingonly one object, not severals.
       .then(membre => makeCardMember(membre[0]))
       .then(mesInfos => render(
-        `<div class="row">
-                ${mesInfos}
-            </div>
-            <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
-            <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
-            `
+        `
+        <div class="container">
+          <div class="row">
+                  ${mesInfos}
+              </div>
+              <br/>
+              <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
+              <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
+        </div>`
       ))
   },
   '/editer-mon-profil': () => {
@@ -163,11 +178,9 @@ const controllers = {
         compete: data.competition,
         id_wilders: 1
       }
-
       fetch('/playlists', {
           method: 'POST',
           headers: {
-
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
           },
@@ -186,10 +199,11 @@ const controllers = {
       .then(res => res.json())
       .then(listusers => listusers.reduce((carry, user) => carry + makeWilder(user), ''))
       .then(book => render(
-        `
+        `<div class="container">
             <div class="row">
-              ${book}
+                  ${book}  
             </div>
+        </div>
             `))
   },
   '/viewplaylists/:slug': ctx => {
@@ -202,11 +216,13 @@ const controllers = {
       .then(gontran => {
         const playlists = gontran[0].playlists
         const gontranPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
-        render(`
-            <h2>Hello ${slug}, voici vos playlists:</h2>
-            <div class="row>
-                ${gontranPlaylistsCards}
-            </div>`)
+        render(`            
+        <div class="container">
+          <h2>Hello ${slug}, voici vos playlists:</h2>
+              <div class="row">
+                  ${gontranPlaylistsCards}
+              </div>
+        </di>`)
       })
   },
   '/concours': () => {
@@ -214,14 +230,15 @@ const controllers = {
       .then(res => res.json())
       .then(result => result.reduce((carry, user) => carry + makeresultat(user), ''))
       .then(book => render(
-        `
+        `<div class="container">
             <div class="row">
-            ${book}
+              ${book}
             </div>
+        </div>     
             `))
+
   }
 }
-
 
 const route = pathname => {}
 
