@@ -76,7 +76,6 @@ const controllers = {
     '/monprofil': () => {
         fetch('/membre/gontran')
         .then(res => res.json())
-        //TODO we don't need a reduce here because we're gettingonly one object, not severals.
         .then(membre => makeCardMember(membre[0]))
         .then(mesInfos=> render(
             `<div class="row">
@@ -173,7 +172,7 @@ const controllers = {
                     'Accept': 'application/json, text/plain, */*',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(dataWithId) // le corps de ma requête est mon objet data jsonifié. car sqlite fonctionne en json
+                body: JSON.stringify(dataWithId)
             })
             .then(res => res.json())
             .then(playlist => {
@@ -197,7 +196,6 @@ const controllers = {
     },
     '/viewplaylists/:slug': ctx => {
         const { slug } = ctx.params
-        //hardcoding fetch route but we should be able to get idwilder from slug?
         fetch(`/membre/${slug}`)
         .then(res => res.json())
         .then(gontran => {
@@ -235,5 +233,4 @@ const route = pathname => {
         path => page(path, controllers[path])
     )
     page()
-    // route()
 })()
