@@ -19,7 +19,7 @@ const makeWilder = item => `
             <img class="card-img-top" src="${item.avatar}" alt="Card image">
             <h5 class="card-title">${item.pseudo}</h5>
             <p class="card-text">${item.bio}</p>
-            <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlist</a>
+            <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlists</a>
         </div>
     </div>
     `
