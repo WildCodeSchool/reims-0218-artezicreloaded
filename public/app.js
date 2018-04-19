@@ -74,9 +74,8 @@ const controllers = {
         
     },
     '/monprofil': () => {
-        fetch('/membre/gontran')
+        fetch('/membre/1')
         .then(res => res.json())
-        //TODO we don't need a reduce here because we're gettingonly one object, not severals.
         .then(membre => makeCardMember(membre[0]))
         .then(mesInfos=> render(
             `<div class="row">
