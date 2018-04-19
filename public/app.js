@@ -69,7 +69,7 @@ const controllers = {
         .then(connectedMember => {
             render(`
             <br/>
-            <div class="container text-center"">
+            <div class="container text-center">
                 <row>
                     <button type="button" id="hidePlaylist" class="btn btn-warning">La playlist gagnante de la semaine est : ${resultPlaylistCompete.playlists[0].titre} - Elle a obtenu ${resultPlaylistCompete.playlists[0].nbrevotes} votes</button>
                 </row>
@@ -232,15 +232,21 @@ const controllers = {
         .then(result => result.reduce((carry, user) => carry + makeWinningCard(user), ''))
         .then(book => render(
             `
-            <h3>La playlist gagnante de la semaine est :</h3>
-            <div class="row">
-            ${book}
+            <div class="container align-items-center">
+                <h3>La playlist gagnante de la semaine est :</h3>
+            </div>
+            <div class="container align-items-center" 
+            style="display: flex;
+            justify-content: center;
+            align-items: center;">
+                <div class="row">
+                    ${book}
+                </div>
             </div>
             `)
         )
     }
 }
-
 
 const route = pathname => {
 }
