@@ -9,7 +9,7 @@ const makePlaylistCard = item => `
         <div class="card-body">
             <h5 class="card-title">${item.titre}</h5>
             <p class="card-text">${item.genre}</p>
-            <a href="${item.url}" class="btn btn-primary">Voir ma playlist</a>
+            <a href="https://${item.url}" target="_blank" class="btn btn-primary">Voir ma playlist</a>
         </div>
     </div>
     `
