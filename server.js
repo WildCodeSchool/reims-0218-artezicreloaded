@@ -83,6 +83,13 @@ const html = `
             </ul>
           </div>
         </nav>
+        <div id="carouselSlidesOnly" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="http://res.cloudinary.com/dlfnke6kc/image/upload/v1524129058/artezik_2_reloaded_zfn4l4.jpg" alt="First slide">
+            </div>
+          </div>
+        </div>
         <div id="main">
 
         </div>

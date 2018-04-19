@@ -60,6 +60,9 @@ const controllers = {
         .then(res => res.json())
         .then(connectedMember => {
             render(`
+            <br/>
+            <button type="button" id="hidePlaylist" class="btn btn-warning">La playlist gagnante de la semaine est : </button>
+            <br/>
             <h1>Bienvenue ${connectedMember[0].pseudo}</h1>
             <h2>Ce que vous pouvez faire:</h2>
             <ul>
@@ -69,7 +72,16 @@ const controllers = {
                 <li>
                     Consulter la page membre
                 </li>
-            </ul>`)
+            </ul>
+            <script type="text/javascript">
+                console.log('test')
+                const hidePlaylistButton = document.getElementById('hidePlaylist')
+                console.log(hidePlaylistButton)
+                hidePlaylistButton.addEventListener('click', function () {
+                    console.log('clickkkkk')
+                })
+            </script>
+        `)
        }) 
         
     },
