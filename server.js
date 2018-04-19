@@ -104,12 +104,12 @@ app.post('/membres', (req, res) => {
   }) 
 })
 
-app.get('/membre/gontran', (req, res) => { 
+app.get('/membre/1', (req, res) => { 
   db.all(`
     SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
     from wilders
     left join playlists on wilders.id = playlists.id_wilders
-    WHERE pseudo = "gontran"
+    WHERE id_wilders = 1
     ; 
     `)
   .then(gontranPlaylists => {
@@ -132,8 +132,10 @@ app.post('/playlists', (req, res) => {
 })
 
 app.put('/membres', (req, res) => {
+  console.log(modifyMyProfile(req.body))
   return modifyMyProfile(req.body)
   .then(wilderIsEdited => {
+    console.log(wilderIsEdited)
     res.json(wilderIsEdited)
   })
 })
