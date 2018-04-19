@@ -20,6 +20,8 @@ FOREIGN KEY(id_wilders) REFERENCES wilders(id)
 );
 
 INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes)
+VALUES ('SQL le retour', 'chill', 'https://youtu.be/QjICgmk31js', 1, 'false', 8);
+INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes)
 VALUES ('J''aime le rock', 'rock', 'https://play.soundsgood.co/playlist/gontran-aime-le-rock', 1, 'true', 17);
 INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes)
 VALUES ('Gontran the best', 'rap', 'https://play.soundsgood.co/playlist/gontran-la-creme-of-the-creme', 1, 'false', 2);
