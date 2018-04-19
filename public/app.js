@@ -199,13 +199,14 @@ const controllers = {
         //hardcoding fetch route but we should be able to get idwilder from slug?
         fetch(`/membre/${slug}`)
         .then(res => res.json())
-        .then(gontran => {
-            const playlists = gontran[0].playlists
-            const gontranPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
+        .then(wilder => {
+            console.log("wilder?", wilder)
+            const playlists = wilder[0].playlists
+            const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
             render(`
             <h2>Hello ${slug}, voici vos playlists:</h2>
             <div class="row>
-                ${gontranPlaylistsCards}
+                ${wilderPlaylistsCards}
             </div>`)
         }
       )

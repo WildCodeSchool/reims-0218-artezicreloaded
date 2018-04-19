@@ -104,12 +104,16 @@ app.post('/membres', (req, res) => {
   }) 
 })
 
-app.get('/membre/gontran', (req, res) => { 
+app.get('/membre/:slug', (req, res) => { 
+  const slug = req.params
+  const pseudoFromSlug = [...slug.slug][0].toUpperCase() + slug.slug.slice(1)
+  console.log("le pseudo: ", pseudoFromSlug)
+
   db.all(`
     SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
     from wilders
     left join playlists on wilders.id = playlists.id_wilders
-    WHERE pseudo = "gontran"
+    WHERE pseudo = "${pseudoFromSlug}"
     ; 
     `)
   .then(gontranPlaylists => {
