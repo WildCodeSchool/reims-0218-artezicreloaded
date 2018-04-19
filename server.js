@@ -145,10 +145,8 @@ app.post('/playlists', (req, res) => {
 })
 
 app.put('/membres', (req, res) => {
-  console.log(modifyMyProfile(req.body))
   return modifyMyProfile(req.body)
   .then(wilderIsEdited => {
-    console.log(wilderIsEdited)
     res.json(wilderIsEdited)
   })
 })
