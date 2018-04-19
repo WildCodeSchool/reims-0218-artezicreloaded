@@ -101,6 +101,10 @@ const controllers = {
                     <label for="inputBio ">Bio</label>
                     <textarea name="bio" class="form-control " id="inputBio " placeholder="Bio"></textarea>
                 </div>
+                <div class="form-group col-md-9 ">
+                    <label for="inputImageUrl ">Image URL</label>
+                    <input name="image" type="text " class="form-control " id="inputImageUrl" placeholder="Enter image URL ">
+                </div>
                 <div class="form-group col-md-3 ">
                     <button type="submit " class="btn btn-primary ">Submit</button>
                 </div>
