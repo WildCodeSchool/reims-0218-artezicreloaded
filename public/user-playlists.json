@@ -34,5 +34,14 @@
             { "name": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "compete": true, "votes": 4 },
             { "name": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "compete": false, "votes": 0 }
         ]
+    },
+    {
+        "pseudo": "Spiderno",
+        "avatar": "https://image.noelshack.com/fichiers/2018/16/5/1524209998-spiderno.jpg",
+        "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida, justo et semper blandit, mauris justo tempus arcu, eu auctor erat ipsum nec leo. Proin convallis nibh ac elementum condimentum. Etiam varius, est sed suscipit tempor, tortor lacus porta enim, non dapibus augue magna at magna.",
+        "playlists": [ 
+            { "name": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "compete": true, "votes": 4 },
+            { "name": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "compete": false, "votes": 0 }
+        ]
     }
 ]
