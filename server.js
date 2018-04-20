@@ -108,9 +108,17 @@ const html = `
               </ul>
             </div>
           </nav>
+          <div id="carouselSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100" src="http://res.cloudinary.com/dlfnke6kc/image/upload/v1524129058/artezik_2_reloaded_zfn4l4.jpg" alt="Artezik2 reloaded">
+              </div>
+            </div>
+          </div>
+        <div id="main">
+
         </div>
       </div>
-      <div id="main"></div>
       <script src="/page.js"></script>
       <script src="/app.js"></script>
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
