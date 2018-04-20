@@ -1,31 +1,38 @@
 const mainDiv = document.getElementById('main')
 
 const render = html => {
-    mainDiv.innerHTML = html
+  mainDiv.innerHTML = html
 }
 
-const makeCard = item => `
+const makePlaylistCard = item => `
+<div class="col-12 col-sm-12 col-md-3">
     <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="..." alt="Card image cap">
         <div class="card-body">
-            <h5 class="card-title">${item.title}</h5>
+            <h5 class="card-title">${item.titre}</h5>
             <p class="card-text">${item.genre}</p>
-            <a href="${item.url}" class="btn btn-primary">Voir ma playlist</a>
+            <a href="https://${item.url}" target="_blank" class="btn btn-primary">Voir ma playlist</a>
         </div>
     </div>
+</div>
     `
 const makeWilder = item => `
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <img class="card-img-top" src="${item.avatar}" alt="Card image">
-            <h5 class="card-title">${item.pseudo}</h5>
-            <p class="card-text">${item.bio}</p>
-            <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlist</a>
-        </div>
-    </div>
+<div class="col-12 col-sm-12 col-md-3">
+  <div class="card-deck" >
+    <div class="card">
+      <div class="card" "style="width: 18rem;">
+          <div class="card-body">
+              <img class="card-img-fluid-top" src="${item.avatar}" alt="Card image">
+              <h5 class="card-title">${item.pseudo}</h5>
+              <p class="card-text">${item.bio}</p>
+              <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlists</a>
+          </div>
+      </div>
+    </div>    
+  </div>
+</div>    
     `
 const makeCardMember = item => `
-    <div class="card" style="width:400px">
+    <div class="card " style="width:400px">
         <img class="card-img-top" src="${item.avatar}" alt="Card image">
         <div class="card-body">
             <h4 class="card-title">${item.pseudo}</h4>
@@ -34,61 +41,76 @@ const makeCardMember = item => `
         </div>
     </div>
         `
-        const makeresultat = item => `
-    <div class="card" style="width:400px">
-        <img class="card-img-top" src="${item.titre}" alt="Card image">
-        <div class="card-body">
-            <h4 class="card-title">${item.url}</h4>
-            <p class="card-text">${item.nbrevotes}</p>
-            <a href="/viewplaylists/name" class="btn btn-primary">Voir mes playlists</a>
+
+const makeWinningCard = item => `
+    <div class="col-12 col-sm-12 col-md-4">
+        <div class="card" style="width:400px">
+            <img class="card-img-top" src="https://png.pngtree.com/element_origin_min_pic/17/07/23/473f204a1589862d0264b14f926b4b59.jpg" alt="Card image">
+            <div class="card-body">
+                <h4 class="card-title">${item.playlists[0].titre}</h4>
+                <p class="card-text">${item.playlists[0].nbrevotes} votes</p>
+                <a href="https://${item.playlists[0].url}" target="_blank" class="btn btn-primary">Voir la playlist</a>
+            </div>
         </div>
-    </div>
+      </div>
         `
 
 const serializeForm = form => {
-    const data = {}
-    const elements = form.getElementsByClassName('form-control')
-    for (let el of elements) {
-        data[el.name] = el.value
-    }
-    return data
+  const data = {}
+  const elements = form.getElementsByClassName('form-control')
+  for (let el of elements) {
+    data[el.name] = el.value
+  }
+  return data
 }
 
 const controllers = {
     '/': () => {
-
-        fetch('/membre')
+        let resultPlaylistCompete
+        fetch('/playlistsCompete')
+        .then(res => res.json())
+        .then(result => result.reduce((carry, user) => carry + user))
+        .then(user => {
+            resultPlaylistCompete = user
+            console.log(resultPlaylistCompete)
+        })
+        fetch('/connected')
         .then(res => res.json())
         .then(connectedMember => {
             render(`
-            <h1>Bienvenue ${connectedMember[0].pseudo}</h1>
-            <h2>Ce que vous pouvez faire:</h2>
-            <ul>
-                <li> 
-                    Ajouter une playlist sur votre page profil
-                </li>
-                <li>
-                    Consulter la page membre
-                </li>
-            </ul>`)
-       }) 
-        
-    },
-    '/monprofil': () => {
-        fetch('/membre')
-        .then(res => res.json())
-        .then(membre => membre.reduce((carry, user) => carry + makeCardMember(user), ''))
-        .then(book => render(
-            `<div class="row">
-                ${book}
-            </div>
-            <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
-            <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
-            `
-        ))
-    },
-    '/editer-mon-profil' : () => {
-        render(`
+            <div class="container">
+                <h1>Bienvenue ${connectedMember[0].pseudo}</h1>
+                <h2>Ce que vous pouvez faire:</h2>
+                <ul>
+                    <li> 
+                        Ajouter une playlist sur votre page profil
+                    </li>
+                    <li>
+                        Consulter la page membre
+                    </li>
+                </ul>
+            </div>`)
+        })
+
+  },
+  '/monprofil': () => {
+    fetch('/connected')
+      .then(res => res.json())
+      .then(membre => makeCardMember(membre[0]))
+      .then(mesInfos => render(
+        `
+        <div class="container">
+          <div class="row">
+                  ${mesInfos}
+              </div>
+              <br/>
+              <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
+              <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
+        </div>`
+      ))
+  },
+  '/editer-mon-profil': () => {
+    render(`
         <div class="container">
             <div id="alert-box" class="hidden">
             </div>
@@ -107,30 +129,28 @@ const controllers = {
             </form>
         </div>
         `)
-        const formProfile = document.getElementById('editMyProfile')
-        formProfile.addEventListener('submit', e => {
-            e.preventDefault()
-            const dataProfile = serializeForm(formProfile)
-            fetch('/membres', {
-                method: 'PUT',
-                headers: {
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(dataProfile) 
-            })
-            .then(res => res.json())
-            .then(wilderEdition => {
-                const alertBox = document.getElementById('alert-box')
-                alertBox.className = 'alert alert-success'
-                alertBox.innerHTML = `Votre profil titre été édité`
-            })
+    const formProfile = document.getElementById('editMyProfile')
+    formProfile.addEventListener('submit', e => {
+      e.preventDefault()
+      const dataProfile = serializeForm(formProfile)
+      fetch('/membres', {
+          method: 'PUT',
+          headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(dataProfile)
         })
-        
-
-    },   
-    '/newplaylist': () => {
-        render(`
+        .then(res => res.json())
+        .then(wilderEdition => {
+          const alertBox = document.getElementById('alert-box')
+          alertBox.className = 'alert alert-success'
+          alertBox.innerHTML = `${wilderEdition.pseudo}, votre profil titre été édité.`
+        })
+    })
+  },
+  '/newplaylist': () => {
+    render(`
         <div class="container">
           <div id="alert-box" class="hidden">
           </div>
@@ -154,87 +174,90 @@ const controllers = {
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
           <a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil</a>
-        </div>`
-        )
-        const form = document.getElementById('add-playlist')
-        form.addEventListener('submit', e => {
-            e.preventDefault()
-            const data = serializeForm(form) 
-            fetch('/playlists', {
-                method: 'POST',
-                headers: {
-                    
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data) // le corps de ma requête est mon objet data jsonifié. car sqlite fonctionne en json
-            })
-            .then(res => res.json())
-            .then(playlist => {
-                const alertBox = document.getElementById('alert-box')
-                alertBox.className = 'alert alert-success'
-                alertBox.innerHTML = `Votre playlist titre ${playlist.title} (${playlist.id}) a bien été créée`
-            })
+        </div>`)
+    const form = document.getElementById('add-playlist')
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      const data = serializeForm(form)
+      const dataWithId = {
+        titre: data.title,
+        genre: data.genre,
+        url: data.url,
+        compete: data.competition,
+        id_wilders: 1
+      }
+      fetch('/playlists', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(dataWithId)
         })
-    },
-    '/wilders': () => {
-        fetch('/membres')
         .then(res => res.json())
-        .then(listusers => listusers.reduce((carry, user) => carry + makeWilder(user), ''))
-        .then(book => render(
-            `
-            <div class="row">
-            ${book}
-            </div>
-            `
-        ))
-    },
-    '/viewplaylists/:slug': ctx => {
-      const { slug } = ctx.params
-      fetch('/playlists')
+        .then(playlist => {
+          const alertBox = document.getElementById('alert-box')
+          alertBox.className = 'alert alert-success'
+          alertBox.innerHTML = `Votre playlist titre ${playlist.titre} (${playlist.id}) a bien été créée`
+        })
+    })
+  },
+  '/wilders': () => {
+    fetch('/membres')
       .then(res => res.json())
-      .then(playlists => render(
-        `
-        <div class="container">
-        <div class="row">
-            <h2>Mes Playlists</h2>
-            <div class="col-md-6">
-            </div>
-            <div class="col-md-6">
-            <h1>${playlists[0].titre}</h1>
-            <p>${playlists[0].genre}</p>
-            <a href="/monprofil">${playlists[0].url}</> 
+      .then(listusers => listusers.reduce((carry, user) => carry + makeWilder(user), ''))
+      .then(book => render(
+        `<div class="container">
+            <div class="row">
+                  ${book}  
             </div>
         </div>
-        </div>
-        `
-      ))
+            `))
+  },
+  '/viewplaylists/:slug': ctx => {
+    const {
+      slug
+    } = ctx.params
+    fetch(`/membre/${slug}`)
+      .then(res => res.json())
+      .then(wilder => {
+        const playlists = wilder[0].playlists
+        const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
+        render(`
+            <h2>Hello ${slug}, voici vos playlists:</h2>
+            <div class="row>
+                ${wilderPlaylistsCards}
+            </div>`)
+        }
+      )
     },
-
     '/concours': () => {
-        fetch('/playlists')
+        fetch('/playlistsCompete')
         .then(res => res.json())
-        .then(result => result.reduce((carry, user) => carry + makeresultat(user), ''))
+        .then(result => result.reduce((carry, user) => carry + makeWinningCard(user), ''))
         .then(book => render(
             `
-            <div class="row">
-            ${book}
+            <div class="container align-items-center">
+                <h3>La playlist gagnante de la semaine est :</h3>
             </div>
-            `
-        ))
+            <div class="container align-items-center" 
+            style="display: flex;
+            justify-content: center;
+            align-items: center;">
+                <div class="row">
+                    ${book}
+                </div>
+            </div>
+            `)
+        )
     }
 }
 
-
-const route = pathname => {
-
-}
-
+const route = pathname => {}
 
 (() => {
-    ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours'].forEach(
-        path => page(path, controllers[path])
-    )
-    page()
-    // route()
+  ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours'].forEach(
+    path => page(path, controllers[path])
+  )
+  page()
 })()
