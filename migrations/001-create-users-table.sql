@@ -20,24 +20,26 @@ FOREIGN KEY(id_wilders) REFERENCES wilders(id)
 );
 
 INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes)
-VALUES ('jaime le rock', 'rock', 'www.truc.com', 1, 'true', 17);
+VALUES ('SQL le retour', 'chill', 'https://play.soundsgood.co/playlist/sqlite', 1, 'false', 8);
 INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes)
-VALUES ('gontran the best', 'rap', 'www.blu.com', 1, 'false', 2);
+VALUES ('J''aime le rock', 'rock', 'https://play.soundsgood.co/playlist/gontran-aime-le-rock', 1, 'true', 17);
+INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes)
+VALUES ('Gontran the best', 'rap', 'https://play.soundsgood.co/playlist/gontran-la-creme-of-the-creme', 1, 'false', 2);
 
 INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes)
-VALUES ('SQL le retour', 'chill', 'www.sqlite.com', 2, 'false', 8);
+VALUES ('Node', 'chill', 'https://play.soundsgood.co/playlist/node', 2, 'false', 8);
 INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes)
-VALUES ('linux forever', 'slow', 'www.linux.com', 2, 'true', 15);
+VALUES ('linux forever', 'slow', 'https://play.soundsgood.co/playlist/linux', 2, 'true', 15);
 
 INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes)
-VALUES ('express', 'varietoche', 'www.express.com', 3, 'false', 5);
+VALUES ('Concentration pour coder', 'musique bizarre', 'https://play.soundsgood.co/playlist/concentration-4', 3, 'false', 5);
 INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes)
-VALUES ('pugs life', 'rnb', 'www.pug.com', 3, 'true', 11);
+VALUES ('Pugs life', 'relax your pug', 'https://play.soundsgood.co/playlist/pugs-life', 3, 'true', 11);
 
 INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes)
-VALUES ('node', 'serveur', 'www.express.com', 4, 'false', 6);
+VALUES ('node', 'serveur', 'https://play.soundsgood.co/playlist/example', 4, 'false', 6);
 INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes)
-VALUES ('npm', 'rap français', 'www.npm.com', 4, 'true', 7);
+VALUES ('NPM', 'rap français', 'https://play.soundsgood.co/playlist/ntm', 4, 'true', 7);
 
 CREATE TABLE competitions (
 id INTEGER PRIMARY KEY,

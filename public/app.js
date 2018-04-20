@@ -10,10 +10,29 @@ const makePlaylistCard = item => `
         <div class="card-body">
             <h5 class="card-title">${item.titre}</h5>
             <p class="card-text">${item.genre}</p>
-            <a href="https://${item.url}" target="_blank" class="btn btn-primary">Voir ma playlist</a>
+            <a href="${item.url}" class="btn btn-primary">Voir ma playlist</a>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
+            Lancer ma playlist
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="modal${item.playlistId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">${item.titre}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <iframe width="480" height="270" src="${item.url}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
     `
 const makeWilder = item => `
 <div class="col-12 col-sm-12 col-md-3">
