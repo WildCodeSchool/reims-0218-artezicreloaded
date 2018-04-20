@@ -40,16 +40,15 @@ const makePlaylistCard = item => {
 const makeWilder = item => `
     <div class="col-12 col-sm-12 col-md-3">
         <div class="card-deck" >
-            <div class="card">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <img class="card-img-fluid-top" src="${item.avatar}" alt="Card image">
-                    <h5 class="card-title">${item.pseudo}</h5>
-                    <p class="card-text">${item.bio}</p>
-                    <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlists</a>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <img class="card-img-fluid-top" src="${item.avatar}" alt="Card image">
+                        <h5 class="card-title">${item.pseudo}</h5>
+                        <p class="card-text">${item.bio}</p>
+                        <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlists</a>
+                    </div>
                 </div>
-            </div>
-            </div>    
+                
         </div>
     </div>    
     `
