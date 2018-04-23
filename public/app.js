@@ -250,10 +250,12 @@ const controllers = {
             const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
             console.log(wilderPlaylistsCards)
             render(`
+            <div class="container">
                 <h2>Les playlists de ${slug}</h2>
                 <div class="row>
                     ${wilderPlaylistsCards}
-                </div>`)
+                </div>
+            </div>`)
       })
   },
   '/concours': () => {
