@@ -85,27 +85,25 @@ const html = `
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
-      <div class="container">
-        <div class="row">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light col-12 col-sm-12 col-md-12"">
-            <a class="navbar-brand" href="/">Artezic</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="/monprofil">Mon profil<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/wilders">Equipe</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/concours">Concours</a>
-                </li>
-              </ul>
-            </div>
-          </nav>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light col-12 col-sm-12 col-md-12">
+          <a class="navbar-brand" href="/">Artezic</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="/monprofil">Mon profil<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/wilders">Equipe</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/concours">Concours</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
           <div id="carouselSlidesOnly" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active">
@@ -114,9 +112,7 @@ const html = `
             </div>
           </div>
         <div id="main">
-
         </div>
-      </div>
       <script src="/page.js"></script>
       <script src="/app.js"></script>
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -133,7 +129,7 @@ app.get('/', (req, res) => {
 app.post('/membres', (req, res) => {
   return insertWilder(req.body)
     .then(recordNewWilder => {
-      res.json(recordNewWilder)
+      return res.json(recordNewWilder)
     })
 })
 
@@ -146,7 +142,7 @@ app.get('/connected', (req, res) => {
       ; 
       `)
     .then(wilderPlaylists => {
-      res.json(wildersWithPlaylists(wilderPlaylists))
+      return res.json(wildersWithPlaylists(wilderPlaylists))
     })
 })
 
