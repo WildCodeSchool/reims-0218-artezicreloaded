@@ -5,33 +5,31 @@ const render = html => {
 }
 
 const makePlaylistCard = item => `
-<div class="col-12 col-sm-12 col-md-3">
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title">${item.titre}</h5>
-            <p class="card-text">${item.genre}</p>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
-            Lancer ma playlist
-            </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="modal${item.playlistId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">${item.titre}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <iframe width="480" height="270" src="${item.url}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">${item.titre}</h5>
+                <p class="card-text">${item.genre}</p>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
+                    Lancer ma playlist
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="modal${item.playlistId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">${item.titre}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <iframe width="480" height="270" src="${item.url}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     `
 const makeWilder = item => `
 <div class="col-12 col-sm-12 col-md-3">
@@ -248,6 +246,7 @@ const controllers = {
         .then(wilder => {
             const playlists = wilder[0].playlists
             const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
+            console.log(wilderPlaylistsCards)
             render(`
                 <h2>Hello ${slug}, voici vos playlists:</h2>
                 <div class="row>
