@@ -79,7 +79,11 @@ const makeListsInCompete = item => `
             <h4 class="card-title">${item.playlists[0].titre}</h4>
             <p class="card-text">${item.playlists[0].nbrevotes} votes</p>
             <a href="${item.playlists[0].url}" class="btn btn-primary">Afficher la playlist</a>
-            <a href="/voteforplaylist/${item.wilderId}/${item.playlists[0].playlistId}" class="btn btn-primary">Voter pour la playlist</a>
+            <form action="/voteforplaylist" method="post">
+                <input type="hidden" value="${item.wilderId}" name="id_wilders" />
+                <input type="hidden" value="${item.playlists[0].playlistId}" name="id_playlists" />
+                <button type="submit" class="btn btn-success mt-2">Voter pour cette playlist</button>
+            </form>
         </div>
     </div>
     `
@@ -274,7 +278,7 @@ const controllers = {
       .then(result => result.reduce((carry, user) => carry + makeListsInCompete(user), ''))
       .then(book => render(`
         <div class="container align-items-center">
-            <h3>La playlist gagnante de la semaine est :</h3>
+            <h3>Votez pour la playlist de votre choix :</h3>
         </div>
         <div class="container align-items-center" style="display: flex; justify-content: center; align-items: center;">
             <div class="row">

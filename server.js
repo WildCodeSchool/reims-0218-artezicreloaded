@@ -17,6 +17,7 @@ let db
 
 app.use(express.static('public'))
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 const insertWilder = w => {
   const {
@@ -52,11 +53,7 @@ const insertVote = w => {
     id_playlists,
     id_wilders,
   } = w
-  return db.get('INSERT INTO votes(id_playlists, id_wilders) VALUES(?, ?)', id_playlists, id_wilders) // On retourne une méthode (db.get) On passe une requête MYSQL qui prend le titre, url et genre
-    // .then(() => db.get('SELECT last_insert_rowid() as id'))
-    // .then(({
-    //   id
-    // }) => db.get('SELECT * from playlists WHERE id = ?', id))
+  return db.get('INSERT INTO votes(id_playlists, id_wilders) VALUES(?, ?)', id_playlists, id_wilders)
 }
 
 
@@ -157,13 +154,12 @@ app.post('/membres', (req, res) => {
     })
 })
 
-// /voteforplaylist/${item.wilderId}/${item.playlists[0].playlistId}
-app.post('/voteforplaylist/:id1/id2', (req, res) => {
-  return insertVote({
-    id_playlists: req.params.id1,
-    id_wilders: req.params.id2 
-  })
-  console.log(req.params.id1)
+// id1 correspond au wilderId et id2 correspond au playlistId
+app.post('/voteforplaylist', function(req, res) {
+  return insertVote(req.body)
+    // .then(recordNewPlaylist => {
+    //   res.json(recordNewPlaylist)
+    // })
 })
 
 app.get('/connected', (req, res) => {
