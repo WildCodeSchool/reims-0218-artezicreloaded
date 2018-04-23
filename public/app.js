@@ -4,28 +4,30 @@ const render = html => {
   mainDiv.innerHTML = html
 }
 
-const makePlaylistCard = item => `
-<div class="col-12 col-sm-12 col-md-3">
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title">${item.titre}</h5>
-            <p class="card-text">${item.genre}</p>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
-            Lancer ma playlist
-            </button>
 
-            <!-- Modal -->
-            <div class="modal fade" id="modal${item.playlistId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">${item.titre}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <iframe width="480" height="270" src="${item.url}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+const makePlaylistCard = item => `
+    <div class="col-md-4">
+        <div class="card mb-4 box-shadow">
+            <div class="card-body">
+                <p class="card-text">${item.titre}</p>
+                <p>${item.genre}</a>
+                <br>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
+                    Lancer ma playlist
+                </button>
+                <div class="modal fade" id="modal${item.playlistId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">${item.titre}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <iframe width="480" height="270" src="${item.url}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -33,11 +35,12 @@ const makePlaylistCard = item => `
         </div>
     </div>
     `
+    
 const makeWilder = item => `
 <div class="col-12 col-sm-12 col-md-3">
   <div class="card-deck" >
     <div class="card">
-      <div class="card" "style="width: 18rem;">
+      <div class="card">
           <div class="card-body">
               <img class="card-img-fluid-top" src="${item.avatar}" alt="Card image">
               <h5 class="card-title">${item.pseudo}</h5>
@@ -50,7 +53,7 @@ const makeWilder = item => `
 </div>    
     `
 const makeCardMember = item => `
-    <div class="card " style="width:400px">
+    <div class="card">
         <img class="card-img-top" src="${item.avatar}" alt="Card image">
         <div class="card-body">
             <h4 class="card-title">${item.pseudo}</h4>
@@ -62,7 +65,7 @@ const makeCardMember = item => `
 
 const makeWinningCard = item => `
     <div class="col-12 col-sm-12 col-md-4">
-        <div class="card" style="width:400px">
+        <div class="card">
             <img class="card-img-top" src="https://png.pngtree.com/element_origin_min_pic/17/07/23/473f204a1589862d0264b14f926b4b59.jpg" alt="Card image">
             <div class="card-body">
                 <h4 class="card-title">${item.playlists[0].titre}</h4>
@@ -97,8 +100,6 @@ const controllers = {
         .then(connectedMember => {
             render(`
                 <div class="container">
-                    <h1>Bienvenue ${connectedMember[0].pseudo}</h1>
-                    <h2>Ce que vous pouvez faire:</h2>
                     <div class="container text-center">
                         <div class="row">
                             <button type="button" id="hidePlaylist" class="btn btn-warning">La playlist gagnante de la semaine est : ${resultPlaylistCompete.playlists[0].titre} - Elle a obtenu ${resultPlaylistCompete.playlists[0].nbrevotes} votes</button>
@@ -127,12 +128,13 @@ const controllers = {
         .then(mesInfos => render(
             `
             <div class="container">
-            <div class="row">
-                    ${mesInfos}
+                <div class="row">
+                        ${mesInfos}
+                    </div>
+                    <br/>
+                    <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
+                    <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
                 </div>
-                <br/>
-                <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
-                <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
             </div>`
         ))
     },
@@ -143,30 +145,38 @@ const controllers = {
                 </div>
                 <form id="editMyProfile">
                     <div class="form-group col-md-9 ">
-                        <label for="inputPseudo ">Pseudo</label>
+                        <label for="inputPseudo">Pseudo</label>
                         <input name="pseudo" type="text " class="form-control " id="inputPseudo" placeholder="Enter your pseudo ">
                     </div>             
-                    <div class="form-group col-md-9 ">
-                        <label for="inputBio ">Bio</label>
-                        <textarea name="bio" class="form-control " id="inputBio " placeholder="Bio"></textarea>
+                    <div class="form-group col-md-9">
+                        <label for="inputBio">Bio</label>
+                        <textarea name="bio" class="form-control" id="inputBio " placeholder="Bio"></textarea>
                     </div>
-                    <div class="form-group col-md-3 ">
-                        <button type="submit " class="btn btn-primary ">Submit</button>
-                    </div>
-                </form>
-            </div>
-            `)
+                <div class="form-group col-md-9 ">
+                    <label for="inputAvatar ">Avatar</label>
+                    <input name="avatar" type="text " class="form-control " id="inputAvatar" placeholder="Enter image URL ">
+                </div>
+                <div class="form-group col-md-3 ">
+                    <button type="submit " class="btn btn-primary ">Submit</button>
+                </div>
+            </form>
+        </div>
+        `)
         const formProfile = document.getElementById('editMyProfile')
         formProfile.addEventListener('submit', e => {
-        e.preventDefault()
-        const dataProfile = serializeForm(formProfile)
-        fetch('/membres', {
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(dataProfile)
+            e.preventDefault()
+            const data = serializeForm(formProfile)
+            if(! data.avatar) {
+                const fullName = encodeURIComponent(`${data.bio} ${data.pseudo}`)
+                data.avatar = `https://via.placeholder.com/640x480/?text=${fullName}`
+            }
+            fetch('/membres', {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data) 
             })
             .then(res => res.json())
             .then(wilderEdition => {
@@ -250,11 +260,14 @@ const controllers = {
         .then(wilder => {
             const playlists = wilder[0].playlists
             const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
+            console.log(wilderPlaylistsCards)
             render(`
-                <h2>Hello ${slug}, voici vos playlists:</h2>
-                <div class="row>
+            <div class="container">
+                <h2>Les playlists de ${slug}</h2>
+                <div class="row">
                     ${wilderPlaylistsCards}
-                </div>`)
+                </div>
+            </div>`)
       })
   },
   '/concours': () => {
