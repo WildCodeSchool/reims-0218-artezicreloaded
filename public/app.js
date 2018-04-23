@@ -5,7 +5,7 @@ const render = html => {
 }
 
 const makePlaylistCard = item => `
-    <div class="col-12 col-sm-12 col-md-3">
+    <div class="col-12 col-sm-6 col-md-3">
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">${item.titre}</h5>
@@ -13,7 +13,7 @@ const makePlaylistCard = item => `
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
                     Lancer ma playlist
                 </button>
-                <!-- Modal -->
+                
                 <div class="modal fade" id="modal${item.playlistId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -250,7 +250,7 @@ const controllers = {
             const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
             console.log(wilderPlaylistsCards)
             render(`
-                <h2>Hello ${slug}, voici vos playlists:</h2>
+                <h2>Les playlists de ${slug}</h2>
                 <div class="row>
                     ${wilderPlaylistsCards}
                 </div>`)
