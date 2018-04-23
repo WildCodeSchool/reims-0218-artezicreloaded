@@ -97,8 +97,6 @@ const controllers = {
         .then(connectedMember => {
             render(`
                 <div class="container">
-                    <h1>Bienvenue ${connectedMember[0].pseudo}</h1>
-                    <h2>Ce que vous pouvez faire:</h2>
                     <div class="container text-center">
                         <div class="row">
                             <button type="button" id="hidePlaylist" class="btn btn-warning">La playlist gagnante de la semaine est : ${resultPlaylistCompete.playlists[0].titre} - Elle a obtenu ${resultPlaylistCompete.playlists[0].nbrevotes} votes</button>
