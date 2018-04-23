@@ -127,13 +127,12 @@ const html = `
 		<div class="container">
 			<div class="row text-center text-xs-center text-sm-left text-md-left">
 				<div class="col-xs-12 col-sm-4 col-md-4">
-					<h5>Quick links</h5>
+					<h5>Linkedin des développeur</h5>
 					<ul class="list-unstyled quick-links">
-						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Home</a></li>
-						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>About</a></li>
-						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
-						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Get Started</a></li>
-						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Videos</a></li>
+						<li><a href="https://www.linkedin.com/in/aureliebayre/"><i class="fa fa-angle-double-right"></i>Aurélie Bayre</a></li>
+						<li><a href="https://www.linkedin.com/in/max-gallois/"><i class="fa fa-angle-double-right"></i>Max Gallois</a></li>
+						<li><a href="https://www.linkedin.com/in/arnaud-gadroy-63136115a/"><i class="fa fa-angle-double-right"></i>Arnaud Gaudroy</a></li>
+						<li><a href="https://www.linkedin.com/in/thibaud-royer-93a7b715a/"><i class="fa fa-angle-double-right"></i>Thibaud Royer</a></li>
 					</ul>
 				</div>
 				<div class="col-xs-12 col-sm-4 col-md-4">
