@@ -4,14 +4,19 @@ const render = html => {
   mainDiv.innerHTML = html
 }
 
+
+
 const makePlaylistCard = item => `
-        <div class="card" style="width:400px">
+    <div class="col-md-4">
+        <div class="card mb-4 box-shadow">
             <div class="card-body">
-                <h4 class="card-title">${item.titre}</h4>
-                <p class="card-text">${item.genre}</p>
+                <p class="card-text">${item.titre}</p>
+                <p>${item.genre}</a>
             </div>
         </div>
+    </div>
     `
+    
 const makeWilder = item => `
 <div class="col-12 col-sm-12 col-md-3">
   <div class="card-deck" >
@@ -29,7 +34,7 @@ const makeWilder = item => `
 </div>    
     `
 const makeCardMember = item => `
-    <div class="card " style="width:400px">
+    <div class="card">
         <img class="card-img-top" src="${item.avatar}" alt="Card image">
         <div class="card-body">
             <h4 class="card-title">${item.pseudo}</h4>
@@ -41,7 +46,7 @@ const makeCardMember = item => `
 
 const makeWinningCard = item => `
     <div class="col-12 col-sm-12 col-md-4">
-        <div class="card" style="width:400px">
+        <div class="card">
             <img class="card-img-top" src="https://png.pngtree.com/element_origin_min_pic/17/07/23/473f204a1589862d0264b14f926b4b59.jpg" alt="Card image">
             <div class="card-body">
                 <h4 class="card-title">${item.playlists[0].titre}</h4>
@@ -104,12 +109,13 @@ const controllers = {
         .then(mesInfos => render(
             `
             <div class="container">
-            <div class="row">
-                    ${mesInfos}
+                <div class="row">
+                        ${mesInfos}
+                    </div>
+                    <br/>
+                    <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
+                    <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
                 </div>
-                <br/>
-                <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
-                <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
             </div>`
         ))
     },
@@ -231,7 +237,7 @@ const controllers = {
             render(`
             <div class="container">
                 <h2>Les playlists de ${slug}</h2>
-                <div class="row>
+                <div class="row">
                     ${wilderPlaylistsCards}
                 </div>
             </div>`)
