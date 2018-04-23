@@ -5,12 +5,12 @@ section {
 
 section .section-title {
     text-align: center;
-    color: #525252;
+    color: #3b3b3b;
     margin-bottom: 50px;
     text-transform: uppercase;
 }
 #footer {
-    background: #525252 !important;
+    background: #3b3b3b !important;
 }
 #footer h5{
 	padding-left: 10px;
@@ -96,12 +96,8 @@ section .section-title {
     color: #ff0084;
 }
 
-.fa-twitch {
-    color: #6441A5;
-}
-
 .fa-linkedin {
-    color: #007bb6;
+    color: #ffffff;
 }
 
 .fa {
@@ -111,7 +107,11 @@ section .section-title {
 }
 
 .fa:hover{
-    opacity: 1.5;
+    opacity: 1;
+    text-shadow: 1px 1px 1px 1px rgb(179, 179, 179);
     transition: 1s;
     -webkit-transition: 1s;
+}
+.container{
+    text-align: center;
 }
