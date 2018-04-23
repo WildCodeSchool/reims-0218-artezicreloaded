@@ -49,7 +49,6 @@ const insertPlaylist = w => {
 
 const modifyMyProfile = newInfo => {
   const { pseudo, bio, avatar } = newInfo
-  console.log('pseudo is ', pseudo, 'and bio is : ', bio, 'and avatar is : ', avatar)
   return db.get('UPDATE wilders SET pseudo=?, bio=?, avatar=? WHERE id=1', pseudo, bio, avatar)
   .then(()=> db.get('SELECT * from wilders WHERE ID=1'))
 }
