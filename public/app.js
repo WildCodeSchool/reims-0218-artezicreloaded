@@ -80,7 +80,7 @@ const makeListsInCompete = item => `
             <p class="card-text">${item.playlists[0].nbrevotes} votes</p>
             <a href="${item.playlists[0].url}" class="btn btn-primary">Afficher la playlist</a>
             <form action="/voteforplaylist" method="post">
-                <input type="hidden" value="${item.wilderId}" name="id_wilders" />
+                <input type="hidden" value="1" name="id_wilders" />
                 <input type="hidden" value="${item.playlists[0].playlistId}" name="id_playlists" />
                 <input type="hidden" value="${Date.now()}" name="date" />
                 <button type="submit" class="btn btn-success mt-2">Voter pour cette playlist</button>

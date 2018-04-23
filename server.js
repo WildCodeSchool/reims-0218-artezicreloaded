@@ -201,8 +201,6 @@ app.post('/playlists', (req, res) => {
     })
 })
 
-
-
 app.put('/membres', (req, res) => {
   return modifyMyProfile(req.body)
     .then(wilderIsEdited => {
