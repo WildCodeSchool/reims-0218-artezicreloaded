@@ -135,7 +135,7 @@ app.get('/', (req, res) => {
 app.post('/membres', (req, res) => {
   return insertWilder(req.body)
     .then(recordNewWilder => {
-      res.json(recordNewWilder)
+      return res.json(recordNewWilder)
     })
 })
 
