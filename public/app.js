@@ -5,6 +5,7 @@ const render = html => {
 }
 
 const makePlaylistCard = item => `
+    <div class="col-12 col-sm-12 col-md-3">
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">${item.titre}</h5>
@@ -30,6 +31,7 @@ const makePlaylistCard = item => `
                 </div>
             </div>
         </div>
+    </div>
     `
 const makeWilder = item => `
 <div class="col-12 col-sm-12 col-md-3">
