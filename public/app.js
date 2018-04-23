@@ -12,6 +12,25 @@ const makePlaylistCard = item => `
             <div class="card-body">
                 <p class="card-text">${item.titre}</p>
                 <p>${item.genre}</a>
+                <br>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
+                    Lancer ma playlist
+                </button>
+                <div class="modal fade" id="modal${item.playlistId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">${item.titre}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <iframe width="480" height="270" src="${item.url}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -21,7 +40,7 @@ const makeWilder = item => `
 <div class="col-12 col-sm-12 col-md-3">
   <div class="card-deck" >
     <div class="card">
-      <div class="card" "style="width: 18rem;">
+      <div class="card">
           <div class="card-body">
               <img class="card-img-fluid-top" src="${item.avatar}" alt="Card image">
               <h5 class="card-title">${item.pseudo}</h5>
@@ -126,15 +145,15 @@ const controllers = {
                 </div>
                 <form id="editMyProfile">
                     <div class="form-group col-md-9 ">
-                        <label for="inputPseudo ">Pseudo</label>
+                        <label for="inputPseudo">Pseudo</label>
                         <input name="pseudo" type="text " class="form-control " id="inputPseudo" placeholder="Enter your pseudo ">
                     </div>             
-                    <div class="form-group col-md-9 ">
-                        <label for="inputBio ">Bio</label>
-                        <textarea name="bio" class="form-control " id="inputBio " placeholder="Bio"></textarea>
+                    <div class="form-group col-md-9">
+                        <label for="inputBio">Bio</label>
+                        <textarea name="bio" class="form-control" id="inputBio " placeholder="Bio"></textarea>
                     </div>
                     <div class="form-group col-md-3 ">
-                        <button type="submit " class="btn btn-primary ">Submit</button>
+                        <button type="submit " class="btn btn-primary">Submit</button>
                     </div>
                 </form>
             </div>
