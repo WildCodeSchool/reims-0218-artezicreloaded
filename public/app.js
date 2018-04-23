@@ -74,7 +74,7 @@ const makeWinningCard = item => `
         `
 
 const makeListsInCompete = item => `
-    <div class="card " style="width:400px">
+    <div class="card mt-3 mr-3" style="width:400px">
         <div class="card-body">
             <h4 class="card-title">${item.playlists[0].titre}</h4>
             <p class="card-text">${item.playlists[0].nbrevotes} votes</p>
@@ -82,6 +82,7 @@ const makeListsInCompete = item => `
             <form action="/voteforplaylist" method="post">
                 <input type="hidden" value="${item.wilderId}" name="id_wilders" />
                 <input type="hidden" value="${item.playlists[0].playlistId}" name="id_playlists" />
+                <input type="hidden" value="${Date.now()}" name="date" />
                 <button type="submit" class="btn btn-success mt-2">Voter pour cette playlist</button>
             </form>
         </div>

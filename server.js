@@ -50,12 +50,12 @@ const insertPlaylist = w => {
 
 const insertVote = w => {
   const {
+    date,
     id_playlists,
-    id_wilders,
+    id_wilders
   } = w
-  return db.get('INSERT INTO votes(id_playlists, id_wilders) VALUES(?, ?)', id_playlists, id_wilders)
+  return db.get('INSERT INTO votes(date, id_playlists, id_wilders) VALUES(?, ?, ?)', date, id_playlists, id_wilders)
 }
-
 
 const modifyMyProfile = newInfo => {
   const {
@@ -154,12 +154,9 @@ app.post('/membres', (req, res) => {
     })
 })
 
-// id1 correspond au wilderId et id2 correspond au playlistId
 app.post('/voteforplaylist', function(req, res) {
-  return insertVote(req.body)
-    // .then(recordNewPlaylist => {
-    //   res.json(recordNewPlaylist)
-    // })
+  insertVote(req.body)
+  return res.redirect('/concours')
 })
 
 app.get('/connected', (req, res) => {
