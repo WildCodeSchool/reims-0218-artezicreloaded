@@ -158,19 +158,14 @@ const html = `
 				</div>
 			</div>
       <div class="container">
-              <a href='#'><i class="fa fa-facebook fa-3x fa-fw"></i></a>
-              <a href='#'><i class="fa fa-twitter fa-3x fa-fw"></i></a>
-              <a href='#'><i class="fa fa-youtube-play fa-3x fa-fw"></i></a>
-              <a href='#'><i class="fa fa-rss fa-3x fa-fw"></i></a>
-              <a href='#'><i class="fa fa-vine fa-3x fa-fw"></i></a>
-              <a href='#'><i class="fa fa-flickr fa-3x fa-fw"></i></a>
-              <a href='#'><i class="fa fa-linkedin fa-3x fa-fw"></i></a>
-      </div>	
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
-				</div>
-				</hr>
-			</div>	
+        <a href='#'><i class="fa fa-facebook fa-3x fa-fw"></i></a>
+        <a href='#'><i class="fa fa-twitter fa-3x fa-fw"></i></a>
+        <a href='#'><i class="fa fa-youtube-play fa-3x fa-fw"></i></a>
+        <a href='#'><i class="fa fa-rss fa-3x fa-fw"></i></a>
+        <a href='#'><i class="fa fa-vine fa-3x fa-fw"></i></a>
+        <a href='#'><i class="fa fa-flickr fa-3x fa-fw"></i></a>
+        <a href='#'><i class="fa fa-linkedin fa-3x fa-fw"></i></a>
+      </div>		
 		</div>
 	</section>
 </html>`
