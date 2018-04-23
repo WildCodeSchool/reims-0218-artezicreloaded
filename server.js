@@ -88,8 +88,8 @@ const html = `
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
   <body>
-    <div class="container">
-      <div class="row">
+    <div class="container-fluid">
+      
         <nav class="navbar navbar-expand-lg navbar-light bg-light col-12 col-sm-12 col-md-12"">
           <a class="navbar-brand" href="/">Artezic</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,7 +118,7 @@ const html = `
         </div>
       <div id="main">
 
-      </div>
+      
     </div>
     <script src="/page.js"></script>
     <script src="/app.js"></script>

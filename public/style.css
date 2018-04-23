@@ -1,4 +1,9 @@
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+body .container-fluid{
+    padding: 0;
+    margin: 0;
+}
 section {
     padding: 60px 0;
 }
@@ -10,7 +15,7 @@ section .section-title {
     text-transform: uppercase;
 }
 #footer {
-    background: #3b3b3b !important;
+    background: #3b3b3b;
 }
 #footer h5{
 	padding-left: 10px;
@@ -21,7 +26,7 @@ section .section-title {
 }
 #footer a {
     color: #ffffff;
-    text-decoration: none !important;
+    text-decoration: none;
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
 }
