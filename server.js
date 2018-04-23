@@ -148,7 +148,7 @@ app.get('/connected', (req, res) => {
       ; 
       `)
     .then(wilderPlaylists => {
-      res.json(wildersWithPlaylists(wilderPlaylists))
+      return res.json(wildersWithPlaylists(wilderPlaylists))
     })
 })
 
