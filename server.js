@@ -47,6 +47,19 @@ const insertPlaylist = w => {
     }) => db.get('SELECT * from playlists WHERE id = ?', id))
 }
 
+const insertVote = w => {
+  const {
+    id_playlists,
+    id_wilders,
+  } = w
+  return db.get('INSERT INTO votes(id_playlists, id_wilders) VALUES(?, ?)', id_playlists, id_wilders) // On retourne une méthode (db.get) On passe une requête MYSQL qui prend le titre, url et genre
+    // .then(() => db.get('SELECT last_insert_rowid() as id'))
+    // .then(({
+    //   id
+    // }) => db.get('SELECT * from playlists WHERE id = ?', id))
+}
+
+
 const modifyMyProfile = newInfo => {
   const {
     pseudo,
@@ -74,6 +87,11 @@ const dbPromise = Promise.resolve()
   .then(() => {
     Promise.map(users, w => {
       insertPlaylist(w)
+    })
+  })
+  .then(() => {
+    Promise.map(users, w => {
+      insertVote(w)
     })
   })
 
@@ -139,6 +157,15 @@ app.post('/membres', (req, res) => {
     })
 })
 
+// /voteforplaylist/${item.wilderId}/${item.playlists[0].playlistId}
+app.post('/voteforplaylist/:id1/id2', (req, res) => {
+  return insertVote({
+    id_playlists: req.params.id1,
+    id_wilders: req.params.id2 
+  })
+  console.log(req.params.id1)
+})
+
 app.get('/connected', (req, res) => {
   db.all(`
       SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
@@ -181,6 +208,8 @@ app.post('/playlists', (req, res) => {
     })
 })
 
+
+
 app.put('/membres', (req, res) => {
   return modifyMyProfile(req.body)
     .then(wilderIsEdited => {
@@ -215,6 +244,19 @@ app.get('/playlistsCompete', (req, res) => {
       where compete = "true"
       order by nbrevotes desc
       limit 1
+    `
+    )
+    .then(playlistsReturn => {
+      return res.json(wildersWithPlaylists(playlistsReturn))
+    })
+})
+
+app.get('/playlistsInCompete', (req, res) => {
+  db.all(
+      `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
+      from wilders
+      left join playlists on wilders.id = playlists.id_wilders
+      where compete = "true"
     `
     )
     .then(playlistsReturn => {
