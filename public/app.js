@@ -114,7 +114,8 @@ const controllers = {
                             Consulter la page membre
                         </li>
                     </ul>
-                </div>`
+                </div>
+                `
             )
         })
 
@@ -237,6 +238,49 @@ const controllers = {
             })
         })
     },
+    '/authentification': () => {
+        render(`
+            <div class="container">
+            <div id="alert-box" class="hidden">
+            </div>
+            <form id="iden">
+                <div class="form-group">
+                <label for="inputUserName">Username</label>
+                <input name="Username" type="text" class="form-control" id="inputUserName" placeholder="Username">
+                </div>
+                <div class="form-group">
+                <label for="inputPassword">Password</label>
+                <input name="Password" type="text" class="form-control" id="inputPassword" placeholder="Password">
+                </div>      
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            <a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil</a>
+            </div>`)
+        const form = document.getElementById('iden')
+        form.addEventListener('submit', e => {
+        e.preventDefault()
+        const data = serializeForm(form)
+        const dataWithId = {
+            nameuser: data.nameuser,
+            mdp: data.mdp,
+            id_wilders: 1
+        }
+        fetch('/playlists', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataWithId)
+            })
+            .then(res => res.json())
+            .then(playlist => {
+            const alertBox = document.getElementById('alert-box')
+            alertBox.className = 'alert alert-success'
+            alertBox.innerHTML = `Votre playlist titre ${playlist.titre} (${playlist.id}) a bien été créée`
+            })
+        })
+    },
     '/wilders': () => {
         fetch('/membres')
         .then(res => res.json())
@@ -287,7 +331,7 @@ const controllers = {
 const route = pathname => {}
 
 (() => {
-  ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours'].forEach(
+  ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours', '/authentification'].forEach(
     path => page(path, controllers[path])
   )
   page()
