@@ -181,6 +181,13 @@ app.post('/playlists', (req, res) => {
     })
 })
 
+app.post('/conection', (req, res) => {
+  return insertPlaylist(req.body)
+    .then(recordNewPlaylist => {
+      res.json(recordNewPlaylist)
+    })
+})
+
 app.put('/membres', (req, res) => {
   return modifyMyProfile(req.body)
     .then(wilderIsEdited => {

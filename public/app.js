@@ -265,7 +265,7 @@ const controllers = {
             mdp: data.mdp,
             id_wilders: 1
         }
-        fetch('/playlists', {
+        fetch('/conection', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -277,7 +277,7 @@ const controllers = {
             .then(playlist => {
             const alertBox = document.getElementById('alert-box')
             alertBox.className = 'alert alert-success'
-            alertBox.innerHTML = `Votre playlist titre ${playlist.titre} (${playlist.id}) a bien été créée`
+            alertBox.innerHTML = `Vous êtes connecté ${playlist.nameuser} (${playlist.id}) bonne écoute`
             })
         })
     },
