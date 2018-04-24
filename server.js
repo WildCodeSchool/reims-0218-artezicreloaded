@@ -1,6 +1,11 @@
 const sqlite = require('sqlite')
 const express = require('express')
 const Promise = require('bluebird')
+const passport = require('passport')
+const jwt = require('jsonwebtoken')
+
+require('./passport-strategy')
+const auth = require('./auth')
 
 const {
   wildersWithPlaylists
@@ -17,6 +22,8 @@ let db
 
 app.use(express.static('public'))
 app.use(bodyParser.json())
+app.use('/auth', auth)
+
 
 const insertWilder = w => {
   const {
@@ -220,6 +227,10 @@ app.get('/playlists/1', (req, res) => {
     .then(allPlaylists => {
       res.json(allPlaylists)
     })
+})
+
+app.get('/test', passport.authenticate('jwt', {session: false}), (req, res) => {
+  res.send(`authorized for user ${req.user.username} with id ${req.user.id}`)
 })
 
 app.get('*', (req, res) => {
