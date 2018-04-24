@@ -5,12 +5,11 @@ const render = html => {
 }
 // <iframe src="${item.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>
 const showModal = (playlist) => {
-    console.log("arg of showModal", playlist)
     const modal = document.getElementById("modal")
     $(modal).modal('show')
     const modalBody = document.getElementById("showThisModal")
     modalBody.innerHTML =`
-    <p>${playlist.titre}</p>
+    <p>Titre: ${playlist.titre}</p>
     <iframe src="${playlist.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>` 
 }
 
@@ -81,14 +80,12 @@ const serializeForm = form => {
 
 const controllers = {
     '/': () => {
-        console.log(showModal)
         let resultPlaylistCompete
         fetch('/playlistsCompete')
         .then(res => res.json())
         .then(result => result.reduce((carry, user) => carry + user))
         .then(user => {
             resultPlaylistCompete = user
-            console.log(resultPlaylistCompete)
         })
         fetch('/connected')
         .then(res => res.json())
@@ -261,7 +258,7 @@ const controllers = {
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Passez le titre de la playlist cliquée</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -279,7 +276,6 @@ const controllers = {
         )
         const launchPlaylistButtons = document.getElementsByClassName("launch")
         Array.from(launchPlaylistButtons).forEach(button => {
-            console.log("numero: ", button.id)
             const playlistData = {
                 foo: "bar"
             }
