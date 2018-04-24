@@ -4,8 +4,6 @@ const render = html => {
   mainDiv.innerHTML = html
 }
 
-
-
 const makePlaylistCard = item => `
     <div class="col-md-4">
         <div class="card mb-4 box-shadow">
@@ -26,7 +24,7 @@ const makePlaylistCard = item => `
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <iframe width="480" height="270" src="${item.url}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                <iframe src="${item.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>
                             </div>
                         </div>
                     </div>
@@ -283,13 +281,24 @@ const controllers = {
             </div>
         </div>    
         `))
+    },
+    '/testiframe' : () => {
+        fetch('/playlistsCompete')
+        .then(res => res.json())
+        .then(result =>`<iframe src="${result[0].url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>`)
+        .then(iframedPlaylist => render(`
+            <div>
+             ${iframedPlaylist}
+            </div>
+        `))
     }
 }
+
 
 const route = pathname => {}
 
 (() => {
-  ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours'].forEach(
+  ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours', '/testiframe'].forEach(
     path => page(path, controllers[path])
   )
   page()
