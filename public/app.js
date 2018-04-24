@@ -4,7 +4,15 @@ const render = html => {
   mainDiv.innerHTML = html
 }
 // <iframe src="${item.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>
-
+const showModal = (playlist) => {
+    console.log("arg of showModal", playlist)
+    const modal = document.getElementById("modal")
+    $(modal).modal('show')
+    const modalBody = document.getElementById("showThisModal")
+    modalBody.innerHTML =`
+    <p>${playlist.titre}</p>
+    <iframe src="${playlist.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>` 
+}
 
 
 const makePlaylistCard = item => `
@@ -14,7 +22,7 @@ const makePlaylistCard = item => `
                 <p class="card-text">${item.titre}</p>
                 <p>${item.genre}</a>
                 <br>
-                <button id="button${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
+                <button id="${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
                     Lancer ma playlist
                 </button>
             </div>
@@ -270,32 +278,17 @@ const controllers = {
             </div>`
         )
         const launchPlaylistButtons = document.getElementsByClassName("launch")
-        console.log("mes boutons", launchPlaylistButtons)
-
-        const showModal = (playlist) => {
-            console.log("arg of showModal", playlist)
-            const modal = document.getElementById("modal")
-            $(modal).modal('show')
-            const modalBody = document.getElementById("showThisModal")
-            modalBody.innerHTML =`
-            <p>${playlist.titre}</p>
-            <iframe src="${playlist.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>` 
-        }
-
         Array.from(launchPlaylistButtons).forEach(button => {
             console.log("numero: ", button.id)
             const playlistData = {
                 foo: "bar"
             }
             button.addEventListener('click', ()=>{
-                console.log("on va devoir s'occuper de la playlist", button.id)
-                const playlistData = playlists[button.id - 1]// marche pas
-                console.log("valid or not?",playlists[0]) //marche
-               // showModal(playlists[button.id - 1])
+                const playlistClicked = playlists.filter(playlist => playlist.playlistId === Number(button.id))
+                showModal(playlistClicked[0])
             }) 
-        
         })
-      })
+    })
   },
   '/concours': () => {
     fetch('/playlistsCompete')
