@@ -5,12 +5,14 @@ const render = html => {
 }
 // <iframe src="${item.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>
 
-const showModal = (idOfModalBody) => {
+const showModal = (obj) => {
     console.log("showModal has been called")
     const modal = document.getElementById("modal")
     $(modal).modal('show')
     const modalBody = document.getElementById("showThisModal")
-    modalBody.innerHTML =`<iframe src="https://play.soundsgood.co/embed/5ad9998ee7806b34155749f0" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>`
+    modalBody.innerHTML =`
+    <p>${obj.foo}</p>
+    <iframe src="https://play.soundsgood.co/embed/5ad9998ee7806b34155749f0" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>`
     
 }
 
@@ -280,11 +282,16 @@ const controllers = {
         console.log("mes boutons", launchPlaylistButtons)
         Array.from(launchPlaylistButtons).forEach(button => {
             console.log("numero: ", button.id)
-            button.addEventListener('click', showModal)
+            const playlistData = {
+                foo: "bar"
+            }
+            
+            button.addEventListener('click', ()=>{
+                console.log("on va devoir s'occuper de la playlist", button.id)
+                showModal(playlistData)
+            }) //non ça s'execute
         
         })
-        //récupérer l'id de la modale
-        // inscrire l'iframe dans la modale en question, 
       })
   },
   '/concours': () => {
