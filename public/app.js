@@ -3,6 +3,16 @@ const mainDiv = document.getElementById('main')
 const render = html => {
   mainDiv.innerHTML = html
 }
+// <iframe src="${item.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>
+
+const showModal = (idOfModalBody) => {
+    console.log("showModal has been called")
+    const modal = document.getElementById("modal")
+    $(modal).modal('show')
+    const modalBody = document.getElementById("showThisModal")
+    modalBody.innerHTML =`<iframe src="https://play.soundsgood.co/embed/5ad9998ee7806b34155749f0" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>`
+    
+}
 
 const makePlaylistCard = item => `
     <div class="col-md-4">
@@ -11,24 +21,9 @@ const makePlaylistCard = item => `
                 <p class="card-text">${item.titre}</p>
                 <p>${item.genre}</a>
                 <br>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
+                <button id="button${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
                     Lancer ma playlist
                 </button>
-                <div class="modal fade" id="modal${item.playlistId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">${item.titre}</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <iframe src="${item.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -85,6 +80,7 @@ const serializeForm = form => {
 
 const controllers = {
     '/': () => {
+        console.log(showModal)
         let resultPlaylistCompete
         fetch('/playlistsCompete')
         .then(res => res.json())
@@ -260,11 +256,35 @@ const controllers = {
             const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
             render(`
             <div class="container">
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Passez le titre de la playlist cliquée</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div id="showThisModal"class="modal-body">
+                            </div>
+                        </div>
+                    </div> 
+                </div>
                 <h2>Les playlists de ${slug}</h2>
                 <div class="row">
                     ${wilderPlaylistsCards}
                 </div>
-            </div>`)
+            </div>`
+        )
+        const launchPlaylistButtons = document.getElementsByClassName("launch")
+        console.log("mes boutons", launchPlaylistButtons)
+        Array.from(launchPlaylistButtons).forEach(button => {
+            console.log("numero: ", button.id)
+            button.addEventListener('click', showModal)
+        
+        })
+        //récupérer l'id de la modale
+        // inscrire l'iframe dans la modale en question, 
       })
   },
   '/concours': () => {
@@ -281,16 +301,6 @@ const controllers = {
             </div>
         </div>    
         `))
-    },
-    '/testiframe' : () => {
-        fetch('/playlistsCompete')
-        .then(res => res.json())
-        .then(result =>`<iframe src="${result[0].url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>`)
-        .then(iframedPlaylist => render(`
-            <div>
-             ${iframedPlaylist}
-            </div>
-        `))
     }
 }
 
@@ -298,7 +308,7 @@ const controllers = {
 const route = pathname => {}
 
 (() => {
-  ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours', '/testiframe'].forEach(
+  ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours'].forEach(
     path => page(path, controllers[path])
   )
   page()
