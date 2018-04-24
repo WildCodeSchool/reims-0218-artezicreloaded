@@ -4,8 +4,6 @@ const render = html => {
   mainDiv.innerHTML = html
 }
 
-
-
 const makePlaylistCard = item => `
     <div class="col-md-4">
         <div class="card mb-4 box-shadow">
@@ -26,7 +24,7 @@ const makePlaylistCard = item => `
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <iframe width="480" height="270" src="${item.url}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                <iframe width="480" height="270" src="${item.url}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
