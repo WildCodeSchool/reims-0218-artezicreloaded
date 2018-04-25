@@ -10,8 +10,9 @@ passport.use(new LocalStrategy({
         passwordField: 'password'
     }, 
     function (username, password, cb) {
+        console.log(username)
         //this one is typically a DB call. Assume that the returned user object is pre-formatted and ready for storing in JWT
-        if (password !== 'wildcode') {
+        if (password !== '12345678') {
             return cb(null, false, {message: 'Incorrect username or password.'})
         } else {
             return cb(null, { id: 1, username }, {message: 'Logged In Successfully'})
