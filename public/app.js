@@ -276,8 +276,6 @@ const controllers = {
                 nbvisites++;
                 localStorage.setItem(`${slug}`,nbvisites);
                 document.getElementById(`${slug}`).innerHTML = nbvisites;
-              } else {
-                alert("localStorage n'est pas supporté");
               }
       })
   },
