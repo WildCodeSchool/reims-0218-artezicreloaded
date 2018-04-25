@@ -1,6 +1,11 @@
 const sqlite = require('sqlite')
 const express = require('express')
 const Promise = require('bluebird')
+const passport = require('passport')
+const jwt = require('jsonwebtoken')
+
+require('./passport-strategy')
+//const auth = require('./auth')
 
 const {
   wildersWithPlaylists
@@ -17,14 +22,17 @@ let db
 
 app.use(express.static('public'))
 app.use(bodyParser.json())
+//app.use('/auth', auth)
+
 
 const insertWilder = w => {
   const {
     pseudo,
+    password,
     bio,
     avatar
   } = w
-  return db.get('INSERT INTO wilders(pseudo, bio, avatar) VALUES(?, ?, ?)', pseudo, bio, avatar)
+  return db.get('INSERT INTO wilders(pseudo, password, bio, avatar) VALUES(?, ?, ?, ?)', pseudo, password, bio, avatar)
     .then(() => db.get('SELECT last_insert_rowid() as id'))
     .then(({
       id
@@ -221,6 +229,30 @@ app.get('/playlists/1', (req, res) => {
       res.json(allPlaylists)
     })
 })
+
+app.get('/connexion', passport.authenticate('jwt', {session: false}), (req, res) => {
+  res.send(`authorized for user ${req.user.username} with id ${req.user.id}`)
+})
+
+app.post('/auth/login', function (req, res) {
+    passport.authenticate('local', {session: false}, (err, user, info) => {
+        if (err || !user) {
+            return res.status(400).json({
+                message: 'Something is not right',
+                user   : user
+            })
+        }
+      req.login(user, {session: false}, (err) => {
+          if (err) {
+              res.send(err)
+          }
+          // generate a signed son web token with the contents of user object and return it in the response
+          const token = jwt.sign(user, 'your_jwt_secret')
+          return res.json({user, token})
+        })
+      })(req, res)
+})
+
 
 app.get('*', (req, res) => {
   res.send(html)

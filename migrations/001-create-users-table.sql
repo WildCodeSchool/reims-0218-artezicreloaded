@@ -2,11 +2,12 @@
 CREATE TABLE wilders (
 id INTEGER PRIMARY KEY,
 pseudo VARCHAR(255),
+password VARCHAR(255),
 avatar VARCHAR(255),
 bio TEXT );
 
-INSERT INTO wilders(pseudo, avatar, bio)
-VALUES ('Gontran', 'http://i.pravatar.cc/150', 'lorem ipsum developer at WCS lorem ipsum developer at WCS lorem ipsum developer at WCS');
+INSERT INTO wilders(pseudo, password, avatar, bio)
+VALUES ('Gontran', '12345678', 'http://i.pravatar.cc/150', 'lorem ipsum developer at WCS lorem ipsum developer at WCS lorem ipsum developer at WCS');
 
 CREATE TABLE playlists (
 id INTEGER PRIMARY KEY,
