@@ -4,6 +4,13 @@ const render = html => {
   mainDiv.innerHTML = html
 }
 // <iframe src="${item.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>
+
+const cleanUrl = (str) => {
+    const urlRegex =  new RegExp('https:\/\/play.soundsgood.co\/embed\/\\d*\\w*')
+    const urlFromIframe = urlRegex.exec(str)
+    return urlFromIframe[0]
+}
+
 const showModal = (playlist) => {
     const modal = document.getElementById("modal")
     $(modal).modal('show')
@@ -12,7 +19,6 @@ const showModal = (playlist) => {
     <p>Titre: ${playlist.titre}</p>
     <iframe src="${playlist.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>` 
 }
-
 
 const makePlaylistCard = item => `
     <div class="col-md-4">
@@ -209,11 +215,6 @@ const controllers = {
         e.preventDefault()
         const data = serializeForm(form)
 
-        const cleanUrl = (str) => {
-            const urlRegex =  new RegExp('https:\/\/play.soundsgood.co\/embed\/\\d*\\w*')
-            const urlFromIframe = urlRegex.exec(str)
-            return urlFromIframe[0]
-        }
         const embedUrl = cleanUrl(data.url)
 
         const dataWithId = {
