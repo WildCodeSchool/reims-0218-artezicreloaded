@@ -267,6 +267,68 @@ const controllers = {
             </div>`)
       })
   },
+  '/F.A.Q': () => {
+    render(`
+    <link rel="stylesheet" href="style.css" />
+
+<div class="block">
+    <img src="https://unsplash.it/1920/1920/?image=1005" data-speed="-1" class="img-parallax">
+    <h2>Parallax Speed -1</h2>
+</div>
+<div class="row">
+    <div class="col-lg-12"><p>Question 1</p></div>
+</div>
+<div class="block">
+    <img src="https://unsplash.it/1920/1920/?image=1067" data-speed="-1" class="img-parallax">
+    <h2>Parallax Speed 1</h2>
+</div>
+<div class="row">
+    <div class="col-lg-12"><p>Question 2</p></div>
+</div>
+<div class="block">
+    <img src="https://unsplash.it/1920/1920/?random" data-speed="-1" class="img-parallax">
+    <h2>Parallax Speed -0.75</h2>
+</div>
+<div class="row">
+    <div class="col-lg-12"><p>Question 3</p></div>
+</div>
+<div class="block">
+    <img src="https://unsplash.it/1920/1920/?blur" data-speed="-1" class="img-parallax">
+    <h2>Parallax Speed 0.75</h2>
+</div>
+
+
+     `)
+        $('.img-parallax').each(function(){
+            var img = $(this);
+            var imgParent = $(this).parent();
+            function parallaxImg () {
+              var speed = img.data('speed');
+              var imgY = imgParent.offset().top;
+              var winY = $(this).scrollTop();
+              var parentH = imgParent.innerHeight();
+
+              var winBottom = winY + winH;
+
+              if (winBottom > imgY && winY < imgY + parentH) {
+                var imgBottom = ((winBottom - imgY) * speed);
+                var imgTop = winH + parentH;
+                var imgPercent = ((imgBottom / imgTop) * 100) + (50 - (speed * 50));
+              }
+              img.css({
+                top: imgPercent + '%',
+                transform: 'translate(-50%, -' + imgPercent + '%)'
+              });
+            }
+            $(document).on({
+              scroll: function () {
+                parallaxImg();
+              }, ready: function () {
+                parallaxImg();
+              }
+            });
+          });
+  },
   '/concours': () => {
     fetch('/playlistsCompete')
       .then(res => res.json())
@@ -284,10 +346,12 @@ const controllers = {
     }
 }
 
+
+
 const route = pathname => {}
 
 (() => {
-  ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours'].forEach(
+  ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours', '/F.A.Q'].forEach(
     path => page(path, controllers[path])
   )
   page()

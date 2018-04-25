@@ -100,6 +100,9 @@ const html = `
               <li class="nav-item">
                 <a class="nav-link" href="/concours">Concours</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/F.A.Q">F.A.Q</a>
+              </li>
             </ul>
           </div>
         </nav>
