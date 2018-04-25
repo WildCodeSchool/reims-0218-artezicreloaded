@@ -129,7 +129,7 @@ const controllers = {
           </div>
             <br/>
             <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
-            <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
+            <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist</a></p>
           </div>
         </div>
       `))
@@ -282,7 +282,25 @@ const controllers = {
     `))
   },
   '/connexion': () => {
-    render("coucou")
+    render(`<form id="loginForm">
+    <input class="form-control" name="username" placeholder="username"/>
+    <input class="form-control" type="password" name="password" placeholder="password"/>
+    <input type="submit" value="se connecter" />
+    </form>`)
+    const loginForm = document.getElementById('loginForm')
+    loginForm.addEventListener('submit', e => {
+      e.preventDefault()
+      const data = serializeForm(loginForm)
+      console.log(data)
+      fetch('/auth/login', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+    })
   },
 }
 
