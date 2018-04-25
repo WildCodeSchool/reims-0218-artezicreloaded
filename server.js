@@ -110,7 +110,7 @@ const html = `
                   </li>
                 </ul> 
               </div>
-                <button class="btn btn-outline-light my-2 my-sm-0" href="/connexion" role="button">Connexion</button>
+                <a href="/connexion" class="btn btn-outline-light my-2 my-sm-0" role="button">Connexion</a>
           </nav>
           <div id="carouselSlidesOnly" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
