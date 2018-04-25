@@ -230,32 +230,29 @@ app.get('/playlists/1', (req, res) => {
     })
 })
 
-app.get('/test', passport.authenticate('jwt', {session: false}), (req, res) => {
+app.get('/connexion', passport.authenticate('jwt', {session: false}), (req, res) => {
   res.send(`authorized for user ${req.user.username} with id ${req.user.id}`)
 })
 
 app.post('/auth/login', function (req, res) {
-
-    db.all(`SELECT pseudo AS username, password from wilders WHERE pseudo="${req.body.username}" AND password="${req.body.password}"`)
-    .then(user => {
-      passport.authenticate('local', {session: false}, (err, user, info) => {
+    passport.authenticate('local', {session: false}, (err, user, info) => {
         if (err || !user) {
             return res.status(400).json({
                 message: 'Something is not right',
                 user   : user
             })
         }
-       req.login(user, {session: false}, (err) => {
-           if (err) {
-               res.send(err)
-           }
-           // generate a signed son web token with the contents of user object and return it in the response
-           const token = jwt.sign(user, 'your_jwt_secret')
-           return res.json({user, token})
+      req.login(user, {session: false}, (err) => {
+          if (err) {
+              res.send(err)
+          }
+          // generate a signed son web token with the contents of user object and return it in the response
+          const token = jwt.sign(user, 'your_jwt_secret')
+          return res.json({user, token})
         })
       })(req, res)
-    })
 })
+
 
 app.get('*', (req, res) => {
   res.send(html)
