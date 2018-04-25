@@ -280,13 +280,16 @@ const controllers = {
           </div>
         </div>    
     `))
-  }
+  },
+  '/connexion': () => {
+    render("coucou")
+  },
 }
 
 const route = pathname => { }
 
 (() => {
-  ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours'].forEach(
+  ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours', "/connexion"].forEach(
     path => page(path, controllers[path])
   )
   page()
