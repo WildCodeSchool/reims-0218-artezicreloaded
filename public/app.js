@@ -3,6 +3,22 @@ const mainDiv = document.getElementById('main')
 const render = html => {
   mainDiv.innerHTML = html
 }
+// <iframe src="${item.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>
+
+const cleanUrl = (str) => {
+    const urlRegex =  new RegExp('https:\/\/play.soundsgood.co\/embed\/\\d*\\w*')
+    const urlFromIframe = urlRegex.exec(str)
+    return urlFromIframe[0]
+}
+
+const showModal = (playlist) => {
+    const modal = document.getElementById("modal")
+    $(modal).modal('show')
+    const modalBody = document.getElementById("showThisModal")
+    modalBody.innerHTML =`
+    <p>Titre: ${playlist.titre}</p>
+    <iframe src="${playlist.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>` 
+}
 
 const makePlaylistCard = item => `
     <div class="col-md-4">
@@ -11,24 +27,9 @@ const makePlaylistCard = item => `
                 <p class="card-text">${item.titre}</p>
                 <p>${item.genre}</a>
                 <br>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
+                <button id="${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
                     Lancer ma playlist
                 </button>
-                <div class="modal fade" id="modal${item.playlistId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">${item.titre}</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <iframe width="480" height="270" src="${item.url}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -91,7 +92,6 @@ const controllers = {
         .then(result => result.reduce((carry, user) => carry + user))
         .then(user => {
             resultPlaylistCompete = user
-            console.log(resultPlaylistCompete)
         })
         fetch('/connected')
         .then(res => res.json())
@@ -214,10 +214,13 @@ const controllers = {
         form.addEventListener('submit', e => {
         e.preventDefault()
         const data = serializeForm(form)
+
+        const embedUrl = cleanUrl(data.url)
+
         const dataWithId = {
             titre: data.title,
             genre: data.genre,
-            url: data.url,
+            url: embedUrl,
             compete: data.competition,
             id_wilders: 1
         }
@@ -260,12 +263,37 @@ const controllers = {
             const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
             render(`
             <div class="container">
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div id="showThisModal"class="modal-body">
+                            </div>
+                        </div>
+                    </div> 
+                </div>
                 <h2>Les playlists de ${slug}</h2>
                 <div class="row">
                     ${wilderPlaylistsCards}
                 </div>
-            </div>`)
-      })
+            </div>`
+        )
+        const launchPlaylistButtons = document.getElementsByClassName("launch")
+        Array.from(launchPlaylistButtons).forEach(button => {
+            const playlistData = {
+                foo: "bar"
+            }
+            button.addEventListener('click', ()=>{
+                const playlistClicked = playlists.filter(playlist => playlist.playlistId === Number(button.id))
+                showModal(playlistClicked[0])
+            }) 
+        })
+    })
   },
   '/concours': () => {
     fetch('/playlistsCompete')
@@ -283,6 +311,7 @@ const controllers = {
         `))
     }
 }
+
 
 const route = pathname => {}
 
