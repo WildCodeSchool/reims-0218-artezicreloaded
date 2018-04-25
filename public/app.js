@@ -208,10 +208,18 @@ const controllers = {
         form.addEventListener('submit', e => {
         e.preventDefault()
         const data = serializeForm(form)
+
+        const cleanUrl = (str) => {
+            const urlRegex =  new RegExp('https:\/\/play.soundsgood.co\/embed\/\\d*\\w*')
+            const urlFromIframe = urlRegex.exec(str)
+            return urlFromIframe[0]
+        }
+        const embedUrl = cleanUrl(data.url)
+
         const dataWithId = {
             titre: data.title,
             genre: data.genre,
-            url: data.url,
+            url: embedUrl,
             compete: data.competition,
             id_wilders: 1
         }
