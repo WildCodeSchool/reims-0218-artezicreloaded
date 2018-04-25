@@ -261,10 +261,24 @@ const controllers = {
             render(`
             <div class="container">
                 <h2>Les playlists de ${slug}</h2>
+                <h3>Vos playlists ont été visitée<span id="${slug}"></span> fois</h3>
                 <div class="row">
                     ${wilderPlaylistsCards}
                 </div>
             </div>`)
+            if(typeof localStorage!='undefined') {
+                var nbvisites = localStorage.getItem(`${slug}`);
+                if(nbvisites!=null) {
+                  nbvisites = parseInt(nbvisites);
+                } else {
+                  nbvisites = 1;
+                }
+                nbvisites++;
+                localStorage.setItem(`${slug}`,nbvisites);
+                document.getElementById(`${slug}`).innerHTML = nbvisites;
+              } else {
+                alert("localStorage n'est pas supporté");
+              }
       })
   },
   '/concours': () => {
