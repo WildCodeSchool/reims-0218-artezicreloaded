@@ -243,7 +243,7 @@ app.get('/playlistsCompete', (req, res) => {
     .then(playlistsReturn => {
       console.log("gagnant:", playlistsReturn)
       //adapt wilderWithPlaylists
-      return res.json(wildersWithPlaylists(playlistsReturn))
+      return res.json(playlistsReturn)
     })
 })
 //OBSOLETE.

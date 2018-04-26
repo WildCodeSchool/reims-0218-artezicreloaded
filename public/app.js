@@ -79,7 +79,7 @@ const makeWinningCard = item => {
             <img class="card-img-top" src="https://png.pngtree.com/element_origin_min_pic/17/07/23/473f204a1589862d0264b14f926b4b59.jpg" alt="Card image">
             <div class="card-body">
                 <h4 class="card-title">${item.titre}</h4>
-                <p class="card-text">${item.nbrevotes} votes</p>
+                <p class="card-text">${item.votesNb} votes</p>
                 <a href="https://${item.url}" target="_blank" class="btn btn-primary">Voir la playlist</a>
             </div>
         </div>
@@ -330,9 +330,10 @@ const controllers = {
     fetch('/playlistsCompete')
       .then(res => res.json())
       .then(result => {
+          console.log("the whole result: ", result)
           const winningPlaylistData = result[0].playlists
           console.log(winningPlaylistData)
-          return winningPlaylistData.reduce((carry, user) => carry + makeWinningCard(user), '')
+          return makeWinningCard(result[0])
         })
       .then(book => render(`
         <div class="container align-items-center">
