@@ -91,16 +91,40 @@ const controllers = {
     '/': () => {
         fetch('/playlistsWilders')
         .then(res => res.json())
-        .then(allPlaylists => allPlaylists.reduce((carry, playlist) => carry + makePlaylistCard(playlist), ''))
-        .then(playlistCards => render(
-            `<div class="container">
-                <div class="row">
-                    ${playlistCards}  
+        .then(allPlaylists => {
+            
+            const allPlaylistsCards = allPlaylists.reduce((carry, playlist) => carry + makePlaylistCard(playlist), '')
+            render(
+                `<div class="container">
+                    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div id="showThisModal"class="modal-body">
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="row">
+                        ${allPlaylistsCards}  
+                    </div>
                 </div>
-            </div>
-                `
-        ))
-      },
+                    `
+                )
+            const launchPlaylistButtons = document.getElementsByClassName("launch")
+            Array.from(launchPlaylistButtons).forEach(button => {
+            button.addEventListener('click', ()=>{
+                const playlistClicked = allPlaylists.filter(playlist => playlist.playlistId === Number(button.id))
+                showModal(playlistClicked[0])
+                }) 
+            })
+        })
+    },
     '/monprofil': () => {
         fetch('/connected')
         .then(res => res.json())
@@ -116,7 +140,8 @@ const controllers = {
                     <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
                 </div>
             </div>`
-        ))
+            )
+        )
     },
     '/editer-mon-profil': () => {
         render(`
