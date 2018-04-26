@@ -52,15 +52,24 @@ const makeWilder = item => `
 </div>    
     `
 const makeCardMember = item => `
-    <div class="card">
-        <img class="card-img-top" src="${item.avatar}" alt="Card image">
-        <div class="card-body">
-            <h4 class="card-title">${item.pseudo}</h4>
-            <p class="card-text">${item.bio}</p>
-            <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlists</a>
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-sm-8">
+                <h5 class="display-6">Mon profil</h1>
+                <hr class="my-4">
+                <h1 class="display-4">${item.pseudo}</h1>
+                <hr class="my-4">
+                <p>${item.bio}</p>
+                
+            </div>
+            <div class="col-sm-4">
+                <img src="${item.avatar}" hight="150px" width="300px" alt="My Image"/>
+                <p class="mt-2"><a class="btn-sm btn-info btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a>
+                <a class="btn-sm btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist</a></p>
+            </div>
         </div>
     </div>
-        `
+    `
 
 const makeWinningCard = item => `
     <div class="col-12 col-sm-12 col-md-4">
@@ -128,34 +137,13 @@ const controllers = {
             `
             <div class="container">
                 <div class="row">
-                        ${mesInfos}
-                    </div>
-                    <br/>
-                    <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
-                    <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
+                    ${mesInfos}
                 </div>
             </div>
-            <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="well well-sm">
-                        <div class="media">
-                            <a class="thumbnail pull-left" href="#">
-                                <img class="media-object" src="http://critterapp.pagodabox.com/img/user.jpg">
-                            </a>
-                            <div class="media-body">
-                                <h4 class="media-heading">First Last Name</h4>
-                                <p><span class="label label-info">888 photos</span> <span class="label label-warning">150 followers</span></p>
-                                <p>
-                                    <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-comment"></span> Message</a>
-                                    <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-heart"></span> Favorite</a>
-                                    <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"></span> Unfollow</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+
+
+
             `
         ))
     },
