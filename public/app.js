@@ -30,6 +30,9 @@ const makePlaylistCard = item => `
                 <button id="${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
                     Lancer ma playlist
                 </button>
+                <button id="vote${item.playlistId}" type="button" class="btn btn-primary">
+                    j'aime
+                </button>
             </div>
         </div>
     </div>
@@ -86,39 +89,42 @@ const serializeForm = form => {
 
 const controllers = {
     '/': () => {
-        let resultPlaylistCompete
-        fetch('/playlistsCompete')
+        fetch('/playlistsWilders')
         .then(res => res.json())
-        .then(result => result.reduce((carry, user) => carry + user))
-        .then(user => {
-            resultPlaylistCompete = user
-        })
-        fetch('/connected')
-        .then(res => res.json())
-        .then(connectedMember => {
-            render(`
-                <div class="container">
-                    <div class="container text-center">
-                        <div class="row">
-                            <button type="button" id="hidePlaylist" class="btn btn-warning">La playlist gagnante de la semaine est : ${resultPlaylistCompete.playlists[0].titre} - Elle a obtenu ${resultPlaylistCompete.playlists[0].nbrevotes} votes</button>
-                        </div>
+        .then(allPlaylists => {
+            
+            const allPlaylistsCards = allPlaylists.reduce((carry, playlist) => carry + makePlaylistCard(playlist), '')
+            render(
+                `<div class="container">
+                    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div id="showThisModal"class="modal-body">
+                                </div>
+                            </div>
+                        </div> 
                     </div>
-                    <br/>
-                    <h1>Bienvenue ${connectedMember[0].pseudo}</h1>
-                    <h2>Ce que vous pouvez faire:</h2>
-                    <ul>
-                        <li> 
-                            Ajouter une playlist sur votre page profil
-                        </li>
-                        <li>
-                            Consulter la page membre
-                        </li>
-                    </ul>
-                </div>`
-            )
+                    <div class="row">
+                        ${allPlaylistsCards}  
+                    </div>
+                </div>
+                    `
+                )
+            const launchPlaylistButtons = document.getElementsByClassName("launch")
+            Array.from(launchPlaylistButtons).forEach(button => {
+            button.addEventListener('click', ()=>{
+                const playlistClicked = allPlaylists.filter(playlist => playlist.playlistId === Number(button.id))
+                showModal(playlistClicked[0])
+                }) 
+            })
         })
-
-      },
+    },
     '/monprofil': () => {
         fetch('/connected')
         .then(res => res.json())
@@ -134,7 +140,8 @@ const controllers = {
                     <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
                 </div>
             </div>`
-        ))
+            )
+        )
     },
     '/editer-mon-profil': () => {
         render(`
