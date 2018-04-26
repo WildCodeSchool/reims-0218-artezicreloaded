@@ -71,8 +71,7 @@ const makeCardMember = item => `
     </div>
         `
 
-const makeWinningCard = item => {
-    return `
+const makeWinningCard = item => item.votesNb === null ? `<h5> Pas de gagnant pour l'instant </h5>` : `
     <div class="col-12 col-sm-12 col-md-4">
         <div class="card">
             <img class="card-img-top" src="https://png.pngtree.com/element_origin_min_pic/17/07/23/473f204a1589862d0264b14f926b4b59.jpg" alt="Card image">
@@ -83,7 +82,7 @@ const makeWinningCard = item => {
             </div>
         </div>
       </div>
-        `}
+        `
 
 const makeListsInCompete = item => `
     <div class="card mt-3 mr-3" style="width:400px">
