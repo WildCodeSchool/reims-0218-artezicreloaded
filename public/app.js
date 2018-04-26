@@ -30,9 +30,12 @@ const makePlaylistCard = item => `
                 <button id="${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
                     Lancer ma playlist
                 </button>
-                <button id="vote${item.playlistId}" type="button" class="btn btn-primary">
-                    j'aime
-                </button>
+                <form action="/voteforplaylist" method="post">
+                    <input type="hidden" value="1" name="id_wilders" />
+                    <input type="hidden" value="${item.playlistId}" name="id_playlists" />
+                    <input type="hidden" value="${Date.now()}" name="date" />
+                    <button id="vote${item.playlistId}" type="submit" class="btn btn-success mt-2">Voter J'aime</button>
+                </form>
             </div>
         </div>
     </div>
@@ -318,13 +321,14 @@ const controllers = {
         })
     })
   },
+
   '/concours': () => {
-    fetch('/playlistsInCompete')
+    fetch('/playlistsCompete')
       .then(res => res.json())
-      .then(result => result.reduce((carry, user) => carry + makeListsInCompete(user), ''))
+      .then(result => result.reduce((carry, user) => carry + makeWinningCard(user), ''))
       .then(book => render(`
         <div class="container align-items-center">
-            <h3>Votez pour la playlist de votre choix :</h3>
+            <h3>La playlist gagnante de la semaine est :</h3>
         </div>
         <div class="container align-items-center" style="display: flex; justify-content: center; align-items: center;">
             <div class="row">
@@ -332,7 +336,22 @@ const controllers = {
             </div>
         </div>    
         `))
-    }
+}
+//   '/concours': () => {
+//     fetch('/playlistsInCompete')
+//       .then(res => res.json())
+//       .then(result => result.reduce((carry, user) => carry + makeListsInCompete(user), ''))
+//       .then(book => render(`
+//         <div class="container align-items-center">
+//             <h3>Votez pour la playlist de votre choix :</h3>
+//         </div>
+//         <div class="container align-items-center" style="display: flex; justify-content: center; align-items: center;">
+//             <div class="row">
+//                 ${book}
+//             </div>
+//         </div>    
+//         `))
+//     }
 }
 
 
