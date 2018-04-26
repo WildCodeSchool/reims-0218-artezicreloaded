@@ -327,7 +327,11 @@ const controllers = {
   '/concours': () => {
     fetch('/playlistsCompete')
       .then(res => res.json())
-      .then(result => result.reduce((carry, user) => carry + makeWinningCard(user), ''))
+      .then(result => {
+          const winningPlaylistData = result[0].playlists
+          console.log(winningPlaylistData)
+          return winningPlaylistData.reduce((carry, user) => carry + makeWinningCard(user), '')
+        })
       .then(book => render(`
         <div class="container align-items-center">
             <h3>La playlist gagnante de la semaine est :</h3>

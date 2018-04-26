@@ -242,6 +242,7 @@ app.get('/playlistsCompete', (req, res) => {
     )
     .then(playlistsReturn => {
       console.log("gagnant:", playlistsReturn)
+      //adapt wilderWithPlaylists
       return res.json(wildersWithPlaylists(playlistsReturn))
     })
 })
@@ -255,7 +256,6 @@ app.get('/playlistsInCompete', (req, res) => {
     `
     )
     .then(playlistsReturn => {
-      //adapt wilderWithPlaylists
       return res.json(wildersWithPlaylists(playlistsReturn))
     })
 })
