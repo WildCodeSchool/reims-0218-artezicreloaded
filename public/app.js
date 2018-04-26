@@ -20,6 +20,8 @@ const showModal = (playlist) => {
     <iframe src="${playlist.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>` 
 }
 
+//TODO: change value of first input when authentication is ready 
+
 const makePlaylistCard = item => `
     <div class="col-md-4">
         <div class="card mb-4 box-shadow">
@@ -247,7 +249,6 @@ const controllers = {
             titre: data.title,
             genre: data.genre,
             url: embedUrl,
-            compete: data.competition,
             id_wilders: 1
         }
         fetch('/playlists', {
@@ -336,22 +337,7 @@ const controllers = {
             </div>
         </div>    
         `))
-}
-//   '/concours': () => {
-//     fetch('/playlistsInCompete')
-//       .then(res => res.json())
-//       .then(result => result.reduce((carry, user) => carry + makeListsInCompete(user), ''))
-//       .then(book => render(`
-//         <div class="container align-items-center">
-//             <h3>Votez pour la playlist de votre choix :</h3>
-//         </div>
-//         <div class="container align-items-center" style="display: flex; justify-content: center; align-items: center;">
-//             <div class="row">
-//                 ${book}
-//             </div>
-//         </div>    
-//         `))
-//     }
+    }
 }
 
 

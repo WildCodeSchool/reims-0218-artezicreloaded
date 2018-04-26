@@ -5,8 +5,8 @@
         "avatar": "http://i.pravatar.cc/150",
         "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida, justo et semper blandit, mauris justo tempus arcu, eu auctor erat ipsum nec leo. Proin convallis nibh ac elementum condimentum. Etiam varius, est sed suscipit tempor, tortor lacus porta enim, non dapibus augue magna at magna.",
         "playlists": [ 
-            { "titre": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 2, "compete": true, "votes": 10 },
-            { "titre": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 2, "compete": false, "votes": 0  }
+            { "titre": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 2},
+            { "titre": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 2  }
         ]
     },
     {
@@ -15,8 +15,8 @@
         "avatar": "http://i.pravatar.cc/150",
         "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida, justo et semper blandit, mauris justo tempus arcu, eu auctor erat ipsum nec leo. Proin convallis nibh ac elementum condimentum. Etiam varius, est sed suscipit tempor, tortor lacus porta enim, non dapibus augue magna at magna.",
         "playlists": [ 
-            { "titre": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 5, "compete": true, "votes": 8 },
-            { "titre": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 5, "compete": false, "votes": 0 }
+            { "titre": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 5 },
+            { "titre": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 5 }
         ]
     },
     {
@@ -25,8 +25,8 @@
         "avatar": "http://i.pravatar.cc/150",
         "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida, justo et semper blandit, mauris justo tempus arcu, eu auctor erat ipsum nec leo. Proin convallis nibh ac elementum condimentum. Etiam varius, est sed suscipit tempor, tortor lacus porta enim, non dapibus augue magna at magna.",
         "playlists": [ 
-            { "titre": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 3, "compete": true, "votes": 6 },
-            { "titre": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 3, "compete": false, "votes": 0 }
+            { "titre": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 3 },
+            { "titre": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 3 }
         ]
     },
     {
@@ -35,8 +35,8 @@
         "avatar": "http://i.pravatar.cc/150",
         "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida, justo et semper blandit, mauris justo tempus arcu, eu auctor erat ipsum nec leo. Proin convallis nibh ac elementum condimentum. Etiam varius, est sed suscipit tempor, tortor lacus porta enim, non dapibus augue magna at magna.",
         "playlists": [ 
-            { "titre": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 4, "compete": true, "votes": 4 },
-            { "titre": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 4, "compete": false, "votes": 0 }
+            { "titre": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 4 },
+            { "titre": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 4 }
         ]
     },
     {
@@ -45,8 +45,8 @@
         "avatar": "http://i.pravatar.cc/150",
         "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida, justo et semper blandit, mauris justo tempus arcu, eu auctor erat ipsum nec leo. Proin convallis nibh ac elementum condimentum. Etiam varius, est sed suscipit tempor, tortor lacus porta enim, non dapibus augue magna at magna.",
         "playlists": [ 
-            { "name": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "compete": true, "votes": 4 },
-            { "name": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "compete": false, "votes": 0 }
+            { "name": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 6  },
+            { "name": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 6 }
         ]
     }
 ]

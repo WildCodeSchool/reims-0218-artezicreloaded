@@ -45,11 +45,9 @@ const insertPlaylist = w => {
     titre,
     genre,
     url,
-    id_wilders,
-    compete,
-    nbrevotes
+    id_wilders
   } = w
-  return db.get('INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes) VALUES(?, ?, ?, ?, ?, ?)', titre, genre, url, id_wilders, compete, nbrevotes) // On retourne une méthode (db.get) On passe une requête MYSQL qui prend le titre, url et genre
+  return db.get('INSERT INTO playlists(titre, genre, url, id_wilders) VALUES(?, ?, ?, ?)', titre, genre, url, id_wilders) // On retourne une méthode (db.get) On passe une requête MYSQL qui prend le titre, url et genre
     .then(() => db.get('SELECT last_insert_rowid() as id'))
     .then(({
       id
@@ -157,12 +155,12 @@ app.post('/membres', (req, res) => {
 
 app.post('/voteforplaylist', function(req, res) {
   insertVote(req.body)
-  return res.redirect('/concours')
+  return res.redirect('/')
 })
 
 app.get('/connected', (req, res) => {
   db.all(`
-      SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
+      SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
       from wilders
       left join playlists on wilders.id = playlists.id_wilders
       WHERE id_wilders = 1
@@ -177,7 +175,7 @@ app.get('/membre/:slug', (req, res) => {
   const slug = req.params
   const pseudoFromSlug = [...slug.slug][0].toUpperCase() + slug.slug.slice(1)
   db.all(`
-    SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
+    SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
     from wilders
     left join playlists on wilders.id = playlists.id_wilders
     WHERE pseudo = "${pseudoFromSlug}"
@@ -218,7 +216,7 @@ app.get('/playlists', (req, res) => {
 
 app.get('/playlistsWilders', (req, res) => {
   db.all(
-      `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
+      `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
       from wilders
       left join playlists on wilders.id = playlists.id_wilders
     `
@@ -228,13 +226,29 @@ app.get('/playlistsWilders', (req, res) => {
     })
 })
 
+//TRY:
+// Select votes.id_wilders as wilderId, votes.id_playlists as playlistId, date
+// FROM votes
+// GROUP BY playlistId
+// order by playlistId desc
+// limit 1;
+// BETTER:
+// Select votes.id_wilders as voterId, votes.id_playlists as playlistId, date, SUM(votes.id_playlists) as votesNb
+//  FROM votes
+//  GROUP BY playlistId
+// order by playlistId desc
+// limit 3
+//  ;
+
+
 app.get('/playlistsCompete', (req, res) => {
   db.all(
-      `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
-      from wilders
-      left join playlists on wilders.id = playlists.id_wilders
-      order by nbrevotes desc
-      limit 1
+      `Select votes.id_wilders as voterId, votes.id_playlists as playlistId, date, SUM(votes.id_playlists) as votesNb
+      FROM votes
+      GROUP BY playlistId
+     order by votesNB desc
+     limit 1
+      ;
     `
     )
     .then(playlistsReturn => {
@@ -244,7 +258,7 @@ app.get('/playlistsCompete', (req, res) => {
 
 app.get('/playlistsInCompete', (req, res) => {
   db.all(
-      `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
+      `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
       from wilders
       left join playlists on wilders.id = playlists.id_wilders
       where compete = "true"
