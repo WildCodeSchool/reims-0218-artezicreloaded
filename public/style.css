@@ -15,15 +15,17 @@ section .section-title {
     text-transform: uppercase;
 }
 #footer {
-    background:
-    linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
-    linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
-    linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
-    linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
-    linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
-    linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
-    background-color: #131313;
-    background-size: 20px 20px;
+    background-color:silver;
+background-image: 
+radial-gradient(circle at 100% 150%, black 24%, rgb(19, 19, 19) 25%, rgb(19, 19, 19) 28%, black 29%, black 36%, rgb(19, 19, 19) 36%, rgb(19, 19, 19) 40%, transparent 40%, transparent),
+radial-gradient(circle at 0    150%, black 24%, rgb(19, 19, 19) 25%, rgb(19, 19, 19) 28%, black 29%, black 36%, rgb(19, 19, 19) 36%, rgb(19, 19, 19) 40%, transparent 40%, transparent),
+radial-gradient(circle at 50%  100%, rgb(19, 19, 19) 10%, black 11%, black 23%, rgb(19, 19, 19) 24%, rgb(19, 19, 19) 30%, black 31%, black 43%, rgb(19, 19, 19) 44%, rgb(19, 19, 19) 50%, black 51%, black 63%, rgb(19, 19, 19) 64%, rgb(19, 19, 19) 71%, transparent 71%, transparent),
+radial-gradient(circle at 100% 50%, rgb(19, 19, 19) 5%, black 6%, black 15%, rgb(19, 19, 19) 16%, rgb(19, 19, 19) 20%, black 21%, black 30%, rgb(19, 19, 19) 31%, rgb(19, 19, 19) 35%, black 36%, black 45%, rgb(19, 19, 19) 46%, rgb(19, 19, 19) 49%, transparent 50%, transparent),
+radial-gradient(circle at 0    50%, rgb(19, 19, 19) 5%, black 6%, black 15%, rgb(19, 19, 19) 16%, rgb(19, 19, 19) 20%, black 21%, black 30%, rgb(19, 19, 19) 31%, rgb(19, 19, 19) 35%, black 36%, black 45%, rgb(19, 19, 19) 46%, rgb(19, 19, 19) 49%, transparent 50%, transparent);
+background-size:100px 50px;
+    /*background: linear-gradient( rgb(59, 59, 59), rgb(0, 0, 0));*/
+    border-top: 0.05rem solid rgb(0, 0, 0);
+    padding: 1.5rem 0;
 }
 #footer h5{
 	padding-left: 10px;
@@ -98,27 +100,18 @@ section .section-title {
     
 }
 
-.fa-rss {
-    color: #FF6600;
-}
-
-.fa-vine {
+.fa-spotify {
     color: #00a478;
 }
 
-.fa-flickr {
-    color: #ff0084;
-}
-
-.fa-linkedin {
-    color: #ffffff;
+.fa-soundcloud {
+    color: #FF6600;
 }
 
 .fa {
     opacity: 0.7;
     transition: 1s;
     -webkit-transition: 1s;
-
 }
 
 .fa:hover{
@@ -129,4 +122,9 @@ section .section-title {
 }
 .container{
     text-align: center;
+}
+#school{
+    float: right;
+    width: 150px;
+    height: 150px;
 }

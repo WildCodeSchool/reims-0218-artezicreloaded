@@ -127,44 +127,25 @@ const html = `
 		<div class="container">
 			<div class="row text-center text-xs-center text-sm-left text-md-left">
 				<div class="col-xs-12 col-sm-4 col-md-4">
-					<h5>Linkedin des développeur</h5>
+					<h5>Linkedin des développeurs</h5>
 					<ul class="list-unstyled quick-links">
 						<li><a href="https://www.linkedin.com/in/aureliebayre/"><i class="fa fa-angle-double-right"></i>Aurélie Bayre</a></li>
 						<li><a href="https://www.linkedin.com/in/max-gallois/"><i class="fa fa-angle-double-right"></i>Max Gallois</a></li>
-						<li><a href="https://www.linkedin.com/in/arnaud-gadroy-63136115a/"><i class="fa fa-angle-double-right"></i>Arnaud Gaudroy</a></li>
+						<li><a href="https://www.linkedin.com/in/arnaud-gadroy-63136115a/"><i class="fa fa-angle-double-right"></i>Arnaud Gadroy</a></li>
 						<li><a href="https://www.linkedin.com/in/thibaud-royer-93a7b715a/"><i class="fa fa-angle-double-right"></i>Thibaud Royer</a></li>
 					</ul>
 				</div>
-				<div class="col-xs-12 col-sm-4 col-md-4">
-					<h5>Quick links</h5>
-					<ul class="list-unstyled quick-links">
-						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Home</a></li>
-						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>About</a></li>
-						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
-						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Get Started</a></li>
-						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Videos</a></li>
-					</ul>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-4">
-					<h5>Quick links</h5>
-					<ul class="list-unstyled quick-links">
-						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Home</a></li>
-						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>About</a></li>
-						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
-						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Get Started</a></li>
-						<li><a href="https://wwwe.sunlimetech.com" title="Design and developed by"><i class="fa fa-angle-double-right"></i>Imprint</a></li>
-					</ul>
-				</div>
-			</div>
-      <div class="container">
-        <a href='#'><i class="fa fa-facebook fa-3x fa-fw"></i></a>
-        <a href='#'><i class="fa fa-twitter fa-3x fa-fw"></i></a>
-        <a href='#'><i class="fa fa-youtube-play fa-3x fa-fw"></i></a>
-        <a href='#'><i class="fa fa-rss fa-3x fa-fw"></i></a>
-        <a href='#'><i class="fa fa-vine fa-3x fa-fw"></i></a>
-        <a href='#'><i class="fa fa-flickr fa-3x fa-fw"></i></a>
-        <a href='#'><i class="fa fa-linkedin fa-3x fa-fw"></i></a>
-      </div>		
+        <div class="col-xs-12 col-sm-4 col-md-5">
+          <a href="https://fr-fr.facebook.com/"><i class="fa fa-facebook fa-4x fa-fw"></i></a>
+          <a href="https://twitter.com/"><i class="fa fa-twitter fa-4x fa-fw"></i></a>
+          <a href="https://www.youtube.com/"><i class="fa fa-youtube-play fa-4x fa-fw"></i></a>
+          <a href="https://www.spotify.com/fr/"><i class="fa fa-spotify fa-4x fa-fw"></i></a>
+          <a href="https://soundcloud.com/"><i class="fa fa-soundcloud fa-4x fa-fw"></i></a>
+        </div>	
+        <div class="col-xs-12 col-sm-4 col-md-3">
+          <img id="school" src="https://wildcodeschool.fr/wp-content/uploads/2016/05/cropped-naviconWCS-300x300.png">
+        </div>
+       </div> 	
 		</div>
 	</section>
 </html>`
