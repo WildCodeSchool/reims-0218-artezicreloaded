@@ -64,8 +64,8 @@ const makeCardMember = item => `
             </div>
             <div class="col-sm-4">
                 <img src="${item.avatar}" hight="150px" width="300px" alt="My Image"/>
-                <p class="mt-2"><a class="btn-sm btn-info btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a>
-                <a class="btn-sm btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist</a></p>
+                <p class="mt-2"><a class="btn-sm btn-secondary btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a>
+                <a class="btn-sm btn-info btn-lg" href="/newplaylist" role="button">Ajouter une playlist</a></p>
             </div>
         </div>
     </div>
@@ -74,7 +74,7 @@ const makeCardMember = item => `
 const makeWinningCard = item => `
     <div class="col-12 col-sm-12 col-md-4">
         <div class="card">
-            <img class="card-img-top" src="https://png.pngtree.com/element_origin_min_pic/17/07/23/473f204a1589862d0264b14f926b4b59.jpg" alt="Card image">
+            <img class="card-img-top border" src="https://png.pngtree.com/element_origin_min_pic/17/07/23/473f204a1589862d0264b14f926b4b59.jpg" alt="Card image">
             <div class="card-body">
                 <h4 class="card-title">${item.playlists[0].titre}</h4>
                 <p class="card-text">${item.playlists[0].nbrevotes} votes</p>
@@ -141,10 +141,54 @@ const controllers = {
                 </div>
             </div>
 
-
-
-
-            `
+        <h3><code>Mes playlists</code></h3>
+        <div class="card-deck">
+            <div class="row">
+                <div class="card">   
+                    <div class="card-body border border-info">
+                    <h4 class="card-title">Ma playlist 1</h4>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-muted">Lien de la playlist</small></p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body border border-info">
+                    <h4 class="card-title">Ma playlist 2</h4>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text"><small class="text-muted">Lien de la playlist</small></p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body border border-info">
+                    <h4 class="card-title">Ma playlist 3</h4>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                    <p class="card-text"><small class="text-muted">Lien de la playlist</small></p>
+                    </div>
+                </div>
+                <div class="card">   
+                    <div class="card-body border border-info">
+                        <h4 class="card-title">Ma playlist 4</h4>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-muted">Lien de la playlist</small></p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body border border-info">
+                        <h4 class="card-title">Ma playlist 5</h4>
+                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                        <p class="card-text"><small class="text-muted">Lien de la playlist</small></p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body border border-info">
+                        <h4 class="card-title">Ma playlist 6</h4>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                        <p class="card-text"><small class="text-muted">Lien de la playlist</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `
         ))
     },
     '/editer-mon-profil': () => {
