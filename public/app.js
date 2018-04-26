@@ -114,7 +114,8 @@ const controllers = {
                             Consulter la page membre
                         </li>
                     </ul>
-                </div>`
+                </div>
+                `
             )
         })
 
@@ -133,7 +134,29 @@ const controllers = {
                     <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
                     <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
                 </div>
-            </div>`
+            </div>
+            <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="well well-sm">
+                        <div class="media">
+                            <a class="thumbnail pull-left" href="#">
+                                <img class="media-object" src="http://critterapp.pagodabox.com/img/user.jpg">
+                            </a>
+                            <div class="media-body">
+                                <h4 class="media-heading">First Last Name</h4>
+                                <p><span class="label label-info">888 photos</span> <span class="label label-warning">150 followers</span></p>
+                                <p>
+                                    <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-comment"></span> Message</a>
+                                    <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-heart"></span> Favorite</a>
+                                    <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"></span> Unfollow</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `
         ))
     },
     '/editer-mon-profil': () => {
