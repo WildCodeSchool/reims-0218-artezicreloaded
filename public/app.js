@@ -50,7 +50,7 @@ const makeWilder = item => `
     <div class="card">
       <div class="card">
           <div class="card-body">
-              <img class="card-img-fluid-top" src="${item.avatar}" alt="Card image">
+              <img class="card-img-top" src="${item.avatar}" alt="Card image">
               <h5 class="card-title">${item.pseudo}</h5>
               <p class="card-text">${item.bio}</p>
               <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlists</a>

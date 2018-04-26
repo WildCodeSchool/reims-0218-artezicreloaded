@@ -7,7 +7,9 @@ avatar VARCHAR(255),
 bio TEXT );
 
 INSERT INTO wilders(pseudo, password, avatar, bio)
-VALUES ('Gontran', '12345678', 'http://i.pravatar.cc/150', 'lorem ipsum developer at WCS lorem ipsum developer at WCS lorem ipsum developer at WCS');
+VALUES ('Gontran', 'gogo', 'https://www.chroniquedisney.fr/imgPerso/donaldville/1948-gontran-bonheur-00.png', 'Je suis le neveu de Picsous');
+INSERT INTO wilders(pseudo, password, avatar, bio)
+VALUES ('Aurélie', 'auau', 'https://avatars1.githubusercontent.com/u/26029267?s=460&v=4', 'Je suis étudiante à la Wild Code School');
 
 CREATE TABLE playlists (
 id INTEGER PRIMARY KEY,
