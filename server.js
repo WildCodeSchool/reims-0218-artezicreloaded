@@ -240,11 +240,8 @@ app.get('/playlistsCompete', (req, res) => {
       limit 1;
     `
     )
-    .then(playlistsReturn => {
-      console.log("gagnant:", playlistsReturn)
-      //adapt wilderWithPlaylists
-      return res.json(playlistsReturn)
-    })
+    .then(playlistsReturn => res.json(playlistsReturn)
+    )
 })
 //OBSOLETE.
 app.get('/playlistsInCompete', (req, res) => {

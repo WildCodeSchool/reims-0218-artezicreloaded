@@ -72,7 +72,6 @@ const makeCardMember = item => `
         `
 
 const makeWinningCard = item => {
-    console.log("notre item: ", item)
     return `
     <div class="col-12 col-sm-12 col-md-4">
         <div class="card">
@@ -330,9 +329,7 @@ const controllers = {
     fetch('/playlistsCompete')
       .then(res => res.json())
       .then(result => {
-          console.log("the whole result: ", result)
           const winningPlaylistData = result[0].playlists
-          console.log(winningPlaylistData)
           return makeWinningCard(result[0])
         })
       .then(book => render(`
