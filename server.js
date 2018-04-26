@@ -228,36 +228,24 @@ app.get('/playlistsWilders', (req, res) => {
     })
 })
 
-//TRY:
-// Select votes.id_wilders as wilderId, votes.id_playlists as playlistId, date
-// FROM votes
-// GROUP BY playlistId
-// order by playlistId desc
-// limit 1;
-// BETTER:
-// Select votes.id_wilders as voterId, votes.id_playlists as playlistId, date, SUM(votes.id_playlists) as votesNb
-//  FROM votes
-//  GROUP BY playlistId
-// order by playlistId desc
-// limit 3
-//  ;
-
-
 app.get('/playlistsCompete', (req, res) => {
+  //TODO: a function that render "pas de gagnant pour l'instant"
+  //if no votes in database yet.
   db.all(
-      `Select votes.id_wilders as voterId, votes.id_playlists as playlistId, date, SUM(vote) as votesNb
-      FROM votes
+      `Select votes.id_wilders as voterId, date, SUM(vote) as votesNb, votes.id_playlists as playlistId, titre, genre, url
+      FROM playlists
+      LEFT JOIN votes ON  playlists.id = votes.id_playlists
       GROUP BY playlistId
-     order by votesNB desc
-     limit 1
-      ;
+      ORDER BY votesNB DESC
+      limit 1;
     `
     )
     .then(playlistsReturn => {
+      console.log("gagnant:", playlistsReturn)
       return res.json(wildersWithPlaylists(playlistsReturn))
     })
 })
-
+//OBSOLETE.
 app.get('/playlistsInCompete', (req, res) => {
   db.all(
       `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
@@ -267,6 +255,7 @@ app.get('/playlistsInCompete', (req, res) => {
     `
     )
     .then(playlistsReturn => {
+      //adapt wilderWithPlaylists
       return res.json(wildersWithPlaylists(playlistsReturn))
     })
 })
