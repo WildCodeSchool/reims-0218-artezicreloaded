@@ -57,10 +57,11 @@ const insertPlaylist = w => {
 const insertVote = w => {
   const {
     date,
+    vote,
     id_playlists,
     id_wilders
   } = w
-  return db.get('INSERT INTO votes(date, id_playlists, id_wilders) VALUES(?, ?, ?)', date, id_playlists, id_wilders)
+  return db.get('INSERT INTO votes(date, vote, id_playlists, id_wilders) VALUES(?, ?, ?, ?)', date, vote, id_playlists, id_wilders)
 }
 
 const modifyMyProfile = newInfo => {

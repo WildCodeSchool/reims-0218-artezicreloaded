@@ -43,6 +43,7 @@ VALUES ('NPM', 'rap français', 'https://play.soundsgood.co/embed/5ad9998ee7806b
 CREATE TABLE votes (
 date TEXT,
 id INTEGER PRIMARY KEY,
+vote INTEGER,
 id_playlists INTEGER,
 id_wilders INTEGER,
 FOREIGN KEY(id_wilders) REFERENCES wilders(id),
