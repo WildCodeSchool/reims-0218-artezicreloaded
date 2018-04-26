@@ -84,7 +84,7 @@ const dbPromise = Promise.resolve()
     Promise.map(users, w => {
       insertWilder(w)
     })
-  })
+  })/*
   .then(() => {
     Promise.map(users, w => {
       insertPlaylist(w)
@@ -95,6 +95,7 @@ const dbPromise = Promise.resolve()
       insertVote(w)
     })
   })
+  */
 
 const html = `
   <!doctype html>
@@ -244,7 +245,7 @@ app.get('/playlistsWilders', (req, res) => {
 
 app.get('/playlistsCompete', (req, res) => {
   db.all(
-      `Select votes.id_wilders as voterId, votes.id_playlists as playlistId, date, SUM(votes.id_playlists) as votesNb
+      `Select votes.id_wilders as voterId, votes.id_playlists as playlistId, date, SUM(vote) as votesNb
       FROM votes
       GROUP BY playlistId
      order by votesNB desc
