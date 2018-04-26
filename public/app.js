@@ -30,6 +30,9 @@ const makePlaylistCard = item => `
                 <button id="${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
                     Lancer ma playlist
                 </button>
+                <button id="vote${item.playlistId}" type="button" class="btn btn-primary">
+                    j'aime
+                </button>
             </div>
         </div>
     </div>
