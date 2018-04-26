@@ -229,8 +229,6 @@ app.get('/playlistsWilders', (req, res) => {
 })
 
 app.get('/playlistsCompete', (req, res) => {
-  //TODO: a function that render "pas de gagnant pour l'instant"
-  //if no votes in database yet.
   db.all(
       `Select votes.id_wilders as voterId, date, SUM(vote) as votesNb, votes.id_playlists as playlistId, titre, genre, url
       FROM playlists
@@ -243,7 +241,7 @@ app.get('/playlistsCompete', (req, res) => {
     .then(playlistsReturn => res.json(playlistsReturn)
     )
 })
-//OBSOLETE.
+//OBSOLETE:.
 app.get('/playlistsInCompete', (req, res) => {
   db.all(
       `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
