@@ -13,6 +13,7 @@ passport.use(new LocalStrategy({
     }, 
     function (username, password, cb) {
         console.log(username, password)
+         //in the first vid, Thomas RETURNS the promise...
         userLogin(username, password).then(
             user => {
                 if(!user) {
