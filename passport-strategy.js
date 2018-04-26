@@ -22,7 +22,7 @@ passport.use(new LocalStrategy({
                     return cb(null, { id: user.id, username }, {message: 'Logged In Successfully'})
                 }
             }
-        )
+        )//and here, a .catch(err=> cb(err))
     }
 ))
 
