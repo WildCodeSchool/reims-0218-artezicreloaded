@@ -34,7 +34,7 @@ const makePlaylistCard = item => `
                     <input type="hidden" value="1" name="id_wilders" />
                     <input type="hidden" value="${item.playlistId}" name="id_playlists" />
                     <input type="hidden" value="${Date.now()}" name="date" />
-                    <button id="vote${item.playlistId}" type="submit" class="btn btn-success mt-2">Voter J'aime</button>
+                    <button id="vote${item.playlistId}" type="submit" class="btn btn-success mt-2">J'aime</button>
                 </form>
             </div>
         </div>
