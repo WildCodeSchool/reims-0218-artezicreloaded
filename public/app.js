@@ -86,38 +86,17 @@ const serializeForm = form => {
 
 const controllers = {
     '/': () => {
-        let resultPlaylistCompete
-        fetch('/playlistsCompete')
+        fetch('/playlistsWilders')
         .then(res => res.json())
-        .then(result => result.reduce((carry, user) => carry + user))
-        .then(user => {
-            resultPlaylistCompete = user
-        })
-        fetch('/connected')
-        .then(res => res.json())
-        .then(connectedMember => {
-            render(`
-                <div class="container">
-                    <div class="container text-center">
-                        <div class="row">
-                            <button type="button" id="hidePlaylist" class="btn btn-warning">La playlist gagnante de la semaine est : ${resultPlaylistCompete.playlists[0].titre} - Elle a obtenu ${resultPlaylistCompete.playlists[0].nbrevotes} votes</button>
-                        </div>
-                    </div>
-                    <br/>
-                    <h1>Bienvenue ${connectedMember[0].pseudo}</h1>
-                    <h2>Ce que vous pouvez faire:</h2>
-                    <ul>
-                        <li> 
-                            Ajouter une playlist sur votre page profil
-                        </li>
-                        <li>
-                            Consulter la page membre
-                        </li>
-                    </ul>
-                </div>`
-            )
-        })
-
+        .then(allPlaylists => allPlaylists.reduce((carry, playlist) => carry + makePlaylistCard(playlist), ''))
+        .then(playlistCards => render(
+            `<div class="container">
+                <div class="row">
+                    ${playlistCards}  
+                </div>
+            </div>
+                `
+        ))
       },
     '/monprofil': () => {
         fetch('/connected')
