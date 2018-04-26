@@ -1,6 +1,7 @@
 [
     {
         "pseudo": "Max",
+        "password": "12345678",
         "avatar": "http://i.pravatar.cc/150",
         "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida, justo et semper blandit, mauris justo tempus arcu, eu auctor erat ipsum nec leo. Proin convallis nibh ac elementum condimentum. Etiam varius, est sed suscipit tempor, tortor lacus porta enim, non dapibus augue magna at magna.",
         "playlists": [ 
@@ -10,6 +11,7 @@
     },
     {
         "pseudo": "Thibaud",
+        "password": "12345678",
         "avatar": "http://i.pravatar.cc/150",
         "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida, justo et semper blandit, mauris justo tempus arcu, eu auctor erat ipsum nec leo. Proin convallis nibh ac elementum condimentum. Etiam varius, est sed suscipit tempor, tortor lacus porta enim, non dapibus augue magna at magna.",
         "playlists": [ 
@@ -19,6 +21,7 @@
     },
     {
         "pseudo": "Aurélie",
+        "password": "12345678",
         "avatar": "http://i.pravatar.cc/150",
         "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida, justo et semper blandit, mauris justo tempus arcu, eu auctor erat ipsum nec leo. Proin convallis nibh ac elementum condimentum. Etiam varius, est sed suscipit tempor, tortor lacus porta enim, non dapibus augue magna at magna.",
         "playlists": [ 
@@ -28,6 +31,7 @@
     },
     {
         "pseudo": "Arnaud",
+        "password": "12345678",
         "avatar": "http://i.pravatar.cc/150",
         "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida, justo et semper blandit, mauris justo tempus arcu, eu auctor erat ipsum nec leo. Proin convallis nibh ac elementum condimentum. Etiam varius, est sed suscipit tempor, tortor lacus porta enim, non dapibus augue magna at magna.",
         "playlists": [ 
@@ -37,6 +41,7 @@
     },
     {
         "pseudo": "Spiderno",
+        "password": "12345678",
         "avatar": "http://i.pravatar.cc/150",
         "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida, justo et semper blandit, mauris justo tempus arcu, eu auctor erat ipsum nec leo. Proin convallis nibh ac elementum condimentum. Etiam varius, est sed suscipit tempor, tortor lacus porta enim, non dapibus augue magna at magna.",
         "playlists": [ 

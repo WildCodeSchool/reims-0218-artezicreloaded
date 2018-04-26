@@ -3,51 +3,50 @@ const mainDiv = document.getElementById('main')
 const render = html => {
   mainDiv.innerHTML = html
 }
+// <iframe src="${item.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>
+
+const cleanUrl = (str) => {
+  const urlRegex = new RegExp('https:\/\/play.soundsgood.co\/embed\/\\d*\\w*')
+  const urlFromIframe = urlRegex.exec(str)
+  return urlFromIframe[0]
+}
+
+const showModal = (playlist) => {
+  const modal = document.getElementById("modal")
+  $(modal).modal('show')
+  const modalBody = document.getElementById("showThisModal")
+  modalBody.innerHTML = `
+    <p>Titre: ${playlist.titre}</p>
+    <iframe src="${playlist.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>`
+}
 
 const makePlaylistCard = item => `
     <div class="col-md-4">
-      <div class="card mb-4 box-shadow">
-        <div class="card-body">
-          <p class="card-text">${item.titre}</p>
-          <p>${item.genre}</a>
-          <br>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
-            Lancer ma playlist
-          </button>
-          <div class="modal fade" id="modal${item.playlistId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">${item.titre}</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <iframe width="480" height="270" src="${item.url}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                </div>
-              </div>
+        <div class="card mb-4 box-shadow">
+            <div class="card-body">
+                <p class="card-text">${item.titre}</p>
+                <p>${item.genre}</a>
+                <br>
+                <button id="${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
+                    Lancer ma playlist
+                </button>
             </div>
-          </div>
         </div>
-      </div>
     </div>
     `
 const makeWilder = item => `
-    <div class="col-12 col-sm-12 col-md-3">
-      <div class="card-deck" >
-        <div class="card">
-          <div class="card">
-              <div class="card-body">
-                <img class="card-img-fluid-top" src="${item.avatar}" alt="Card image">
-                <h5 class="card-title">${item.pseudo}</h5>
-                <p class="card-text">${item.bio}</p>
-                <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlists</a>
-              </div>
+  <div class="col-12 col-sm-12 col-md-3 ">
+    <div class="d-flex justify-content-around">
+      <div class="card w-100">
+        <img class="card-img-top" src="${item.avatar}" alt="Card image">
+          <div class="card-body">
+            <h5 class="card-title">${item.pseudo}</h5>
+            <p class="card-text">${item.bio}</p>
+            <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir les playlists</a>
           </div>
-        </div>    
-      </div>
-    </div>    
+        </div>
+      </div>  
+  </div>
     `
 const makeCardMember = item => `
     <div class="card">
@@ -58,8 +57,7 @@ const makeCardMember = item => `
           <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlists</a>
         </div>
     </div>
-        `
-
+    `
 const makeWinningCard = item => `
     <div class="col-12 col-sm-12 col-md-4">
       <div class="card">
@@ -71,7 +69,7 @@ const makeWinningCard = item => `
         </div>
       </div>
     </div>
-  `
+    `
 
 const serializeForm = form => {
   const data = {}
@@ -81,7 +79,6 @@ const serializeForm = form => {
   }
   return data
 }
-
 const controllers = {
   '/': () => {
     let resultPlaylistCompete
@@ -257,13 +254,114 @@ const controllers = {
         const playlists = wilder[0].playlists
         const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
         render(`
-          <div class="container">
-            <h2>Les playlists de ${slug}</h2>
-            <div class="row">
-              ${wilderPlaylistsCards}
+            <div class="container">
+            <div id="alert-box" class="hidden">
             </div>
-          </div>
-        `)
+            <form id="add-playlist">
+                <div class="form-group">
+                <label for="inputTitle">Titre</label>
+                <input name="title" type="text" class="form-control" id="inputTitle" placeholder="Entrez le titre de votre playlist">
+                </div>
+                <div class="form-group">
+                <label for="inputGenre">Genre musical</label>
+                <input name="genre" type="text" class="form-control" id="inputGenre" placeholder="Quel est le genre de votre playlist ?">
+                </div>
+                <div class="form-group">
+                    <label for="inputUrl">Url de votre playlist</label>
+                    <input name="url" type="text" class="form-control" id="inputUrl" placeholder="Entrez l'url de votre playlist">
+                </div>
+                <div class="form-group">
+                    <label for="competition">Concourir avec cette playlist?</label>
+                    <input name="competition" type="radio" id="competition" class="form-control" value="true">
+                </div>        
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            <a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil</a>
+            </div>`)
+        const form = document.getElementById('add-playlist')
+        form.addEventListener('submit', e => {
+          e.preventDefault()
+          const data = serializeForm(form)
+
+          const embedUrl = cleanUrl(data.url)
+
+          const dataWithId = {
+            titre: data.title,
+            genre: data.genre,
+            url: embedUrl,
+            compete: data.competition,
+            id_wilders: 1
+          }
+          fetch('/playlists', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataWithId)
+          })
+            .then(res => res.json())
+            .then(playlist => {
+              const alertBox = document.getElementById('alert-box')
+              alertBox.className = 'alert alert-success'
+              alertBox.innerHTML = `Votre playlist titre ${playlist.titre} (${playlist.id}) a bien été créée`
+            })
+        })
+      })
+  },
+  '/wilders': () => {
+    fetch('/membres')
+      .then(res => res.json())
+      .then(listusers => listusers.reduce((carry, user) => carry + makeWilder(user), ''))
+      .then(book => render(
+        `<div class="container">
+                <div class="row">
+                    ${book}  
+                </div>
+            </div>
+                `))
+  },
+  '/viewplaylists/:slug': ctx => {
+    const {
+      slug
+    } = ctx.params
+    fetch(`/membre/${slug}`)
+      .then(res => res.json())
+      .then(wilder => {
+        const playlists = wilder[0].playlists
+        const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
+        render(`
+            <div class="container">
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div id="showThisModal"class="modal-body">
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <h2>Les playlists de ${slug}</h2>
+                <div class="row">
+                    ${wilderPlaylistsCards}
+                </div>
+            </div>`
+        )
+        const launchPlaylistButtons = document.getElementsByClassName("launch")
+        Array.from(launchPlaylistButtons).forEach(button => {
+          const playlistData = {
+            foo: "bar"
+          }
+          button.addEventListener('click', () => {
+            const playlistClicked = playlists.filter(playlist => playlist.playlistId === Number(button.id))
+            showModal(playlistClicked[0])
+          })
+        })
       })
   },
   '/concours': () => {
@@ -282,6 +380,7 @@ const controllers = {
     `))
   }
 }
+
 
 const route = pathname => { }
 
