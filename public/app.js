@@ -71,18 +71,20 @@ const makeCardMember = item => `
     </div>
         `
 
-const makeWinningCard = item => `
+const makeWinningCard = item => {
+    console.log("notre item: ", item)
+    return `
     <div class="col-12 col-sm-12 col-md-4">
         <div class="card">
             <img class="card-img-top" src="https://png.pngtree.com/element_origin_min_pic/17/07/23/473f204a1589862d0264b14f926b4b59.jpg" alt="Card image">
             <div class="card-body">
-                <h4 class="card-title">${item.playlists[0].titre}</h4>
-                <p class="card-text">${item.playlists[0].nbrevotes} votes</p>
-                <a href="https://${item.playlists[0].url}" target="_blank" class="btn btn-primary">Voir la playlist</a>
+                <h4 class="card-title">${item.titre}</h4>
+                <p class="card-text">${item.nbrevotes} votes</p>
+                <a href="https://${item.url}" target="_blank" class="btn btn-primary">Voir la playlist</a>
             </div>
         </div>
       </div>
-        `
+        `}
 
 const makeListsInCompete = item => `
     <div class="card mt-3 mr-3" style="width:400px">
