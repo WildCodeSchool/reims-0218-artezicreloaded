@@ -78,6 +78,22 @@ const makeWinningCard = item => `
       </div>
         `
 
+const makeListsInCompete = item => `
+    <div class="card mt-3 mr-3" style="width:400px">
+        <div class="card-body">
+            <h4 class="card-title">${item.playlists[0].titre}</h4>
+            <p class="card-text">${item.playlists[0].nbrevotes} votes</p>
+            <a href="${item.playlists[0].url}" class="btn btn-primary">Afficher la playlist</a>
+            <form action="/voteforplaylist" method="post">
+                <input type="hidden" value="1" name="id_wilders" />
+                <input type="hidden" value="${item.playlists[0].playlistId}" name="id_playlists" />
+                <input type="hidden" value="${Date.now()}" name="date" />
+                <button type="submit" class="btn btn-success mt-2">Voter pour cette playlist</button>
+            </form>
+        </div>
+    </div>
+    `
+
 const serializeForm = form => {
   const data = {}
   const elements = form.getElementsByClassName('form-control')
@@ -303,12 +319,12 @@ const controllers = {
     })
   },
   '/concours': () => {
-    fetch('/playlistsCompete')
+    fetch('/playlistsInCompete')
       .then(res => res.json())
-      .then(result => result.reduce((carry, user) => carry + makeWinningCard(user), ''))
+      .then(result => result.reduce((carry, user) => carry + makeListsInCompete(user), ''))
       .then(book => render(`
         <div class="container align-items-center">
-            <h3>La playlist gagnante de la semaine est :</h3>
+            <h3>Votez pour la playlist de votre choix :</h3>
         </div>
         <div class="container align-items-center" style="display: flex; justify-content: center; align-items: center;">
             <div class="row">

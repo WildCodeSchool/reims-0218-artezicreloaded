@@ -24,6 +24,7 @@ app.use(express.static('public'))
 app.use(bodyParser.json())
 //app.use('/auth', auth)
 
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 const insertWilder = w => {
   const {
@@ -55,6 +56,15 @@ const insertPlaylist = w => {
     }) => db.get('SELECT * from playlists WHERE id = ?', id))
 }
 
+const insertVote = w => {
+  const {
+    date,
+    id_playlists,
+    id_wilders
+  } = w
+  return db.get('INSERT INTO votes(date, id_playlists, id_wilders) VALUES(?, ?, ?)', date, id_playlists, id_wilders)
+}
+
 const modifyMyProfile = newInfo => {
   const { pseudo, bio, avatar } = newInfo
   return db.get('UPDATE wilders SET pseudo=?, bio=?, avatar=? WHERE id=1', pseudo, bio, avatar)
@@ -79,6 +89,11 @@ const dbPromise = Promise.resolve()
   .then(() => {
     Promise.map(users, w => {
       insertPlaylist(w)
+    })
+  })
+  .then(() => {
+    Promise.map(users, w => {
+      insertVote(w)
     })
   })
 
@@ -138,6 +153,11 @@ app.post('/membres', (req, res) => {
     .then(recordNewWilder => {
       return res.json(recordNewWilder)
     })
+})
+
+app.post('/voteforplaylist', function(req, res) {
+  insertVote(req.body)
+  return res.redirect('/concours')
 })
 
 app.get('/connected', (req, res) => {
@@ -216,6 +236,19 @@ app.get('/playlistsCompete', (req, res) => {
       where compete = "true"
       order by nbrevotes desc
       limit 1
+    `
+    )
+    .then(playlistsReturn => {
+      return res.json(wildersWithPlaylists(playlistsReturn))
+    })
+})
+
+app.get('/playlistsInCompete', (req, res) => {
+  db.all(
+      `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
+      from wilders
+      left join playlists on wilders.id = playlists.id_wilders
+      where compete = "true"
     `
     )
     .then(playlistsReturn => {
