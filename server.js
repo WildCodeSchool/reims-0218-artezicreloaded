@@ -233,7 +233,6 @@ app.get('/playlistsCompete', (req, res) => {
       `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
       from wilders
       left join playlists on wilders.id = playlists.id_wilders
-      where compete = "true"
       order by nbrevotes desc
       limit 1
     `
