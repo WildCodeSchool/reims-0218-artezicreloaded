@@ -78,7 +78,10 @@ const makeWinningCard = item => item.votesNb === null ? `<h5> Pas de gagnant pou
             <div class="card-body">
                 <h4 class="card-title">${item.titre}</h4>
                 <p class="card-text">${item.votesNb} votes</p>
-                <a href="https://${item.url}" target="_blank" class="btn btn-primary">Voir la playlist</a>
+                <br>
+                <button id="launchPlaylist" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
+                    Lancer ma playlist
+                </button>
             </div>
         </div>
       </div>
@@ -313,9 +316,6 @@ const controllers = {
         )
         const launchPlaylistButtons = document.getElementsByClassName("launch")
         Array.from(launchPlaylistButtons).forEach(button => {
-            const playlistData = {
-                foo: "bar"
-            }
             button.addEventListener('click', ()=>{
                 const playlistClicked = playlists.filter(playlist => playlist.playlistId === Number(button.id))
                 showModal(playlistClicked[0])
@@ -329,18 +329,37 @@ const controllers = {
       .then(res => res.json())
       .then(result => {
           const winningPlaylistData = result[0].playlists
-          return makeWinningCard(result[0])
-        })
-      .then(book => render(`
-        <div class="container align-items-center">
-            <h3>La playlist gagnante de la semaine est :</h3>
-        </div>
-        <div class="container align-items-center" style="display: flex; justify-content: center; align-items: center;">
-            <div class="row">
-                ${book}
+          const winner = makeWinningCard(result[0])
+       
+      
+          render(`
+            <div class="container align-items-center">
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div id="showThisModal"class="modal-body">
+                            </div>
+                        </div>
+                    </div> 
+                </div>
             </div>
-        </div>    
-        `))
+            <div class="container align-items-center" style="display: flex; justify-content: center; align-items: center;">
+                <div class="row">
+                    ${winner}
+                </div>
+            </div>    
+            `)
+            const winningPlaylistButton = document.getElementById('launchPlaylist')
+            winningPlaylistButton.addEventListener('click', () =>{
+                return showModal(result[0])
+            })
+        })
     }
 }
 
