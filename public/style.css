@@ -3,7 +3,11 @@ h5{
 }
 .card-body{
   text-align: center;
+
 }
 .card-text{
   text-align: justify;
+}
+#titre{
+  text-align: center;
 }

@@ -24,8 +24,8 @@ const makePlaylistCard = item => `
     <div class="col-md-4">
         <div class="card mb-4 box-shadow">
             <div class="card-body">
-                <p class="card-text">${item.titre}</p>
-                <p>${item.genre}</a>
+                <p id="titre" class="card-text">${item.titre}</p>
+                <p >${item.genre}</p>
                 <br>
                 <button id="${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
                     Lancer ma playlist
