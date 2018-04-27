@@ -3,7 +3,6 @@ const mainDiv = document.getElementById('main')
 const render = html => {
   mainDiv.innerHTML = html
 }
-// <iframe src="${item.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>
 
 const cleanUrl = (str) => {
   const urlRegex = new RegExp('https:\/\/play.soundsgood.co\/embed\/\\d*\\w*')
@@ -22,7 +21,10 @@ const showModal = (playlist) => {
 
 //TODO: change value of first input when authentication is ready 
 
-const makePlaylistCard = item => `
+const makePlaylistCard = (item, tokenInStore) => {
+    return !tokenInStore ? `
+    Vous ne pouvez pas voter car vous n'êtes pas authentifié.
+    ` : `
     <div class="col-md-4">
         <div class="card mb-4 box-shadow">
             <div class="card-body">
@@ -42,7 +44,7 @@ const makePlaylistCard = item => `
             </div>
         </div>
     </div>
-    `
+    ` }
 const makeWilder = item => `
   <div class="col-12 col-sm-12 col-md-3 ">
     <div class="d-flex justify-content-around">
@@ -110,15 +112,24 @@ const serializeForm = form => {
   return data
 }
 
-const token = localStorage.getItem('token')
+//const token = localStorage.getItem('token')
 
 const controllers = {
   '/': () => {
+
+    const localStore = localStorage
+    /*
+    *   const token gets the token from local store. 
+    * if no token in store, then value = null
+    */
+    const token = localStore.getItem('token')
+    console.log(token)
+
     fetch('/playlistsWilders')
       .then(res => res.json())
       .then(allPlaylists => {
 
-        const allPlaylistsCards = allPlaylists.reduce((carry, playlist) => carry + makePlaylistCard(playlist), '')
+        const allPlaylistsCards = allPlaylists.reduce((carry, playlist) => carry + makePlaylistCard(playlist, token), '')
         render(
           `<div class="container">
                 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -139,7 +150,7 @@ const controllers = {
                     ${allPlaylistsCards}  
                 </div>
             </div>
-                `
+            `
         )
         const launchPlaylistButtons = document.getElementsByClassName("launch")
         Array.from(launchPlaylistButtons).forEach(button => {
@@ -250,10 +261,10 @@ const controllers = {
         id_wilders: 1
       }
     fetch('/playlists', {
-    method: 'POST',
-    headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
     },
     body: JSON.stringify(dataWithId)
     })
