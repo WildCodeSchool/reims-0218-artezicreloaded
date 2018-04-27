@@ -218,24 +218,25 @@ const controllers = {
   '/newplaylist': () => {
     render(`
       <div class="container">
-      <div id="alert-box" class="hidden">
-      </div>
-      <form id="add-playlist">
-          <div class="form-group">
-          <label for="inputTitle">Titre</label>
-          <input name="title" type="text" class="form-control" id="inputTitle" placeholder="Entrez le titre de votre playlist">
-          </div>
-          <div class="form-group">
-          <label for="inputGenre">Genre musical</label>
-          <input name="genre" type="text" class="form-control" id="inputGenre" placeholder="Quel est le genre de votre playlist ?">
-          </div>
-          <div class="form-group">
-            <label for="inputUrl">Copiez Le code intégré de Soundsgood</label>
-            <input name="url" type="text" class="form-control" id="inputUrl" placeholder="Copiez Ici">
-          </div>      
-      </form>
-      <a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil</a>
-      </div>`)
+        <div id="alert-box" class="hidden">
+        </div>
+        <form id="add-playlist">
+            <div class="form-group">
+                <label for="inputTitle">Titre</label>
+                <input name="title" type="text" class="form-control" id="inputTitle" placeholder="Entrez le titre de votre playlist">
+            </div>
+            <div class="form-group">
+                <label for="inputGenre">Genre musical</label>
+                <input name="genre" type="text" class="form-control" id="inputGenre" placeholder="Quel est le genre de votre playlist ?">
+            </div>
+            <div class="form-group">
+                <label for="inputUrl">Copiez Le code intégré de Soundsgood</label>
+                <input name="url" type="text" class="form-control" id="inputUrl" placeholder="Copiez Ici">
+            </div>      
+        </form>
+        <a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil</a>
+      </div>`
+    )
     const form = document.getElementById('add-playlist')
     form.addEventListener('submit', e => {
       e.preventDefault()
@@ -247,6 +248,7 @@ const controllers = {
         compete: data.competition,
         id_wilders: 1
       }
+      console.log("playlist qu'on envoie: ", data)
       fetch('/playlists', {
         method: 'POST',
         headers: {
