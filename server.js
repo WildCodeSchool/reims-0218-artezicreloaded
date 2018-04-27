@@ -117,6 +117,12 @@ const html = `
               <div class="carousel-item active">
                 <img class="d-block w-100" src="http://res.cloudinary.com/dlfnke6kc/image/upload/v1524129058/artezik_2_reloaded_zfn4l4.jpg" alt="Artezik2 reloaded">
               </div>
+              <div class="carousel-item"> 
+                <img class="d-block w-100" src="http://res.cloudinary.com/dlfnke6kc/image/upload/v1524742523/artezik_2_reloaded_green_svho1r.jpg" alt="Artezik2 reloaded">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="http://res.cloudinary.com/dlfnke6kc/image/upload/v1524742523/artezik_2_reloaded_yellow_lklcf3.jpg" alt="Artezik2 reloaded">
+              </div>
             </div>
           </div>
         <div id="main">
