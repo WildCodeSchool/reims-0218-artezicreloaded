@@ -410,7 +410,7 @@ const controllers = {
 
     document.getElementById('test').addEventListener('click', () => {
         const token = localStorage.getItem('token')
-        console.log(token)
+        console.log("notre token :", token)
         fetch('test',{
             method: 'GET',
             headers: {
@@ -522,7 +522,7 @@ const controllers = {
     loginForm.addEventListener('submit', e => {
       e.preventDefault()
       const data = serializeForm(loginForm)
-      console.log(data)
+      console.log("la data de /connexion: ", data)
       fetch('/auth/login', {
         method: 'POST',
         headers: {

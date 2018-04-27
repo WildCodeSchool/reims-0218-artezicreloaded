@@ -12,7 +12,7 @@ passport.use(new LocalStrategy({
         passwordField: 'password'
     }, 
     function (username, password, cb) {
-        console.log(username, password)
+        console.log("username: ", username, "password: ", password)
          //in the first vid, Thomas RETURNS the promise...
         return userLogin(username, password).then(
             user => {
