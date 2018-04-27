@@ -13,6 +13,7 @@ passport.use(new LocalStrategy({
     }, 
     function (username, password, cb) {
         console.log(username, password)
+         //in the first vid, Thomas RETURNS the promise...
         userLogin(username, password).then(
             user => {
                 if(!user) {
@@ -21,7 +22,7 @@ passport.use(new LocalStrategy({
                     return cb(null, { id: user.id, username }, {message: 'Logged In Successfully'})
                 }
             }
-        )
+        )//and here, a .catch(err=> cb(err))
     }
 ))
 

@@ -20,6 +20,8 @@ const showModal = (playlist) => {
     <iframe src="${playlist.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>` 
 }
 
+//TODO: change value of first input when authentication is ready 
+
 const makePlaylistCard = item => `
     <div class="col-md-4">
         <div class="card mb-4 box-shadow">
@@ -30,9 +32,13 @@ const makePlaylistCard = item => `
                 <button id="${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
                     Lancer ma playlist
                 </button>
-                <button id="vote${item.playlistId}" type="button" class="btn btn-primary">
-                    j'aime
-                </button>
+                <form action="/voteforplaylist" method="post">
+                    <input type="hidden" value="1" name="id_wilders" />
+                    <input type="hidden" value="1" name="vote" />
+                    <input type="hidden" value="${item.playlistId}" name="id_playlists" />
+                    <input type="hidden" value="${Date.now()}" name="date" />
+                    <button id="vote${item.playlistId}" type="submit" class="btn btn-success mt-2">J'aime</button>
+                </form>
             </div>
         </div>
     </div>
@@ -44,7 +50,7 @@ const makeWilder = item => `
     <div class="card">
       <div class="card">
           <div class="card-body">
-              <img class="card-img-fluid-top" src="${item.avatar}" alt="Card image">
+              <img class="card-img-top" src="${item.avatar}" alt="Card image">
               <h5 class="card-title">${item.pseudo}</h5>
               <p class="card-text">${item.bio}</p>
               <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlists</a>
@@ -65,18 +71,37 @@ const makeCardMember = item => `
     </div>
         `
 
-const makeWinningCard = item => `
+const makeWinningCard = item => item.votesNb === null ? `<h5> Pas de gagnant pour l'instant </h5>` : `
     <div class="col-12 col-sm-12 col-md-4">
         <div class="card">
             <img class="card-img-top" src="https://png.pngtree.com/element_origin_min_pic/17/07/23/473f204a1589862d0264b14f926b4b59.jpg" alt="Card image">
             <div class="card-body">
-                <h4 class="card-title">${item.playlists[0].titre}</h4>
-                <p class="card-text">${item.playlists[0].nbrevotes} votes</p>
-                <a href="https://${item.playlists[0].url}" target="_blank" class="btn btn-primary">Voir la playlist</a>
+                <h4 class="card-title">${item.titre}</h4>
+                <p class="card-text">${item.votesNb} votes</p>
+                <br>
+                <button id="launchPlaylist" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
+                    Lancer ma playlist
+                </button>
             </div>
         </div>
       </div>
         `
+
+const makeListsInCompete = item => `
+    <div class="card mt-3 mr-3" style="width:400px">
+        <div class="card-body">
+            <h4 class="card-title">${item.playlists[0].titre}</h4>
+            <p class="card-text">${item.playlists[0].nbrevotes} votes</p>
+            <a href="${item.playlists[0].url}" class="btn btn-primary">Afficher la playlist</a>
+            <form action="/voteforplaylist" method="post">
+                <input type="hidden" value="1" name="id_wilders" />
+                <input type="hidden" value="${item.playlists[0].playlistId}" name="id_playlists" />
+                <input type="hidden" value="${Date.now()}" name="date" />
+                <button type="submit" class="btn btn-success mt-2">Voter pour cette playlist</button>
+            </form>
+        </div>
+    </div>
+    `
 
 const serializeForm = form => {
   const data = {}
@@ -228,7 +253,6 @@ const controllers = {
             titre: data.title,
             genre: data.genre,
             url: embedUrl,
-            compete: data.competition,
             id_wilders: 1
         }
         fetch('/playlists', {
@@ -292,9 +316,6 @@ const controllers = {
         )
         const launchPlaylistButtons = document.getElementsByClassName("launch")
         Array.from(launchPlaylistButtons).forEach(button => {
-            const playlistData = {
-                foo: "bar"
-            }
             button.addEventListener('click', ()=>{
                 const playlistClicked = playlists.filter(playlist => playlist.playlistId === Number(button.id))
                 showModal(playlistClicked[0])
@@ -302,20 +323,43 @@ const controllers = {
         })
     })
   },
+
   '/concours': () => {
     fetch('/playlistsCompete')
       .then(res => res.json())
-      .then(result => result.reduce((carry, user) => carry + makeWinningCard(user), ''))
-      .then(book => render(`
-        <div class="container align-items-center">
-            <h3>La playlist gagnante de la semaine est :</h3>
-        </div>
-        <div class="container align-items-center" style="display: flex; justify-content: center; align-items: center;">
-            <div class="row">
-                ${book}
+      .then(result => {
+          const winningPlaylistData = result[0].playlists
+          const winner = makeWinningCard(result[0])
+       
+      
+          render(`
+            <div class="container align-items-center">
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div id="showThisModal"class="modal-body">
+                            </div>
+                        </div>
+                    </div> 
+                </div>
             </div>
-        </div>    
-        `))
+            <div class="container align-items-center" style="display: flex; justify-content: center; align-items: center;">
+                <div class="row">
+                    ${winner}
+                </div>
+            </div>    
+            `)
+            const winningPlaylistButton = document.getElementById('launchPlaylist')
+            winningPlaylistButton.addEventListener('click', () =>{
+                return showModal(result[0])
+            })
+        })
     }
 }
 
