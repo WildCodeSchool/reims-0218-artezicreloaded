@@ -10,10 +10,10 @@ let db
 router.post('/login', function (req, res, next) {
   //TODO this is artificial, will test only for Gontran.
   //We need to make it dynamically
-    db.all('SELECT * from wilders WHERE id="1"')
-    .then(user => {
-      res.json(user)
-    })
+    // db.all('SELECT * from wilders WHERE id="1"')
+    // .then(user => {
+    //   res.json(user)
+    // })
 
     passport.authenticate('local', {session: false}, (err, user, info) => {
         if (err || !user) {
