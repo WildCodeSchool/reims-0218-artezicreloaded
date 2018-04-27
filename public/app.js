@@ -382,7 +382,10 @@ const controllers = {
                     //alert class danger
                     alert.innerHTML = `echec`
                 } else {
-                    alert.innerHTML = `${data.user.username} est connecté <button id="disconnect" type="button">se deconnecter</button>`
+                    console.log("connexion réussie")
+                    alert.innerHTML = `${data.user.username} est connecté <br/> 
+                        <button id="disconnect" type="button">se deconnecter</button><br/>
+                        <a href="/">Retour aux votes</a>`
                     //stores the token
                     localStorage.setItem('token', data.token)
                     loginForm.style.display = 'none'
