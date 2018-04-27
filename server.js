@@ -136,7 +136,7 @@ const html = `
 					</ul>
 				</div>
         <div class="col-xs-12 col-sm-4 col-md-6">
-        <p id="pf">Créer et partager vos playlist</p>
+        <p id="pf">|  Créer et partager vos playlist  |</p>
           <a href="https://fr-fr.facebook.com/"><i class="fa fa-facebook fa-4x fa-fw"></i></a>
           <a href="https://twitter.com/"><i class="fa fa-twitter fa-4x fa-fw"></i></a>
           <a href="https://www.youtube.com/"><i class="fa fa-youtube-play fa-4x fa-fw"></i></a>
@@ -144,7 +144,7 @@ const html = `
           <a href="https://soundcloud.com/"><i class="fa fa-soundcloud fa-4x fa-fw"></i></a>
         </div>	
         <div class="col-xs-12 col-sm-4 col-md-3">
-          <img id="school" src="https://wildcodeschool.fr/wp-content/uploads/2016/05/cropped-naviconWCS-300x300.png">
+          <a href="https://wildcodeschool.fr/"><img id="school" src="https://wildcodeschool.fr/wp-content/uploads/2016/05/cropped-naviconWCS-300x300.png"></a>
         </div>
        </div> 	
     </div>
