@@ -249,14 +249,14 @@ const controllers = {
         compete: data.competition,
         id_wilders: 1
       }
-      fetch('/playlists', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json, text/plain, */*',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dataWithId)
-      })
+    fetch('/playlists', {
+    method: 'POST',
+    headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(dataWithId)
+    })
         .then(res => res.json())
         .then(playlist => {
           const alertBox = document.getElementById('alert-box')
@@ -264,50 +264,50 @@ const controllers = {
           alertBox.innerHTML = `Votre playlist titre ${playlist.titre} (${playlist.id}) a bien été créée`
         })
     })
-  },
-  '/wilders': () => {
-    fetch('/membres')
-      .then(res => res.json())
-      .then(listusers => listusers.reduce((carry, user) => carry + makeWilder(user), ''))
-      .then(book => render(
-        `<div class="container">
-          <div class="row">
-            ${book}  
-          </div>
-        </div>
-      `))
-  },
-  '/viewplaylists/:slug': ctx => {
-    const {
-      slug
-    } = ctx.params
-    fetch(`/membre/${slug}`)
-      .then(res => res.json())
-      .then(wilder => {
-        const playlists = wilder[0].playlists
-        const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
-        render(`
-            <div class="container">
-                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+    },
+    '/wilders': () => {
+        fetch('/membres')
+        .then(res => res.json())
+        .then(listusers => listusers.reduce((carry, user) => carry + makeWilder(user), ''))
+        .then(book => render(
+            `<div class="container">
+            <div class="row">
+                ${book}  
+            </div>
+            </div>
+        `))
+    },
+    '/viewplaylists/:slug': ctx => {
+        const {
+        slug
+        } = ctx.params
+        fetch(`/membre/${slug}`)
+        .then(res => res.json())
+        .then(wilder => {
+            const playlists = wilder[0].playlists
+            const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
+            render(`
+                <div class="container">
+                    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div id="showThisModal"class="modal-body">
+                                </div>
                             </div>
-                            <div id="showThisModal"class="modal-body">
-                            </div>
-                        </div>
-                    </div> 
-                </div>
-                <h2>Les playlists de ${slug}</h2>
-                <div class="row">
-                    ${wilderPlaylistsCards}
-                </div>
-            </div>`
-        )
+                        </div> 
+                    </div>
+                    <h2>Les playlists de ${slug}</h2>
+                    <div class="row">
+                        ${wilderPlaylistsCards}
+                    </div>
+                </div>`
+            )
         const launchPlaylistButtons = document.getElementsByClassName("launch")
         Array.from(launchPlaylistButtons).forEach(button => {
             const playlistData = {
