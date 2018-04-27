@@ -1,5 +1,7 @@
 const mainDiv = document.getElementById('main')
 
+require('./passport-strategy');
+
 const render = html => {
   mainDiv.innerHTML = html
 }
