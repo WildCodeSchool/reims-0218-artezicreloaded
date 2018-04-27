@@ -1,6 +1,6 @@
 const mainDiv = document.getElementById('main')
 
-require('./passport-strategy');
+//require('./passport-strategy');
 
 const render = html => {
   mainDiv.innerHTML = html
@@ -364,9 +364,9 @@ const controllers = {
             e.preventDefault()
             //data ?
             const data = serializeForm(loginForm)
-            console.log(data)
+            console.log("données du form ", data)
             //post sur le server /auth/login
-            fetch('/auth/login', {
+            fetch('/auth/login', { //does this route exist in server.js?
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
@@ -376,6 +376,7 @@ const controllers = {
             })
             .then(res => res.json())
             .then(data => {
+                console.log("res after post", data)
                 const alert = document.getElementById('alert-login')
                 if(!data.user) {
                     //alert class danger

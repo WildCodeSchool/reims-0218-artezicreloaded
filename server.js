@@ -243,19 +243,6 @@ app.get('/playlistsWilders', (req, res) => {
     })
 })
 
-app.get('/playlistsInCompete', (req, res) => {
-  db.all(
-    `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
-      from wilders
-      left join playlists on wilders.id = playlists.id_wilders
-      where compete = "true"
-    `
-  )
-    .then(playlistsReturn => {
-      return res.json(wildersWithPlaylists(playlistsReturn))
-    })
-})
-
 app.get('/playlistsCompete', (req, res) => {
   db.all(
     `Select votes.id_wilders as voterId, date, SUM(vote) as votesNb, votes.id_playlists as playlistId, titre, genre, url
@@ -268,19 +255,6 @@ app.get('/playlistsCompete', (req, res) => {
   )
     .then(playlistsReturn => res.json(playlistsReturn)
     )
-})
-//OBSOLETE:.
-app.get('/playlistsInCompete', (req, res) => {
-  db.all(
-    `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
-      from wilders
-      left join playlists on wilders.id = playlists.id_wilders
-      where compete = "true"
-    `
-  )
-    .then(playlistsReturn => {
-      return res.json(wildersWithPlaylists(playlistsReturn))
-    })
 })
 
 app.get('/playlists/1', (req, res) => {
