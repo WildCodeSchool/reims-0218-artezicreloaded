@@ -27,7 +27,7 @@ background-size:100px 50px;
     border-top: 0.05rem solid rgb(0, 0, 0);
     padding: 1.5rem 0;
     height: 250px;
-    margin-top: 50px;
+    margin-top: 80px;
 }
 #footer h5{
 	padding-left: 10px;
@@ -124,6 +124,7 @@ background-size:100px 50px;
 }
 .container{
     text-align: center;
+    margin-top: -10px;
 }
 #school{
     float: right;

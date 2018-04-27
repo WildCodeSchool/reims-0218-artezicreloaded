@@ -1,6 +1,11 @@
 const sqlite = require('sqlite')
 const express = require('express')
 const Promise = require('bluebird')
+const passport = require('passport')
+const jwt = require('jsonwebtoken')
+
+require('./passport-strategy')
+//const auth = require('./auth')
 
 const {
   wildersWithPlaylists
@@ -17,14 +22,18 @@ let db
 
 app.use(express.static('public'))
 app.use(bodyParser.json())
+//app.use('/auth', auth)
+
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 const insertWilder = w => {
   const {
     pseudo,
+    password,
     bio,
     avatar
   } = w
-  return db.get('INSERT INTO wilders(pseudo, bio, avatar) VALUES(?, ?, ?)', pseudo, bio, avatar)
+  return db.get('INSERT INTO wilders(pseudo, password, bio, avatar) VALUES(?, ?, ?, ?)', pseudo, password, bio, avatar)
     .then(() => db.get('SELECT last_insert_rowid() as id'))
     .then(({
       id
@@ -36,24 +45,29 @@ const insertPlaylist = w => {
     titre,
     genre,
     url,
-    id_wilders,
-    compete,
-    nbrevotes
+    id_wilders
   } = w
-  return db.get('INSERT INTO playlists(titre, genre, url, id_wilders, compete, nbrevotes) VALUES(?, ?, ?, ?, ?, ?)', titre, genre, url, id_wilders, compete, nbrevotes) // On retourne une méthode (db.get) On passe une requête MYSQL qui prend le titre, url et genre
+  return db.get('INSERT INTO playlists(titre, genre, url, id_wilders) VALUES(?, ?, ?, ?)', titre, genre, url, id_wilders) // On retourne une méthode (db.get) On passe une requête MYSQL qui prend le titre, url et genre
     .then(() => db.get('SELECT last_insert_rowid() as id'))
     .then(({
       id
     }) => db.get('SELECT * from playlists WHERE id = ?', id))
 }
 
-const modifyMyProfile = newInfo => {
+const insertVote = w => {
   const {
-    pseudo,
-    bio
-  } = newInfo
-  return db.get('UPDATE wilders SET pseudo=?, bio=? WHERE id=1', pseudo, bio)
-    .then(() => db.get('SELECT * from wilders WHERE ID=1'))
+    date,
+    vote,
+    id_playlists,
+    id_wilders
+  } = w
+  return db.get('INSERT INTO votes(date, vote, id_playlists, id_wilders) VALUES(?, ?, ?, ?)', date, vote, id_playlists, id_wilders)
+}
+
+const modifyMyProfile = newInfo => {
+  const { pseudo, bio, avatar } = newInfo
+  return db.get('UPDATE wilders SET pseudo=?, bio=?, avatar=? WHERE id=1', pseudo, bio, avatar)
+  .then(()=> db.get('SELECT * from wilders WHERE ID=1'))
 }
 
 const dbPromise = Promise.resolve()
@@ -70,12 +84,18 @@ const dbPromise = Promise.resolve()
     Promise.map(users, w => {
       insertWilder(w)
     })
-  })
+  })/*
   .then(() => {
     Promise.map(users, w => {
       insertPlaylist(w)
     })
   })
+  .then(() => {
+    Promise.map(users, w => {
+      insertVote(w)
+    })
+  })
+  */
 
 const html = `
 <!doctype html>
@@ -136,7 +156,7 @@ const html = `
 					</ul>
 				</div>
         <div class="col-xs-12 col-sm-4 col-md-6">
-        <p id="pf">|  Créer et partager vos playlist  |</p>
+        <p id="pf">|  Importer et partager vos playlist  |</p>
           <a href="https://fr-fr.facebook.com/"><i class="fa fa-facebook fa-4x fa-fw"></i></a>
           <a href="https://twitter.com/"><i class="fa fa-twitter fa-4x fa-fw"></i></a>
           <a href="https://www.youtube.com/"><i class="fa fa-youtube-play fa-4x fa-fw"></i></a>
@@ -160,20 +180,25 @@ app.get('/', (req, res) => {
 app.post('/membres', (req, res) => {
   return insertWilder(req.body)
     .then(recordNewWilder => {
-      res.json(recordNewWilder)
+      return res.json(recordNewWilder)
     })
+})
+
+app.post('/voteforplaylist', function(req, res) {
+  insertVote(req.body)
+  return res.redirect('/')
 })
 
 app.get('/connected', (req, res) => {
   db.all(`
-      SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
+      SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
       from wilders
       left join playlists on wilders.id = playlists.id_wilders
       WHERE id_wilders = 1
       ; 
       `)
     .then(wilderPlaylists => {
-      res.json(wildersWithPlaylists(wilderPlaylists))
+      return res.json(wildersWithPlaylists(wilderPlaylists))
     })
 })
 
@@ -181,7 +206,7 @@ app.get('/membre/:slug', (req, res) => {
   const slug = req.params
   const pseudoFromSlug = [...slug.slug][0].toUpperCase() + slug.slug.slice(1)
   db.all(`
-    SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
+    SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
     from wilders
     left join playlists on wilders.id = playlists.id_wilders
     WHERE pseudo = "${pseudoFromSlug}"
@@ -222,7 +247,7 @@ app.get('/playlists', (req, res) => {
 
 app.get('/playlistsWilders', (req, res) => {
   db.all(
-      `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
+      `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
       from wilders
       left join playlists on wilders.id = playlists.id_wilders
     `
@@ -234,12 +259,24 @@ app.get('/playlistsWilders', (req, res) => {
 
 app.get('/playlistsCompete', (req, res) => {
   db.all(
-      `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
+      `Select votes.id_wilders as voterId, date, SUM(vote) as votesNb, votes.id_playlists as playlistId, titre, genre, url
+      FROM playlists
+      LEFT JOIN votes ON  playlists.id = votes.id_playlists
+      GROUP BY playlistId
+      ORDER BY votesNB DESC
+      limit 1;
+    `
+    )
+    .then(playlistsReturn => res.json(playlistsReturn)
+    )
+})
+//OBSOLETE:.
+app.get('/playlistsInCompete', (req, res) => {
+  db.all(
+      `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
       from wilders
       left join playlists on wilders.id = playlists.id_wilders
       where compete = "true"
-      order by nbrevotes desc
-      limit 1
     `
     )
     .then(playlistsReturn => {
@@ -253,6 +290,30 @@ app.get('/playlists/1', (req, res) => {
       res.json(allPlaylists)
     })
 })
+
+app.get('/connexion', passport.authenticate('jwt', {session: false}), (req, res) => {
+  res.send(`authorized for user ${req.user.username} with id ${req.user.id}`)
+})
+
+app.post('/auth/login', function (req, res) {
+    passport.authenticate('local', {session: false}, (err, user, info) => {
+        if (err || !user) {
+            return res.status(400).json({
+                message: 'Something is not right',
+                user   : user
+            })
+        }
+      req.login(user, {session: false}, (err) => {
+          if (err) {
+              res.send(err)
+          }
+          // generate a signed son web token with the contents of user object and return it in the response
+          const token = jwt.sign(user, 'your_jwt_secret')
+          return res.json({user, token})
+        })
+      })(req, res)
+})
+
 
 app.get('*', (req, res) => {
   res.send(html)
