@@ -23,7 +23,20 @@ const showModal = (playlist) => {
 
 const makePlaylistCard = (item, tokenInStore) => {
     return !tokenInStore ? `
-    Vous ne pouvez pas voter car vous n'êtes pas authentifié.
+        <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+                <div class="card-body">
+                    <p class="card-text">${item.titre}</p>
+                    <p>${item.genre}</a>
+                    <br>
+                    <button id="${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
+                        Lancer ma playlist
+                    </button>
+                    <a href="/authentification" id="vote${item.playlistId}"class="btn btn-success mt-2">J'aime</a>
+                </div>
+            </div>
+        </div>
+    
     ` : `
     <div class="col-md-4">
         <div class="card mb-4 box-shadow">
@@ -113,18 +126,17 @@ const serializeForm = form => {
 }
 
 //const token = localStorage.getItem('token')
-
-const controllers = {
-  '/': () => {
-
-    const localStore = localStorage
-    /*
+  /*
     *   const token gets the token from local store. 
     * if no token in store, then value = null
     */
-    const token = localStore.getItem('token')
-    console.log(token)
+   const localStore = localStorage
+   let token = localStore.getItem('token')
+   console.log(token)
 
+
+const controllers = {
+  '/': () => {
     fetch('/playlistsWilders')
       .then(res => res.json())
       .then(allPlaylists => {
@@ -517,7 +529,7 @@ const controllers = {
         body: JSON.stringify(data)
       })
     })
-  },
+  }
 }
 
 
