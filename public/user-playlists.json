@@ -1,47 +1,42 @@
 [
     {
         "pseudo": "Max",
-        "avatar": "http://i.pravatar.cc/150",
-        "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida, justo et semper blandit, mauris justo tempus arcu, eu auctor erat ipsum nec leo. Proin convallis nibh ac elementum condimentum. Etiam varius, est sed suscipit tempor, tortor lacus porta enim, non dapibus augue magna at magna.",
+        "password": "mama",
+        "avatar": "https://static.lexpress.fr/medias_10096/w_640,h_360,c_fill,g_north/v1418292980/mad-max-fury-road_5169179.jpg",
+        "bio": "Je me prépare sur le circuit de Gueux.",
         "playlists": [ 
-            { "titre": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 2, "compete": true, "votes": 10 },
-            { "titre": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 2, "compete": false, "votes": 0  }
+            { "titre": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 2},
+            { "titre": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 2  }
         ]
     },
     {
         "pseudo": "Thibaud",
-        "avatar": "http://i.pravatar.cc/150",
-        "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida, justo et semper blandit, mauris justo tempus arcu, eu auctor erat ipsum nec leo. Proin convallis nibh ac elementum condimentum. Etiam varius, est sed suscipit tempor, tortor lacus porta enim, non dapibus augue magna at magna.",
+        "password": "thithi",
+        "avatar": "https://vignette.wikia.nocookie.net/studio-ghibli/images/1/1f/Totoro.gif/revision/latest/top-crop/width/480/height/480?cb=20130110181320",
+        "bio": "Je veux repartir au Japon!",
         "playlists": [ 
-            { "titre": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 5, "compete": true, "votes": 8 },
-            { "titre": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 5, "compete": false, "votes": 0 }
-        ]
-    },
-    {
-        "pseudo": "Aurélie",
-        "avatar": "http://i.pravatar.cc/150",
-        "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida, justo et semper blandit, mauris justo tempus arcu, eu auctor erat ipsum nec leo. Proin convallis nibh ac elementum condimentum. Etiam varius, est sed suscipit tempor, tortor lacus porta enim, non dapibus augue magna at magna.",
-        "playlists": [ 
-            { "titre": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 3, "compete": true, "votes": 6 },
-            { "titre": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 3, "compete": false, "votes": 0 }
+            { "titre": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 5 },
+            { "titre": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 5 }
         ]
     },
     {
         "pseudo": "Arnaud",
-        "avatar": "http://i.pravatar.cc/150",
-        "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida, justo et semper blandit, mauris justo tempus arcu, eu auctor erat ipsum nec leo. Proin convallis nibh ac elementum condimentum. Etiam varius, est sed suscipit tempor, tortor lacus porta enim, non dapibus augue magna at magna.",
+        "password": "arar",
+        "avatar": "https://media.licdn.com/dms/image/C4E03AQFuM44NtzNl5A/profile-displayphoto-shrink_800_800/0?e=1529971200&v=beta&t=go7BlZSbBgB1-TlW1E65lQAt3hiaGpwjc0LSfrAGovw",
+        "bio": "Plusieurs cordes à sa tablette graphique",
         "playlists": [ 
-            { "titre": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 4, "compete": true, "votes": 4 },
-            { "titre": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 4, "compete": false, "votes": 0 }
+            { "titre": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 4 },
+            { "titre": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 4 }
         ]
     },
     {
         "pseudo": "Spiderno",
-        "avatar": "http://i.pravatar.cc/150",
-        "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida, justo et semper blandit, mauris justo tempus arcu, eu auctor erat ipsum nec leo. Proin convallis nibh ac elementum condimentum. Etiam varius, est sed suscipit tempor, tortor lacus porta enim, non dapibus augue magna at magna.",
+        "password": "spispi",
+        "avatar": "http://images.goodsmile.info/cgm/images/product/20170606/6486/45777/large/0f78fbdf148fd7d0da70b85ad091dd4d.jpg",
+        "bio": "Le scrum master des scrum masters, au centre de la Toile.",
         "playlists": [ 
-            { "name": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "compete": true, "votes": 4 },
-            { "name": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "compete": false, "votes": 0 }
+            { "name": "J'adore le rap", "genre": "Rap Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 6  },
+            { "name": "J'adore le rock", "genre": "Rock Français", "url": "https://play.soundsgood.co/playlist/max-2", "id_wilders": 6 }
         ]
     }
 ]
