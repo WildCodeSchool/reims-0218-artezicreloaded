@@ -5,17 +5,24 @@ const passportJWT = require("passport-jwt")
 const JWTStrategy   = passportJWT.Strategy
 const ExtractJWT = passportJWT.ExtractJwt
 
+const  { userLogin } = require('./dbrequests') 
+
 passport.use(new LocalStrategy({
         usernameField: 'username',
         passwordField: 'password'
     }, 
     function (username, password, cb) {
-        //this one is typically a DB call. Assume that the returned user object is pre-formatted and ready for storing in JWT
-        if (password !== 'wildcode') {
-            return cb(null, false, {message: 'Incorrect username or password.'})
-        } else {
-            return cb(null, { id: 1, username }, {message: 'Logged In Successfully'})
-        }
+        console.log(username, password)
+         //in the first vid, Thomas RETURNS the promise...
+        userLogin(username, password).then(
+            user => {
+                if(!user) {
+                    return cb(null, false, {message: 'Incorrect username or password.'})
+                } else {
+                    return cb(null, { id: user.id, username }, {message: 'Logged In Successfully'})
+                }
+            }
+        )//and here, a .catch(err=> cb(err))
     }
 ))
 

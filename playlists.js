@@ -8,9 +8,7 @@ const isolatePlaylist = wilder => {
             "playlistId": wilder.playlistId,
             "titre": wilder.titre,
             "genre": wilder.genre,
-            "url": wilder.url,
-            "compete": wilder.compete,
-            "nbrevotes": wilder.nbrevotes
+            "url": wilder.url
         }
     }
 }
