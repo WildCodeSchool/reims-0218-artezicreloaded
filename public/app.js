@@ -232,7 +232,8 @@ const controllers = {
             <div class="form-group">
                 <label for="inputUrl">Copiez Le code intégré de Soundsgood</label>
                 <input name="url" type="text" class="form-control" id="inputUrl" placeholder="Copiez Ici">
-            </div>      
+            </div> 
+            <button type="submit" class="btn btn-primary">Submit</button>     
         </form>
         <a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil</a>
       </div>`
@@ -248,7 +249,6 @@ const controllers = {
         compete: data.competition,
         id_wilders: 1
       }
-      console.log("playlist qu'on envoie: ", data)
       fetch('/playlists', {
         method: 'POST',
         headers: {
