@@ -67,7 +67,7 @@ const insertVote = w => {
 const modifyMyProfile = newInfo => {
   const { pseudo, bio, avatar } = newInfo
   return db.get('UPDATE wilders SET pseudo=?, bio=?, avatar=? WHERE id=1', pseudo, bio, avatar)
-  .then(()=> db.get('SELECT * from wilders WHERE ID=1'))
+    .then(() => db.get('SELECT * from wilders WHERE ID=1'))
 }
 
 const dbPromise = Promise.resolve()
@@ -105,27 +105,34 @@ const html = `
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <title>Artezic Reloaded</title>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    </head>
+      <link rel="stylesheet" href="style.css">
+      </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light col-12 col-sm-12 col-md-12">
-          <a class="navbar-brand" href="/">Artezic</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="/monprofil">Mon profil<span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/wilders">Equipe</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/concours">Concours</a>
-              </li>
-            </ul>
-          </div>
-        </nav>
+      <div class="container">
+        <div class="row">
+          <nav class="navbar navbar-expand-lg navbar-dark bg-primary col-12 col-sm-12 col-md-12">
+            <a class="navbar-brand" href="/">Artezic</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/monprofil">Mon profil<span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/wilders">Equipe</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/concours">Concours</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/vainqueurs">Vainqueurs</a>
+                  </li>
+                </ul> 
+              </div>
+                <a href="/connexion" class="btn btn-outline-light my-2 my-sm-0" role="button">Connexion</a>
+          </nav>
           <div id="carouselSlidesOnly" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active">
@@ -135,6 +142,7 @@ const html = `
           </div>
         <div id="main">
         </div>
+      </div>
       <script src="/page.js"></script>
       <script src="/app.js"></script>
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -151,11 +159,11 @@ app.get('/', (req, res) => {
 app.post('/membres', (req, res) => {
   return insertWilder(req.body)
     .then(recordNewWilder => {
-      return res.json(recordNewWilder)
+      res.json(recordNewWilder)
     })
 })
 
-app.post('/voteforplaylist', function(req, res) {
+app.post('/voteforplaylist', function (req, res) {
   insertVote(req.body)
   return res.redirect('/')
 })
@@ -169,7 +177,7 @@ app.get('/connected', (req, res) => {
       ; 
       `)
     .then(wilderPlaylists => {
-      return res.json(wildersWithPlaylists(wilderPlaylists))
+      res.json(wildersWithPlaylists(wilderPlaylists))
     })
 })
 
@@ -225,38 +233,51 @@ app.get('/playlists', (req, res) => {
 
 app.get('/playlistsWilders', (req, res) => {
   db.all(
-      `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
+    `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
       from wilders
       left join playlists on wilders.id = playlists.id_wilders
     `
-    )
+  )
     .then(playlistsByWilders => {
       res.json(playlistsByWilders)
     })
 })
 
+app.get('/playlistsInCompete', (req, res) => {
+  db.all(
+    `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url, compete, nbrevotes
+      from wilders
+      left join playlists on wilders.id = playlists.id_wilders
+      where compete = "true"
+    `
+  )
+    .then(playlistsReturn => {
+      return res.json(wildersWithPlaylists(playlistsReturn))
+    })
+})
+
 app.get('/playlistsCompete', (req, res) => {
   db.all(
-      `Select votes.id_wilders as voterId, date, SUM(vote) as votesNb, votes.id_playlists as playlistId, titre, genre, url
+    `Select votes.id_wilders as voterId, date, SUM(vote) as votesNb, votes.id_playlists as playlistId, titre, genre, url
       FROM playlists
       LEFT JOIN votes ON  playlists.id = votes.id_playlists
       GROUP BY playlistId
       ORDER BY votesNB DESC
       limit 1;
     `
-    )
+  )
     .then(playlistsReturn => res.json(playlistsReturn)
     )
 })
 //OBSOLETE:.
 app.get('/playlistsInCompete', (req, res) => {
   db.all(
-      `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
+    `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
       from wilders
       left join playlists on wilders.id = playlists.id_wilders
       where compete = "true"
     `
-    )
+  )
     .then(playlistsReturn => {
       return res.json(wildersWithPlaylists(playlistsReturn))
     })
@@ -269,27 +290,27 @@ app.get('/playlists/1', (req, res) => {
     })
 })
 
-app.get('/connexion', passport.authenticate('jwt', {session: false}), (req, res) => {
+app.get('/connexion', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.send(`authorized for user ${req.user.username} with id ${req.user.id}`)
 })
 
 app.post('/auth/login', function (req, res) {
-    passport.authenticate('local', {session: false}, (err, user, info) => {
-        if (err || !user) {
-            return res.status(400).json({
-                message: 'Something is not right',
-                user   : user
-            })
-        }
-      req.login(user, {session: false}, (err) => {
-          if (err) {
-              res.send(err)
-          }
-          // generate a signed son web token with the contents of user object and return it in the response
-          const token = jwt.sign(user, 'your_jwt_secret')
-          return res.json({user, token})
-        })
-      })(req, res)
+  passport.authenticate('local', { session: false }, (err, user, info) => {
+    if (err || !user) {
+      return res.status(400).json({
+        message: 'Something is not right',
+        user: user
+      })
+    }
+    req.login(user, { session: false }, (err) => {
+      if (err) {
+        res.send(err)
+      }
+      // generate a signed son web token with the contents of user object and return it in the response
+      const token = jwt.sign(user, 'your_jwt_secret')
+      return res.json({ user, token })
+    })
+  })(req, res)
 })
 
 
