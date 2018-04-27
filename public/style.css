@@ -26,6 +26,8 @@ background-size:100px 50px;
     /*background: linear-gradient( rgb(59, 59, 59), rgb(0, 0, 0));*/
     border-top: 0.05rem solid rgb(0, 0, 0);
     padding: 1.5rem 0;
+    height: 250px;
+    margin-top: 50px;
 }
 #footer h5{
 	padding-left: 10px;
@@ -93,6 +95,8 @@ background-size:100px 50px;
 
 .fa-facebook {
     color: #3B5998;
+
+    margin-left: 40px;
 }
 
 .fa-youtube-play {
@@ -127,4 +131,19 @@ background-size:100px 50px;
     float: right;
     width: 150px;
     height: 150px;
+}
+#pff{
+    text-align: center;
+    color: #eeeeee;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+#pf{
+    color: #8d8d8d;
+    text-align: center;
+    margin-top: 30px;
+}
+#school{
+    margin-top: 23px;
+    margin-right: 10px;
 }
