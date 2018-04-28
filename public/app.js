@@ -1,9 +1,6 @@
 import { refreshInterval, showModal } from './utils.js'
-//import { showModal } from './utils.js'
 
 const mainDiv = document.getElementById('main')
-
-//require('./passport-strategy');
 
 const render = html => {
   mainDiv.innerHTML = html
@@ -14,17 +11,6 @@ const cleanUrl = (str) => {
   const urlFromIframe = urlRegex.exec(str)
   return urlFromIframe[0]
 }
-
-// const showModal = (playlist) => {
-//   const modal = document.getElementById("modal")
-//   $(modal).modal('show')
-//   const modalBody = document.getElementById("showThisModal")
-//   modalBody.innerHTML = `
-//     <p>Titre: ${playlist.titre}</p>
-//     <iframe src="${playlist.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>`
-// }
-
-//TODO: change value of first input when authentication is ready 
 
 const makePlaylistCard = (item, tokenInStore) => {
     return !tokenInStore ? `
@@ -62,7 +48,9 @@ const makePlaylistCard = (item, tokenInStore) => {
             </div>
         </div>
     </div>
-    ` }
+    ` 
+}
+
 const makeWilder = item => `
   <div class="col-12 col-sm-12 col-md-3 ">
     <div class="d-flex justify-content-around">
@@ -77,7 +65,8 @@ const makeWilder = item => `
       </div>  
   </div>
     `
-const makeCardMember = item => `
+
+    const makeCardMember = item => `
     <div class="card">
         <img class="card-img-top" src="${item.avatar}" alt="Card image">
         <div class="card-body">
@@ -133,14 +122,11 @@ const serializeForm = form => {
 const localStore = localStorage
 let token = localStore.getItem('token')
 
-
-
 const controllers = {
   '/': () => {
     fetch('/playlistsWilders')
       .then(res => res.json())
       .then(allPlaylists => {
-
         const allPlaylistsCards = allPlaylists.reduce((carry, playlist) => carry + makePlaylistCard(playlist, token), '')
         render(
           `<div class="container">
@@ -355,13 +341,11 @@ const controllers = {
                     <div class="row">
                         ${wilderPlaylistsCards}
                     </div>
-                </div>`
+                </div>
+                `
             )
         const launchPlaylistButtons = document.getElementsByClassName("launch")
         Array.from(launchPlaylistButtons).forEach(button => {
-            const playlistData = {
-                foo: "bar"
-            }
             button.addEventListener('click', ()=>{
                 const playlistClicked = playlists.filter(playlist => playlist.playlistId === Number(button.id))
                 showModal(playlistClicked[0])
@@ -430,7 +414,6 @@ const controllers = {
             `)
         })
     }
-
     document.getElementById('test').addEventListener('click', () => {
         const token = localStorage.getItem('token')
         fetch('test',{
@@ -445,7 +428,6 @@ const controllers = {
         .catch(err => console.log(err))
     })
     },
-
     '/wilders': () => {
         fetch('/membres')
         .then(res => res.json())
@@ -498,7 +480,6 @@ const controllers = {
         })
       })
   },
-
   '/concours': () => {
     fetch('/playlistsCompete')
       .then(res => res.json())
@@ -555,7 +536,6 @@ const controllers = {
     })
   }
 }
-
 
 const route = pathname => { }
 
