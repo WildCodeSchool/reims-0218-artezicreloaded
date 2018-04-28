@@ -107,21 +107,32 @@ const html = `
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light col-12 col-sm-12 col-md-12">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark col-12 col-sm-12 col-md-12" id="menu">
           <a class="navbar-brand" href="/">Artezic</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="/monprofil">Mon profil<span class="sr-only">(current)</span></a>
+              <li class="nav-item px-2">
+                <a class="nav-link" href="/monprofil">Mon profil</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item px-2">
                 <a class="nav-link" href="/wilders">Equipe</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item px-2">
                 <a class="nav-link" href="/concours">Concours</a>
+              </li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item dropdown mr-3">
+                <a href="#" class="nav-link"><i class="fa fa-user"></i> Welcome Gontran</a>
+              </li>
+              <li class="nav-item">
+                <a href="login.html" class="nav-link">
+                  <i class="fa fa-user-times"></i> Logout
+                </a>
               </li>
             </ul>
           </div>
@@ -137,6 +148,19 @@ const html = `
         </div>
       <script src="/page.js"></script>
       <script src="/app.js"></script>
+      <script>
+        // Add active class to the current button (highlight it)
+        var header = document.getElementById("menu");
+        var btns = header.getElementsByClassName("nav-link");
+        console.log(btns);
+        for (var i = 0; i < btns.length; i++) {
+          btns[i].addEventListener("click", function() {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active ok", "");
+            this.className += " active ok";
+          });
+        }
+      </script>
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
