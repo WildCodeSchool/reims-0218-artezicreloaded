@@ -21,7 +21,7 @@ const makePlaylistCard = (item, tokenInStore) => {
                     <p>${item.genre}</a>
                     <br>
                     <button id="${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
-                        Lancer ma playlist
+                        Ecouter
                     </button>
                     <a href="/authentification" id="vote${item.playlistId}"class="btn btn-success mt-2">J'aime</a>
                 </div>
@@ -36,7 +36,7 @@ const makePlaylistCard = (item, tokenInStore) => {
                 <p>${item.genre}</a>
                 <br>
                 <button id="${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
-                    Lancer ma playlist
+                    Ecouter
                 </button>
                 <form action="/voteforplaylist" method="post">
                     <input type="hidden" value="1" name="id_wilders" />
@@ -86,7 +86,7 @@ const makeWinningCard = item => item.votesNb === null ? `<h5> Pas de gagnant pou
                 <p class="card-text">${item.votesNb} votes</p>
                 <br>
                 <button id="launchPlaylist" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
-                    Lancer ma playlist
+                    Ecouter
                 </button>
             </div>
         </div>
