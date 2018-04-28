@@ -5,7 +5,6 @@ const passport = require('passport')
 const jwt = require('jsonwebtoken')
 
 require('./passport-strategy')
-//const auth = require('./auth')
 
 const {
   wildersWithPlaylists
@@ -22,9 +21,8 @@ let db
 
 app.use(express.static('public'))
 app.use(bodyParser.json())
-//app.use('/auth', auth)
 
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); 
 
 const insertWilder = w => {
   const {
