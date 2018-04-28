@@ -412,16 +412,16 @@ const controllers = {
     document.getElementById('test').addEventListener('click', () => {
         const token = localStorage.getItem('token')
         fetch('test',{
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + token,          
-            }
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token,          
+                }
+            })
+            .then(res => res.json())
+            .catch(err => console.log(err))
         })
-        .then(res => res.json())
-        .catch(err => console.log(err))
-    })
     },
   '/viewplaylists/:slug': ctx => {
     const {
