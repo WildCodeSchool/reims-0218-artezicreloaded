@@ -176,11 +176,19 @@ const controllers = {
         const disconnectButton = document.getElementById('disconnect')
         disconnectButton.addEventListener('click', () => {
             localStore.removeItem('token')
-            location.reload()
+            render(`
+            <div class="alert alert-warning" role="alert">
+                Vous avez êté déconnecté.
+            </div>
+               
+            `)
+            setTimeout(()=>location.reload(), 2000)
         })
-      })
+    })
   },
   '/monprofil': () => {
+        //from the token we need to find which user it is.
+    console.log(token)
     fetch('/connected')
       .then(res => res.json())
       .then(membre => makeCardMember(membre[0]))
@@ -360,9 +368,8 @@ const controllers = {
             `
     render(`
         <div id="alert-login"></div> 
-        ${ !token ? loginFormHtml : '<button id="disconnect" type="button">se deconnecter</button>' }
-        <div id="test">CALL TEST</div>
-    `)
+        ${ !token ? loginFormHtml : '<button id="disconnect" type="button">se deconnecter</button>' }`
+    )
     if (!token) {
         const loginForm = document.getElementById('loginForm')
         loginForm.addEventListener('submit', e => {
@@ -388,9 +395,7 @@ const controllers = {
                     alert.innerHTML = `echec`
                 } else {
                     console.log("connexion réussie")
-                    alert.innerHTML = `${data.user.username} est connecté <br/> 
-                        <button id="disconnect" type="button">se deconnecter</button><br/>
-                        <a href="/">Retour aux votes</a>`
+                    alert.innerHTML = `Bonjour ${data.user.username} !`
                     //stores the token
                     localStorage.setItem('token', data.token)
                     loginForm.style.display = 'none'
@@ -399,10 +404,9 @@ const controllers = {
                         render(`
                             <div id="alert-login"></div> 
                             ${ loginFormHtml }
-                            <div id="test">CALL TEST</div>
                         `)
                     })
-                    location.reload()
+                    setTimeout(()=>location.reload(), 2000)
                 }
             })
         })
@@ -410,9 +414,10 @@ const controllers = {
         document.getElementById('disconnect').addEventListener('click', () => {
             localStorage.removeItem('token')
             render(`
-                <div id="alert-login"></div> 
-                ${ loginFormHtml }
-                <div id="test">CALL TEST</div>
+            <div class="alert alert-warning" role="alert">
+                Vous avez êté déconnecté.
+            </div>
+               
             `)
         })
     }
