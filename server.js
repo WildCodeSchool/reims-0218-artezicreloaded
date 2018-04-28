@@ -126,12 +126,12 @@ const html = `
                   <li class="nav-item">
                     <a class="nav-link" href="/concours">Concours</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/vainqueurs">Vainqueurs</a>
-                  </li>
                 </ul> 
               </div>
-                <a href="/connexion" class="btn btn-outline-light my-2 my-sm-0" role="button">Connexion</a>
+                <a href="/authentification" class="btn btn-outline-light my-2 my-sm-0" role="button">Connexion</a>
+                <button id="disconnect" class="btn btn-danger" type="button">
+                Off
+              </button>
           </nav>
           <div id="carouselSlidesOnly" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
