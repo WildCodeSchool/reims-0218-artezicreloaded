@@ -1,4 +1,4 @@
-import { refreshInterval, showModal } from './utils.js'
+import { refreshInterval, showModal, disconnect } from './utils.js'
 
 const mainDiv = document.getElementById('main')
 
@@ -157,18 +157,7 @@ const controllers = {
             showModal(playlistClicked[0])
           })
         })
-        const disconnectButton = document.getElementById('disconnect')
-        disconnectButton.addEventListener('click', () => {
-            localStore.removeItem('token')
-            localStorage.removeItem('username')
-            render(`
-            <div class="alert alert-warning" role="alert">
-                Vous avez êté déconnecté.
-            </div>
-               
-            `)
-            refreshInterval()
-        })
+        disconnect(localStore)
     })
   },
   '/monprofil': () => {
@@ -188,18 +177,21 @@ const controllers = {
         .then(connectedMember => {
             return makeCardMember(connectedMember[0])
         })
-        .then(mesInfos => render(
-          `
-          <div class="container">
-            <div class="row">
-              ${mesInfos}
-            </div>
-              <br/>
-              <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
-              <p><a class="btn btn-success btn-lg" href="/newplaylist" type="button">Ajouter une playlist</a></p>
-            </div>
-          </div>
-        `))
+        .then(mesInfos => {
+            render(
+                `
+                <div class="container">
+                    <div class="row">
+                    ${mesInfos}
+                    </div>
+                    <br/>
+                    <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
+                    <p><a class="btn btn-success btn-lg" href="/newplaylist" type="button">Ajouter une playlist</a></p>
+                    </div>
+                </div>
+                `)
+            })
+        disconnect(localStore)
     }
   },
   '/editer-mon-profil': () => {
@@ -304,13 +296,16 @@ const controllers = {
         fetch('/membres')
         .then(res => res.json())
         .then(listusers => listusers.reduce((carry, user) => carry + makeWilder(user), ''))
-        .then(book => render(
+        .then(book => {
+            render(
             `<div class="container">
             <div class="row">
                 ${book}  
             </div>
             </div>
-        `))
+            `)
+            disconnect(localStore)
+        })
     },
     '/viewplaylists/:slug': ctx => {
         const {
@@ -513,6 +508,7 @@ const controllers = {
         winningPlaylistButton.addEventListener('click', () => {
           return showModal(result[0])
         })
+        disconnect(localStore)
       })
   },
   '/connexion': () => {
