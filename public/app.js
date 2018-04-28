@@ -397,6 +397,7 @@ const controllers = {
                             <div id="test">CALL TEST</div>
                         `)
                     })
+                    location.reload()
                 }
             })
         })
