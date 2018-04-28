@@ -168,19 +168,6 @@ app.post('/voteforplaylist', function (req, res) {
   return res.redirect('/')
 })
 
-// app.get('/connected', (req, res) => {
-//   db.all(`
-//       SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
-//       from wilders
-//       left join playlists on wilders.id = playlists.id_wilders
-//       WHERE id_wilders = 1
-//       ; 
-//       `)
-//     .then(wilderPlaylists => {
-//       res.json(wildersWithPlaylists(wilderPlaylists))
-//     })
-// })
-
 app.get('/connected/:username', (req, res) => {
   const username = "Aurélie"
   db.all(`
