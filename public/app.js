@@ -130,14 +130,9 @@ const serializeForm = form => {
   return data
 }
 
-//const token = localStorage.getItem('token')
-  /*
-    *   const token gets the token from local store. 
-    * if no token in store, then value = null
-    */
-   const localStore = localStorage
-   let token = localStore.getItem('token')
-   console.log(token)
+const localStore = localStorage
+let token = localStore.getItem('token')
+
 
 
 const controllers = {
@@ -191,7 +186,7 @@ const controllers = {
     })
   },
   '/monprofil': () => {
-    const username = localStorage.getItem('username')
+   const username = localStore.username
     if (!username) {
         return render(`
             <div class="alert alert-danger" role="alert">
@@ -201,9 +196,12 @@ const controllers = {
             `
         )
     } else {
-        fetch('/connected/${username}')
+        fetch('/connected')
         .then(res => res.json())
-        .then(membre => makeCardMember(membre[0]))
+        .then(allWildersWithPlaylists => allWildersWithPlaylists.filter( wilder => wilder.pseudo === username))
+        .then(connectedMember => {
+            return makeCardMember(connectedMember[0])
+        })
         .then(mesInfos => render(
           `
           <div class="container">

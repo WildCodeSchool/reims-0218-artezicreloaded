@@ -84,18 +84,7 @@ const dbPromise = Promise.resolve()
     Promise.map(users, w => {
       insertWilder(w)
     })
-  })/*
-  .then(() => {
-    Promise.map(users, w => {
-      insertPlaylist(w)
-    })
   })
-  .then(() => {
-    Promise.map(users, w => {
-      insertVote(w)
-    })
-  })
-  */
 
 const html = `
   <!doctype html>
@@ -168,13 +157,11 @@ app.post('/voteforplaylist', function (req, res) {
   return res.redirect('/')
 })
 
-app.get('/connected/:username', (req, res) => {
-  const username = "Aurélie"
+app.get('/connected', (req, res) => {
   db.all(`
       SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
       from wilders
       left join playlists on wilders.id = playlists.id_wilders
-      WHERE pseudo = "${username}"
       ; 
       `)
     .then(wilderPlaylists => {
