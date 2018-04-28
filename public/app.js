@@ -423,18 +423,6 @@ const controllers = {
         .catch(err => console.log(err))
     })
     },
-    '/wilders': () => {
-        fetch('/membres')
-        .then(res => res.json())
-        .then(listusers => listusers.reduce((carry, user) => carry + makeWilder(user), ''))
-        .then(book => render(
-            `<div class="container">
-                <div class="row">
-                    ${book}  
-                </div>
-            </div>
-                `))
-  },
   '/viewplaylists/:slug': ctx => {
     const {
       slug
