@@ -385,11 +385,9 @@ const controllers = {
         const loginForm = document.getElementById('loginForm')
         loginForm.addEventListener('submit', e => {
             e.preventDefault()
-            //data ?
             const data = serializeForm(loginForm)
-            console.log("données du form ", data)
             //post sur le server /auth/login
-            fetch('/auth/login', { //does this route exist in server.js?
+            fetch('/auth/login', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
@@ -399,15 +397,12 @@ const controllers = {
             })
             .then(res => res.json())
             .then(data => {
-                console.log("res after post", data)
                 const alert = document.getElementById('alert-login')
                 if(!data.user) {
                     //alert class danger
                     alert.innerHTML = `echec`
                 } else {
-                    console.log("connexion réussie")
                     alert.innerHTML = `Bonjour ${data.user.username} !`
-                    //stores the token
                     localStorage.setItem('token', data.token)
                     localStorage.setItem('username', data.user.username)
                     loginForm.style.display = 'none'
@@ -438,7 +433,6 @@ const controllers = {
 
     document.getElementById('test').addEventListener('click', () => {
         const token = localStorage.getItem('token')
-        console.log("notre token :", token)
         fetch('test',{
             method: 'GET',
             headers: {
@@ -550,7 +544,6 @@ const controllers = {
     loginForm.addEventListener('submit', e => {
       e.preventDefault()
       const data = serializeForm(loginForm)
-      console.log("la data de /connexion: ", data)
       fetch('/auth/login', {
         method: 'POST',
         headers: {
