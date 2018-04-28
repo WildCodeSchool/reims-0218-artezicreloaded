@@ -179,6 +179,7 @@ const controllers = {
         const disconnectButton = document.getElementById('disconnect')
         disconnectButton.addEventListener('click', () => {
             localStore.removeItem('token')
+            localStorage.removeItem('username')
             render(`
             <div class="alert alert-warning" role="alert">
                 Vous avez êté déconnecté.
@@ -401,9 +402,11 @@ const controllers = {
                     alert.innerHTML = `Bonjour ${data.user.username} !`
                     //stores the token
                     localStorage.setItem('token', data.token)
+                    localStorage.setItem('username', data.user.username)
                     loginForm.style.display = 'none'
                     document.getElementById('disconnect').addEventListener('click', () => {
                         localStorage.removeItem('token')
+                        localStorage.removeItem('username')
                         render(`
                             <div id="alert-login"></div> 
                             ${ loginFormHtml }
@@ -416,6 +419,7 @@ const controllers = {
     } else {
         document.getElementById('disconnect').addEventListener('click', () => {
             localStorage.removeItem('token')
+            localStorage.removeItem('username')
             render(`
             <div class="alert alert-warning" role="alert">
                 Vous avez êté déconnecté.
