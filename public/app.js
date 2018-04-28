@@ -1,3 +1,6 @@
+import { refreshInterval, showModal } from './utils.js'
+//import { showModal } from './utils.js'
+
 const mainDiv = document.getElementById('main')
 
 //require('./passport-strategy');
@@ -12,14 +15,14 @@ const cleanUrl = (str) => {
   return urlFromIframe[0]
 }
 
-const showModal = (playlist) => {
-  const modal = document.getElementById("modal")
-  $(modal).modal('show')
-  const modalBody = document.getElementById("showThisModal")
-  modalBody.innerHTML = `
-    <p>Titre: ${playlist.titre}</p>
-    <iframe src="${playlist.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>`
-}
+// const showModal = (playlist) => {
+//   const modal = document.getElementById("modal")
+//   $(modal).modal('show')
+//   const modalBody = document.getElementById("showThisModal")
+//   modalBody.innerHTML = `
+//     <p>Titre: ${playlist.titre}</p>
+//     <iframe src="${playlist.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>`
+// }
 
 //TODO: change value of first input when authentication is ready 
 
@@ -182,7 +185,7 @@ const controllers = {
             </div>
                
             `)
-            setTimeout(()=>location.reload(), 2000)
+            refreshInterval()
         })
     })
   },
@@ -406,7 +409,7 @@ const controllers = {
                             ${ loginFormHtml }
                         `)
                     })
-                    setTimeout(()=>location.reload(), 2000)
+                    refreshInterval()
                 }
             })
         })
