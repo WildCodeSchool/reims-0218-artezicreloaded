@@ -196,6 +196,7 @@ const controllers = {
         return render(`
             <div class="alert alert-danger" role="alert">
             Vous devez vous connecter pour accéder à cette page.
+            <a href="/authentification" class="btn btn-success mt-2">Me connecter</a>
             </div>
             `
         )
