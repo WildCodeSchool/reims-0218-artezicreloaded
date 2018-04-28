@@ -191,23 +191,31 @@ const controllers = {
     })
   },
   '/monprofil': () => {
-        //from the token we need to find which user it is.
-    console.log(token)
-    fetch('/connected')
-      .then(res => res.json())
-      .then(membre => makeCardMember(membre[0]))
-      .then(mesInfos => render(
-        `
-        <div class="container">
-          <div class="row">
-            ${mesInfos}
+    const username = localStorage.getItem('username')
+    if (!username) {
+        return render(`
+            <div class="alert alert-danger" role="alert">
+            Vous devez vous connecter pour accéder à cette page.
+            </div>
+            `
+        )
+    } else {
+        fetch('/connected/${username}')
+        .then(res => res.json())
+        .then(membre => makeCardMember(membre[0]))
+        .then(mesInfos => render(
+          `
+          <div class="container">
+            <div class="row">
+              ${mesInfos}
+            </div>
+              <br/>
+              <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
+              <p><a class="btn btn-success btn-lg" href="/newplaylist" type="button">Ajouter une playlist</a></p>
+            </div>
           </div>
-            <br/>
-            <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
-            <p><a class="btn btn-success btn-lg" href="/newplaylist" type="button">Ajouter une playlist</a></p>
-          </div>
-        </div>
-      `))
+        `))
+    }
   },
   '/editer-mon-profil': () => {
     render(`
