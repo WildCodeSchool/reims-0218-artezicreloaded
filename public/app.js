@@ -173,6 +173,11 @@ const controllers = {
             showModal(playlistClicked[0])
           })
         })
+        const disconnectButton = document.getElementById('disconnect')
+        disconnectButton.addEventListener('click', () => {
+            localStore.removeItem('token')
+            location.reload()
+        })
       })
   },
   '/monprofil': () => {
