@@ -44,32 +44,36 @@ const makePlaylistCard = item => `
     </div>
     `
 const makeWilder = item => `
-  <div class="col-12 col-sm-12 col-md-3 ">
-    <div class="d-flex justify-content-around">
-      <div class="card w-100">
-          <div class="card-body">
-              <img class="card-img-top" src="${item.avatar}" alt="Card image">
-              <h5 class="card-title">${item.pseudo}</h5>
+    <div class="col-12 col-sm-12 col-md-4">
+      <div class="card" >
+        <div class="card-block">
+          <div class="row p-a-3">
+            <div class="card">
+              <h3 class="card-title">${item.pseudo}</h3>
+              <img class="center" src="${item.avatar}" alt="Card image"  style="width: 14rem;>
+              <hr>
               <p class="card-text">${item.bio}</p>
-              <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlists</a>
+            </div>
           </div>
         </div>
-      </div>  
-  </div>
+      </div>
+    </div>
     `
 const makeCardMember = item => `
-    <div class="card">
-        <img class="card-img-top" src="${item.avatar}" alt="Card image">
+  <div class="col-12 col-sm-12 col-md-3">
+    <div class="card style="width: 18rem;>
+      <img class="card-img-top" src="${item.avatar}" alt="Card image">
         <div class="card-body">
           <h4 class="card-title">${item.pseudo}</h4>
           <p class="card-text">${item.bio}</p>
           <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlists</a>
         </div>
     </div>
+  </div>
         `
 
 const makeWinningCard = item => item.votesNb === null ? `<h5> Pas de gagnant pour l'instant </h5>` : `
-    <div class="col-12 col-sm-12 col-md-4">
+    <div class="col-12 col-sm-12 col-md-8">
         <div class="card">
             <img class="card-img-top" src="https://png.pngtree.com/element_origin_min_pic/17/07/23/473f204a1589862d0264b14f926b4b59.jpg" alt="Card image">
             <div class="card-body">
@@ -81,7 +85,6 @@ const makeWinningCard = item => item.votesNb === null ? `<h5> Pas de gagnant pou
                 </button>
             </div>
         </div>
-      </div>
     </div>
     `
 
@@ -228,13 +231,9 @@ const controllers = {
           <input name="genre" type="text" class="form-control" id="inputGenre" placeholder="Quel est le genre de votre playlist ?">
           </div>
           <div class="form-group">
-            <label for="inputUrl">Url de votre playlist</label>
-            <input name="url" type="text" class="form-control" id="inputUrl" placeholder="Entrez l'url de votre playlist">
-          </div>
-          <div class="form-group">
-            <label for="competition">Concourir avec cette playlist?</label>
-            <input name="competition" type="radio" id="competition" class="form-control" value="true">
-          </div>        
+            <label for="inputUrl">Copiez le code intégré de Soundsgood</label>
+            <input name="url" type="text" class="form-control" id="inputUrl" placeholder="Copiez Ici">
+          </div>      
           <button type="submit" class="btn btn-primary">Submit</button>
       </form>
       <a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil</a>
@@ -379,7 +378,7 @@ const controllers = {
                         </div>
                     </div> 
                 </div>
-                <h2>Les playlists de ${slug}</h2>
+                <h2>Les playlists de ${slug} :</h2>
                 <div class="row">
                     ${wilderPlaylistsCards}
                 </div>
