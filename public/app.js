@@ -45,15 +45,12 @@ const makePlaylistCard = item => `
     `
 const makeWilder = item => `
     <div class="col-12 col-sm-12 col-md-4">
-      <div class="card" >
+      <div class="card" id="card_sponsor">
         <div class="card-block">
-          <div class="row p-a-3">
-            <div class="card">
+          <div class="row">
               <h3 class="card-title">${item.pseudo}</h3>
-              <img class="center" src="${item.avatar}" alt="Card image"  style="width: 14rem;>
-              <hr>
+              <img class="center" src="${item.avatar}" alt="Card image"  style="width: 14rem;">
               <p class="card-text">${item.bio}</p>
-            </div>
           </div>
         </div>
       </div>
