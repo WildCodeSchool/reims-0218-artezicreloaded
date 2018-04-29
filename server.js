@@ -5,13 +5,13 @@ const passport = require('passport')
 const jwt = require('jsonwebtoken')
 
 require('./passport-strategy')
-//const auth = require('./auth')
+    //const auth = require('./auth')
 
 const {
-  wildersWithPlaylists
+    wildersWithPlaylists
 } = require('./playlists.js')
 const {
-  isolatePlaylist
+    isolatePlaylist
 } = require('./playlists.js')
 
 const app = express()
@@ -22,80 +22,81 @@ let db
 
 app.use(express.static('public'))
 app.use(bodyParser.json())
-//app.use('/auth', auth)
+    //app.use('/auth', auth)
 
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 const insertWilder = w => {
-  const {
-    pseudo,
-    password,
-    bio,
-    avatar
-  } = w
-  return db.get('INSERT INTO wilders(pseudo, password, bio, avatar) VALUES(?, ?, ?, ?)', pseudo, password, bio, avatar)
-    .then(() => db.get('SELECT last_insert_rowid() as id'))
-    .then(({
-      id
-    }) => db.get('SELECT * from wilders WHERE id = ?', id))
+    const {
+        pseudo,
+        password,
+        bio,
+        avatar
+    } = w
+    return db.get('INSERT INTO wilders(pseudo, password, bio, avatar) VALUES(?, ?, ?, ?)', pseudo, password, bio, avatar)
+        .then(() => db.get('SELECT last_insert_rowid() as id'))
+        .then(({
+            id
+        }) => db.get('SELECT * from wilders WHERE id = ?', id))
 }
 
 const insertPlaylist = w => {
-  const {
-    titre,
-    genre,
-    url,
-    id_wilders
-  } = w
-  return db.get('INSERT INTO playlists(titre, genre, url, id_wilders) VALUES(?, ?, ?, ?)', titre, genre, url, id_wilders) // On retourne une méthode (db.get) On passe une requête MYSQL qui prend le titre, url et genre
-    .then(() => db.get('SELECT last_insert_rowid() as id'))
-    .then(({
-      id
-    }) => db.get('SELECT * from playlists WHERE id = ?', id))
+    const {
+        titre,
+        genre,
+        url,
+        id_wilders
+    } = w
+    return db.get('INSERT INTO playlists(titre, genre, url, id_wilders) VALUES(?, ?, ?, ?)', titre, genre, url, id_wilders) // On retourne une méthode (db.get) On passe une requête MYSQL qui prend le titre, url et genre
+        .then(() => db.get('SELECT last_insert_rowid() as id'))
+        .then(({
+            id
+        }) => db.get('SELECT * from playlists WHERE id = ?', id))
 }
 
 const insertVote = w => {
-  const {
-    date,
-    vote,
-    id_playlists,
-    id_wilders
-  } = w
-  return db.get('INSERT INTO votes(date, vote, id_playlists, id_wilders) VALUES(?, ?, ?, ?)', date, vote, id_playlists, id_wilders)
+    const {
+        date,
+        vote,
+        id_playlists,
+        id_wilders
+    } = w
+    return db.get('INSERT INTO votes(date, vote, id_playlists, id_wilders) VALUES(?, ?, ?, ?)', date, vote, id_playlists, id_wilders)
 }
 
 const modifyMyProfile = newInfo => {
-  const { pseudo, bio, avatar } = newInfo
-  return db.get('UPDATE wilders SET pseudo=?, bio=?, avatar=? WHERE id=1', pseudo, bio, avatar)
-  .then(()=> db.get('SELECT * from wilders WHERE ID=1'))
+    const { pseudo, bio, avatar } = newInfo
+    return db.get('UPDATE wilders SET pseudo=?, bio=?, avatar=? WHERE id=1', pseudo, bio, avatar)
+        .then(() => db.get('SELECT * from wilders WHERE ID=1'))
 }
 
 const dbPromise = Promise.resolve()
-  .then(() => sqlite.open('./database.sqlite', {
-    Promise
-  }))
-  .then(_db => {
-    db = _db
-    return db.migrate({
-      force: 'last'
+    .then(() => sqlite.open('./database.sqlite', {
+        Promise
+    }))
+    .then(_db => {
+        db = _db
+        return db.migrate({
+            force: 'last'
+        })
     })
-  })
-  .then(() => {
-    Promise.map(users, w => {
-      insertWilder(w)
+    .then(() => {
+        Promise.map(users, w => {
+            insertWilder(w)
+        })
     })
-  })/*
-  .then(() => {
-    Promise.map(users, w => {
-      insertPlaylist(w)
-    })
-  })
-  .then(() => {
-    Promise.map(users, w => {
-      insertVote(w)
-    })
-  })
-  */
+    /*
+      .then(() => {
+        Promise.map(users, w => {
+          insertPlaylist(w)
+        })
+      })
+      .then(() => {
+        Promise.map(users, w => {
+          insertVote(w)
+        })
+      })
+      */
 
 const html = `
   <!doctype html>
@@ -137,13 +138,19 @@ const html = `
             </ul>
           </div>
         </nav>
-          <div id="carouselSlidesOnly" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img class="d-block w-100" src="http://res.cloudinary.com/dlfnke6kc/image/upload/v1524129058/artezik_2_reloaded_zfn4l4.jpg" alt="Artezik2 reloaded">
-              </div>
+        <div id="carouselSlidesOnly" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="http://res.cloudinary.com/dlfnke6kc/image/upload/v1524129058/artezik_2_reloaded_zfn4l4.jpg" alt="Artezik2 reloaded">
+            </div>
+            <div class="carousel-item"> 
+              <img class="d-block w-100" src="http://res.cloudinary.com/dlfnke6kc/image/upload/v1524742523/artezik_2_reloaded_green_svho1r.jpg" alt="Artezik2 reloaded">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="http://res.cloudinary.com/dlfnke6kc/image/upload/v1524742523/artezik_2_reloaded_yellow_lklcf3.jpg" alt="Artezik2 reloaded">
             </div>
           </div>
+        </div>
         <div id="main">
         </div>
       <script src="/page.js"></script>
@@ -168,151 +175,150 @@ const html = `
   </html>`
 
 app.get('/', (req, res) => {
-  res.send(html)
-  res.end()
+    res.send(html)
+    res.end()
 })
 
 app.post('/membres', (req, res) => {
-  return insertWilder(req.body)
-    .then(recordNewWilder => {
-      return res.json(recordNewWilder)
-    })
+    return insertWilder(req.body)
+        .then(recordNewWilder => {
+            return res.json(recordNewWilder)
+        })
 })
 
 app.post('/voteforplaylist', function(req, res) {
-  insertVote(req.body)
-  return res.redirect('/')
+    insertVote(req.body)
+    return res.redirect('/')
 })
 
 app.get('/connected', (req, res) => {
-  db.all(`
+    db.all(`
       SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
       from wilders
       left join playlists on wilders.id = playlists.id_wilders
       WHERE id_wilders = 1
       ; 
       `)
-    .then(wilderPlaylists => {
-      return res.json(wildersWithPlaylists(wilderPlaylists))
-    })
+        .then(wilderPlaylists => {
+            return res.json(wildersWithPlaylists(wilderPlaylists))
+        })
 })
 
 app.get('/membre/:slug', (req, res) => {
-  const slug = req.params
-  const pseudoFromSlug = [...slug.slug][0].toUpperCase() + slug.slug.slice(1)
-  db.all(`
+    const slug = req.params
+    const pseudoFromSlug = [...slug.slug][0].toUpperCase() + slug.slug.slice(1)
+    db.all(`
     SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
     from wilders
     left join playlists on wilders.id = playlists.id_wilders
     WHERE pseudo = "${pseudoFromSlug}"
     ; 
     `)
-    .then(wilderPlaylists => {
-      res.json(wildersWithPlaylists(wilderPlaylists))
-    })
+        .then(wilderPlaylists => {
+            res.json(wildersWithPlaylists(wilderPlaylists))
+        })
 })
 
 app.get('/membres', (req, res) => {
-  db.all('SELECT * from wilders')
-    .then(allWilders => {
-      res.json(allWilders)
-    })
+    db.all('SELECT * from wilders')
+        .then(allWilders => {
+            res.json(allWilders)
+        })
 })
 
 app.post('/playlists', (req, res) => {
-  return insertPlaylist(req.body)
-    .then(recordNewPlaylist => {
-      res.json(recordNewPlaylist)
-    })
+    return insertPlaylist(req.body)
+        .then(recordNewPlaylist => {
+            res.json(recordNewPlaylist)
+        })
 })
 
 app.put('/membres', (req, res) => {
-  return modifyMyProfile(req.body)
-    .then(wilderIsEdited => {
-      res.json(wilderIsEdited)
-    })
+    return modifyMyProfile(req.body)
+        .then(wilderIsEdited => {
+            res.json(wilderIsEdited)
+        })
 })
 
 app.get('/playlists', (req, res) => {
-  db.all('SELECT * from wilders')
-    .then(allPlaylists => {
-      res.json(allPlaylists)
-    })
+    db.all('SELECT * from wilders')
+        .then(allPlaylists => {
+            res.json(allPlaylists)
+        })
 })
 
 app.get('/playlistsWilders', (req, res) => {
-  db.all(
-      `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
+    db.all(
+            `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
       from wilders
       left join playlists on wilders.id = playlists.id_wilders
     `
-    )
-    .then(playlistsByWilders => {
-      res.json(playlistsByWilders)
-    })
+        )
+        .then(playlistsByWilders => {
+            res.json(playlistsByWilders)
+        })
 })
 
 app.get('/playlistsCompete', (req, res) => {
-  db.all(
-      `Select votes.id_wilders as voterId, date, SUM(vote) as votesNb, votes.id_playlists as playlistId, titre, genre, url
+        db.all(
+                `Select votes.id_wilders as voterId, date, SUM(vote) as votesNb, votes.id_playlists as playlistId, titre, genre, url
       FROM playlists
       LEFT JOIN votes ON  playlists.id = votes.id_playlists
       GROUP BY playlistId
       ORDER BY votesNB DESC
       limit 1;
     `
-    )
-    .then(playlistsReturn => res.json(playlistsReturn)
-    )
-})
-//OBSOLETE:.
+            )
+            .then(playlistsReturn => res.json(playlistsReturn))
+    })
+    //OBSOLETE:.
 app.get('/playlistsInCompete', (req, res) => {
-  db.all(
-      `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
+    db.all(
+            `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
       from wilders
       left join playlists on wilders.id = playlists.id_wilders
       where compete = "true"
     `
-    )
-    .then(playlistsReturn => {
-      return res.json(wildersWithPlaylists(playlistsReturn))
-    })
+        )
+        .then(playlistsReturn => {
+            return res.json(wildersWithPlaylists(playlistsReturn))
+        })
 })
 
 app.get('/playlists/1', (req, res) => {
-  db.all("SELECT * from playlists")
-    .then(allPlaylists => {
-      res.json(allPlaylists)
-    })
+    db.all("SELECT * from playlists")
+        .then(allPlaylists => {
+            res.json(allPlaylists)
+        })
 })
 
-app.get('/connexion', passport.authenticate('jwt', {session: false}), (req, res) => {
-  res.send(`authorized for user ${req.user.username} with id ${req.user.id}`)
+app.get('/connexion', passport.authenticate('jwt', { session: false }), (req, res) => {
+    res.send(`authorized for user ${req.user.username} with id ${req.user.id}`)
 })
 
-app.post('/auth/login', function (req, res) {
-    passport.authenticate('local', {session: false}, (err, user, info) => {
+app.post('/auth/login', function(req, res) {
+    passport.authenticate('local', { session: false }, (err, user, info) => {
         if (err || !user) {
             return res.status(400).json({
                 message: 'Something is not right',
-                user   : user
+                user: user
             })
         }
-      req.login(user, {session: false}, (err) => {
-          if (err) {
-              res.send(err)
-          }
-          // generate a signed son web token with the contents of user object and return it in the response
-          const token = jwt.sign(user, 'your_jwt_secret')
-          return res.json({user, token})
+        req.login(user, { session: false }, (err) => {
+            if (err) {
+                res.send(err)
+            }
+            // generate a signed son web token with the contents of user object and return it in the response
+            const token = jwt.sign(user, 'your_jwt_secret')
+            return res.json({ user, token })
         })
-      })(req, res)
+    })(req, res)
 })
 
 
 app.get('*', (req, res) => {
-  res.send(html)
-  res.end()
+    res.send(html)
+    res.end()
 })
 
 app.listen(8000)
