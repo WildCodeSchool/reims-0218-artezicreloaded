@@ -23,21 +23,20 @@ const showModal = (playlist) => {
 //TODO: change value of first input when authentication is ready 
 
 const makePlaylistCard = item => `
-    <div class="col-md-4">
-        <div class="card mb-4 box-shadow">
-            <div class="card-body">
-                <p class="card-text">${item.titre}</p>
-                <p>${item.genre}</a>
-                <br>
-                <button id="${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
-                    Lancer ma playlist
+    <div class="col-md-6">
+        <div class="card text-center text-white bg-secondary mt-4 pt-3">
+            <div class="card-block">
+                <h2 class="text-warning">${item.titre}</h3>
+                <p class="text-light">${item.genre}</p>
+                <button id="${item.playlistId}" type="button" class="launch btn-lg btn-warning" data-toggle="modal" data-target="#modal${item.playlistId}">
+                    Ecouter cette playlist
                 </button>
-                <form action="/voteforplaylist" method="post">
+                <form action="/voteforplaylist" method="post" class="mt-3 mb-3">
                     <input type="hidden" value="1" name="id_wilders" />
                     <input type="hidden" value="1" name="vote" />
                     <input type="hidden" value="${item.playlistId}" name="id_playlists" />
                     <input type="hidden" value="${Date.now()}" name="date" />
-                    <button id="vote${item.playlistId}" type="submit" class="btn btn-success mt-2">J'aime</button>
+                    <button style="font-size:3em; color:GhostWhite" id="vote${item.playlistId}" type="submit" class="btn btn-info mt-2"><i class="fas fa-thumbs-up"></i></button>
                 </form>
             </div>
         </div>
@@ -71,7 +70,7 @@ const makeCardMember = item => `
                         </div>
                         <div class="card-block ml-3 mr-3">
                             <form>
-                                <h4 class="mt-3">Mon pseudo : ${item.pseudo}</h4>
+                                <h4 class="mt-3">${item.pseudo}</h4>
                                 <div class="form-group mt-5">
                                     <label for="bio">Bio</label>
                                     <textarea rows="9" name="editor1" class="form-control">${item.bio}</textarea>
@@ -91,76 +90,7 @@ const makeCardMember = item => `
         <button class="btn btn-primary btn-block">Editer l'image</button>
         <button class="btn btn-danger btn-block">Supprimer l'image</button>
     </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="card text-center text-white bg-secondary mt-5 pt-3">
-                    <div class="card-block">
-                        <h3 class="text-light">Playlist 1</h3>
-                        <p class="text-light">Lorem ipsum dolor sit</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center text-white bg-info mt-5 pt-3">
-                    <div class="card-block">
-                        <h3 class="text-light">Playlist 2</h3>
-                        <p class="text-light">Lorem ipsum dolor sit</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center text-white bg-secondary mt-5 pt-3">
-                    <div class="card-block">
-                        <h3 class="text-light">Playlist 3</h3>
-                        <p class="text-light">Lorem ipsum dolor sit</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center text-white bg-info mt-5 pt-3">
-                    <div class="card-block">
-                        <h3 class="text-light">Playlist 4</h3>
-                        <p class="text-light">Lorem ipsum dolor sit</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center text-white bg-info mt-3 pt-3">
-                    <div class="card-block">
-                        <h3 class="text-light">Playlist 1</h3>
-                        <p class="text-light">Lorem ipsum dolor sit</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center text-white bg-secondary mt-3 pt-3">
-                    <div class="card-block">
-                        <h3 class="text-light">Playlist 2</h3>
-                        <p class="text-light">Lorem ipsum dolor sit</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center text-white bg-info mt-3 pt-3">
-                    <div class="card-block">
-                        <h3 class="text-light">Playlist 3</h3>
-                        <p class="text-light">Lorem ipsum dolor sit</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center text-white bg-secondary mt-3 pt-3">
-                    <div class="card-block">
-                        <h3 class="text-light">Playlist 4</h3>
-                        <p class="text-light">Lorem ipsum dolor sit</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-        `
+    `
 
 const makeWinningCard = item => item.votesNb === null ? `<h5> Pas de gagnant pour l'instant </h5>` : `
     <div class="col-12 col-sm-12 col-md-4">
