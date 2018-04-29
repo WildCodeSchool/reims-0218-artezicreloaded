@@ -44,14 +44,14 @@ const makePlaylistCard = item => `
     </div>
     `
 const makeWilder = item => `
-    <div class="col-12 col-sm-12 col-md-4">
+    <div class="blocks col-12 col-sm-12 col-md-4">
       <div class="card" id="card_sponsor">
         <div class="card-block">
           <div class="row">
             <div class="member">
               <h3 class="card-title">${item.pseudo}</h3>
               <img class="center" src="${item.avatar}" alt="Card image" style="width: 14rem;">
-              <hr>
+              <hr style="background-color: #00001c;">
               <p class="card-text">${item.bio}</p>
             </div>
           </div>
@@ -60,17 +60,17 @@ const makeWilder = item => `
     </div>
     `
 const makeCardMember = item => `
-  <div class="col-12 col-sm-12 col-md-3">
-    <div class="card style="width: 18rem;>
-      <img class="card-img-top" src="${item.avatar}" alt="Card image">
-        <div class="card-body">
-          <h4 class="card-title">${item.pseudo}</h4>
-          <p class="card-text">${item.bio}</p>
-          <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlists</a>
-        </div>
+    <div class="col-12 col-sm-12 col-md-3">
+      <div class="card style="width: 18rem;>
+        <img class="card-img-top" src="${item.avatar}" alt="Card image">
+          <div class="card-body">
+            <h4 class="card-title">${item.pseudo}</h4>
+            <p class="card-text">${item.bio}</p>
+            <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlists</a>
+          </div>
+      </div>
     </div>
-  </div>
-        `
+    `
 
 const makeWinningCard = item => item.votesNb === null ? `<h5> Pas de gagnant pour l'instant </h5>` : `
     <div class="col-12 col-sm-12 col-md-8">
@@ -117,7 +117,6 @@ const controllers = {
     fetch('/playlistsWilders')
       .then(res => res.json())
       .then(allPlaylists => {
-
         const allPlaylistsCards = allPlaylists.reduce((carry, playlist) => carry + makePlaylistCard(playlist), '')
         render(
           `<div class="container">
@@ -139,7 +138,7 @@ const controllers = {
                     ${allPlaylistsCards}  
                 </div>
             </div>
-                `
+            `
         )
         const launchPlaylistButtons = document.getElementsByClassName("launch")
         Array.from(launchPlaylistButtons).forEach(button => {
@@ -315,9 +314,7 @@ const controllers = {
         form.addEventListener('submit', e => {
           e.preventDefault()
           const data = serializeForm(form)
-
           const embedUrl = cleanUrl(data.url)
-
           const dataWithId = {
             titre: data.title,
             genre: data.genre,
@@ -393,7 +390,6 @@ const controllers = {
         })
       })
   },
-
   '/concours': () => {
     fetch('/playlistsCompete')
       .then(res => res.json())
@@ -430,7 +426,6 @@ const controllers = {
       })
   }
 }
-
 
 const route = pathname => { }
 

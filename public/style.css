@@ -1,6 +1,19 @@
+.container{
+  padding-top: 10px;
+}
+.blocks{
+  padding-bottom: 20px;
+}
 .card-title{
   color : #08aeac;
   text-align: center;
+  Font-Weight: Bold;
+}
+.member{
+  margin-top: 60px;
+  margin-bottom: 60px;
+  margin-left : 80px;
+  margin-right: 80px;
 }
 .card-text{
   text-align: center;
@@ -12,9 +25,6 @@
   margin-right: auto;
   width: 50%;
 }
-.card-block{
-  margin-top: 60px;
-  margin-bottom: 60px;
-  margin-left : 60px;
-  margin-right: 60px;
+#card_sponsor{
+  background-color: #C0C0C0;
 }
