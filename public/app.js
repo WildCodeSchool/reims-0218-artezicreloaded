@@ -48,9 +48,12 @@ const makeWilder = item => `
       <div class="card" id="card_sponsor">
         <div class="card-block">
           <div class="row">
+            <div class="member">
               <h3 class="card-title">${item.pseudo}</h3>
-              <img class="center" src="${item.avatar}" alt="Card image"  style="width: 14rem;">
+              <img class="center" src="${item.avatar}" alt="Card image" style="width: 14rem;">
+              <hr>
               <p class="card-text">${item.bio}</p>
+            </div>
           </div>
         </div>
       </div>
