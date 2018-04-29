@@ -108,7 +108,7 @@ const html = `
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark col-12 col-sm-12 col-md-12" id="menu">
-          <a class="navbar-brand" href="/">Artezic</a>
+          <a class="navbar-brand" href="/">Artezic 2 Reloaded</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>

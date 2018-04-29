@@ -1,12 +1,12 @@
 const mainDiv = document.getElementById('main')
 
 const render = html => {
-  mainDiv.innerHTML = html
-}
-// <iframe src="${item.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>
+        mainDiv.innerHTML = html
+    }
+    // <iframe src="${item.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>
 
 const cleanUrl = (str) => {
-    const urlRegex =  new RegExp('https:\/\/play.soundsgood.co\/embed\/\\d*\\w*')
+    const urlRegex = new RegExp('https:\/\/play.soundsgood.co\/embed\/\\d*\\w*')
     const urlFromIframe = urlRegex.exec(str)
     return urlFromIframe[0]
 }
@@ -15,9 +15,9 @@ const showModal = (playlist) => {
     const modal = document.getElementById("modal")
     $(modal).modal('show')
     const modalBody = document.getElementById("showThisModal")
-    modalBody.innerHTML =`
+    modalBody.innerHTML = `
     <p>Titre: ${playlist.titre}</p>
-    <iframe src="${playlist.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>` 
+    <iframe src="${playlist.url}" style="width:100%;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="0"></iframe>`
 }
 
 //TODO: change value of first input when authentication is ready 
@@ -43,7 +43,7 @@ const makePlaylistCard = item => `
         </div>
     </div>
     `
-    
+
 const makeWilder = item => `
 <div class="col-12 col-sm-12 col-md-3">
   <div class="card-deck" >
@@ -61,12 +61,103 @@ const makeWilder = item => `
 </div>    
     `
 const makeCardMember = item => `
-    <div class="card">
-        <img class="card-img-top" src="${item.avatar}" alt="Card image">
-        <div class="card-body">
-            <h4 class="card-title">${item.pseudo}</h4>
-            <p class="card-text">${item.bio}</p>
-            <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlists</a>
+    <div class="col-md-9 mt-5">
+        <section>
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header text-white bg-info">
+                            <h4>Mon Profil</h4>
+                        </div>
+                        <div class="card-block ml-3 mr-3">
+                            <form>
+                                <h4 class="mt-3">Mon pseudo : ${item.pseudo}</h4>
+                                <div class="form-group mt-5">
+                                    <label for="bio">Bio</label>
+                                    <textarea rows="9" name="editor1" class="form-control">${item.bio}</textarea>
+                                    <button class="btn btn-info btn-block mt-3">Enregistrer</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="col-md-3 mt-5">
+        <h3>Votre avatar</h3>
+        <img src="${item.avatar}" alt="" class="d-block img-fluid mb-3" width="300px">
+        <button class="btn btn-primary btn-block">Editer l'image</button>
+        <button class="btn btn-danger btn-block">Supprimer l'image</button>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card text-center text-white bg-secondary mt-5 pt-3">
+                    <div class="card-block">
+                        <h3 class="text-light">Playlist 1</h3>
+                        <p class="text-light">Lorem ipsum dolor sit</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center text-white bg-info mt-5 pt-3">
+                    <div class="card-block">
+                        <h3 class="text-light">Playlist 2</h3>
+                        <p class="text-light">Lorem ipsum dolor sit</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center text-white bg-secondary mt-5 pt-3">
+                    <div class="card-block">
+                        <h3 class="text-light">Playlist 3</h3>
+                        <p class="text-light">Lorem ipsum dolor sit</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center text-white bg-info mt-5 pt-3">
+                    <div class="card-block">
+                        <h3 class="text-light">Playlist 4</h3>
+                        <p class="text-light">Lorem ipsum dolor sit</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center text-white bg-info mt-3 pt-3">
+                    <div class="card-block">
+                        <h3 class="text-light">Playlist 1</h3>
+                        <p class="text-light">Lorem ipsum dolor sit</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center text-white bg-secondary mt-3 pt-3">
+                    <div class="card-block">
+                        <h3 class="text-light">Playlist 2</h3>
+                        <p class="text-light">Lorem ipsum dolor sit</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center text-white bg-info mt-3 pt-3">
+                    <div class="card-block">
+                        <h3 class="text-light">Playlist 3</h3>
+                        <p class="text-light">Lorem ipsum dolor sit</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center text-white bg-secondary mt-3 pt-3">
+                    <div class="card-block">
+                        <h3 class="text-light">Playlist 4</h3>
+                        <p class="text-light">Lorem ipsum dolor sit</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
         `
@@ -104,23 +195,23 @@ const makeListsInCompete = item => `
     `
 
 const serializeForm = form => {
-  const data = {}
-  const elements = form.getElementsByClassName('form-control')
-  for (let el of elements) {
-    data[el.name] = el.value
-  }
-  return data
+    const data = {}
+    const elements = form.getElementsByClassName('form-control')
+    for (let el of elements) {
+        data[el.name] = el.value
+    }
+    return data
 }
 
 const controllers = {
     '/': () => {
         fetch('/playlistsWilders')
-        .then(res => res.json())
-        .then(allPlaylists => {
-            
-            const allPlaylistsCards = allPlaylists.reduce((carry, playlist) => carry + makePlaylistCard(playlist), '')
-            render(
-                `<div class="container">
+            .then(res => res.json())
+            .then(allPlaylists => {
+
+                const allPlaylistsCards = allPlaylists.reduce((carry, playlist) => carry + makePlaylistCard(playlist), '')
+                render(
+                    `<div class="container">
                     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -141,32 +232,27 @@ const controllers = {
                 </div>
                     `
                 )
-            const launchPlaylistButtons = document.getElementsByClassName("launch")
-            Array.from(launchPlaylistButtons).forEach(button => {
-            button.addEventListener('click', ()=>{
-                const playlistClicked = allPlaylists.filter(playlist => playlist.playlistId === Number(button.id))
-                showModal(playlistClicked[0])
-                }) 
+                const launchPlaylistButtons = document.getElementsByClassName("launch")
+                Array.from(launchPlaylistButtons).forEach(button => {
+                    button.addEventListener('click', () => {
+                        const playlistClicked = allPlaylists.filter(playlist => playlist.playlistId === Number(button.id))
+                        showModal(playlistClicked[0])
+                    })
+                })
             })
-        })
     },
     '/monprofil': () => {
         fetch('/connected')
-        .then(res => res.json())
-        .then(membre => makeCardMember(membre[0]))
-        .then(mesInfos => render(
-            `
+            .then(res => res.json())
+            .then(membre => makeCardMember(membre[0]))
+            .then(mesInfos => render(
+                `
             <div class="container">
                 <div class="row">
                         ${mesInfos}
-                    </div>
-                    <br/>
-                    <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
-                    <p><a class="btn btn-success btn-lg" href="/newplaylist" role="button">Ajouter une playlist »</a></p>
                 </div>
             </div>`
-            )
-        )
+            ))
     },
     '/editer-mon-profil': () => {
         render(`
@@ -196,24 +282,24 @@ const controllers = {
         formProfile.addEventListener('submit', e => {
             e.preventDefault()
             const data = serializeForm(formProfile)
-            if(! data.avatar) {
+            if (!data.avatar) {
                 const fullName = encodeURIComponent(`${data.bio} ${data.pseudo}`)
                 data.avatar = `https://via.placeholder.com/640x480/?text=${fullName}`
             }
             fetch('/membres', {
-                method: 'PUT',
-                headers: {
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data) 
-            })
-            .then(res => res.json())
-            .then(wilderEdition => {
-            const alertBox = document.getElementById('alert-box')
-            alertBox.className = 'alert alert-success'
-            alertBox.innerHTML = `${wilderEdition.pseudo}, votre profil titre été édité.`
-            })
+                    method: 'PUT',
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(res => res.json())
+                .then(wilderEdition => {
+                    const alertBox = document.getElementById('alert-box')
+                    alertBox.className = 'alert alert-success'
+                    alertBox.innerHTML = `${wilderEdition.pseudo}, votre profil titre été édité.`
+                })
         })
     },
     '/newplaylist': () => {
@@ -244,39 +330,39 @@ const controllers = {
             </div>`)
         const form = document.getElementById('add-playlist')
         form.addEventListener('submit', e => {
-        e.preventDefault()
-        const data = serializeForm(form)
+            e.preventDefault()
+            const data = serializeForm(form)
 
-        const embedUrl = cleanUrl(data.url)
+            const embedUrl = cleanUrl(data.url)
 
-        const dataWithId = {
-            titre: data.title,
-            genre: data.genre,
-            url: embedUrl,
-            id_wilders: 1
-        }
-        fetch('/playlists', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(dataWithId)
-            })
-            .then(res => res.json())
-            .then(playlist => {
-            const alertBox = document.getElementById('alert-box')
-            alertBox.className = 'alert alert-success'
-            alertBox.innerHTML = `Votre playlist titre ${playlist.titre} (${playlist.id}) a bien été créée`
-            })
+            const dataWithId = {
+                titre: data.title,
+                genre: data.genre,
+                url: embedUrl,
+                id_wilders: 1
+            }
+            fetch('/playlists', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(dataWithId)
+                })
+                .then(res => res.json())
+                .then(playlist => {
+                    const alertBox = document.getElementById('alert-box')
+                    alertBox.className = 'alert alert-success'
+                    alertBox.innerHTML = `Votre playlist titre ${playlist.titre} (${playlist.id}) a bien été créée`
+                })
         })
     },
     '/wilders': () => {
         fetch('/membres')
-        .then(res => res.json())
-        .then(listusers => listusers.reduce((carry, user) => carry + makeWilder(user), ''))
-        .then(book => render(
-            `<div class="container">
+            .then(res => res.json())
+            .then(listusers => listusers.reduce((carry, user) => carry + makeWilder(user), ''))
+            .then(book => render(
+                `<div class="container">
                 <div class="row">
                     ${book}  
                 </div>
@@ -285,14 +371,14 @@ const controllers = {
     },
     '/viewplaylists/:slug': ctx => {
         const {
-        slug
+            slug
         } = ctx.params
         fetch(`/membre/${slug}`)
-        .then(res => res.json())
-        .then(wilder => {
-            const playlists = wilder[0].playlists
-            const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
-            render(`
+            .then(res => res.json())
+            .then(wilder => {
+                const playlists = wilder[0].playlists
+                const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
+                render(`
             <div class="container">
                 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -312,27 +398,26 @@ const controllers = {
                 <div class="row">
                     ${wilderPlaylistsCards}
                 </div>
-            </div>`
-        )
-        const launchPlaylistButtons = document.getElementsByClassName("launch")
-        Array.from(launchPlaylistButtons).forEach(button => {
-            button.addEventListener('click', ()=>{
-                const playlistClicked = playlists.filter(playlist => playlist.playlistId === Number(button.id))
-                showModal(playlistClicked[0])
-            }) 
-        })
-    })
-  },
+            </div>`)
+                const launchPlaylistButtons = document.getElementsByClassName("launch")
+                Array.from(launchPlaylistButtons).forEach(button => {
+                    button.addEventListener('click', () => {
+                        const playlistClicked = playlists.filter(playlist => playlist.playlistId === Number(button.id))
+                        showModal(playlistClicked[0])
+                    })
+                })
+            })
+    },
 
-  '/concours': () => {
-    fetch('/playlistsCompete')
-      .then(res => res.json())
-      .then(result => {
-          const winningPlaylistData = result[0].playlists
-          const winner = makeWinningCard(result[0])
-       
-      
-          render(`
+    '/concours': () => {
+        fetch('/playlistsCompete')
+            .then(res => res.json())
+            .then(result => {
+                const winningPlaylistData = result[0].playlists
+                const winner = makeWinningCard(result[0])
+
+
+                render(`
             <div class="container align-items-center">
                 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -355,11 +440,11 @@ const controllers = {
                 </div>
             </div>    
             `)
-            const winningPlaylistButton = document.getElementById('launchPlaylist')
-            winningPlaylistButton.addEventListener('click', () =>{
-                return showModal(result[0])
+                const winningPlaylistButton = document.getElementById('launchPlaylist')
+                winningPlaylistButton.addEventListener('click', () => {
+                    return showModal(result[0])
+                })
             })
-        })
     }
 }
 
@@ -367,8 +452,8 @@ const controllers = {
 const route = pathname => {}
 
 (() => {
-  ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours'].forEach(
-    path => page(path, controllers[path])
-  )
-  page()
+    ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours'].forEach(
+        path => page(path, controllers[path])
+    )
+    page()
 })()
