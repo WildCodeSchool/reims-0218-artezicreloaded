@@ -149,7 +149,7 @@ const idWilder = localStore.getItem('idWilder')
 
 const controllers = {
   '/': () => {
-console.log("What happens in firefox?") //we get nothing...:(
+    console.log("What happens in firefox?") //we get nothing...:(
     fetch('/playlistsWilders')
       .then(res => res.json())
       .then(allPlaylists => {
