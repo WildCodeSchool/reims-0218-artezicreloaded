@@ -78,7 +78,7 @@ const makeWinningCard = item => item.votesNb === null ? `<h5> Pas de gagnant pou
             <img class="center" src="http://theblog.is/thackley/files/2017/07/winner.jpeg" alt="Card image" style="width: 18rem;">
             <div class="card-body">
                 <h4 class="card-title">${item.titre}</h4>
-                <p class="card-text">Le vainqueur du concour de la semaine a gagnée avec ${item.votesNb} votes sur sa playlist. <br> Bravo !</p>
+                <p class="card-text">Le vainqueur du concour de la semaine a gagné avec ${item.votesNb} votes sur sa playlist. <br> Bravo !</p>
                 <button id="launchPlaylist" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
                     Ecrouter sa playlist
                 </button>

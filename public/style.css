@@ -9,6 +9,7 @@
   color : #08aeac;
   text-align: center;
   Font-Weight: Bold;
+  font-style: italic;
 }
 .member{
   margin-top: 40px;
@@ -34,4 +35,6 @@
   left: 50%;
   transform: translateX(-50%);
 }
-
+p{
+  font-weight: bold;
+}
