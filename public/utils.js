@@ -6,6 +6,8 @@ export const render = html => {
 
 export const refreshInterval = () => setTimeout(()=>location.reload(), 2000)
 
+export const refreshToHome = () => setTimeout(() => location.replace('/'), 1500)
+
 export const showModal = (playlist) => {
     const modal = document.getElementById("modal")
     $(modal).modal('show')

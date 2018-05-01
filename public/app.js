@@ -1,4 +1,4 @@
-import { refreshInterval, showModal, disconnect } from './utils.js'
+import { refreshInterval, refreshToHome, showModal, disconnect } from './utils.js'
 
 const mainDiv = document.getElementById('main')
 
@@ -144,13 +144,13 @@ const serializeForm = form => {
 }
 
 const localStore = localStorage
-let token = localStore.getItem('token')
+const token = localStore.getItem('token')
 const username = localStore.getItem('username')
 const idWilder = localStore.getItem('idWilder')
 
 const controllers = {
   '/': () => {
-
+console.log("What happens in firefox?") //we get nothing...:(
     fetch('/playlistsWilders')
       .then(res => res.json())
       .then(allPlaylists => {
@@ -390,75 +390,77 @@ const controllers = {
             <input type="submit" value="se connecter" />
             </form>
             `
-    render(`
-        <div id="alert-login"></div> 
-        ${ !token ? loginFormHtml : '<button id="disconnect" type="button">se deconnecter</button>' }`
-    )
-    if (!token) {
-        const loginForm = document.getElementById('loginForm')
-        loginForm.addEventListener('submit', e => {
-            e.preventDefault()
-            const data = serializeForm(loginForm)
-            //post sur le server /auth/login
-            fetch('/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+        render(`
+            <div id="alert-login"></div> 
+            ${ !token ? loginFormHtml : '<button id="disconnect" type="button">se deconnecter</button>' }`
+        )
+        if (!token) {
+            const loginForm = document.getElementById('loginForm')
+            loginForm.addEventListener('submit', e => {
+                e.preventDefault()
+                const data = serializeForm(loginForm)
+                //post sur le server /auth/login
+                fetch('/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    const alert = document.getElementById('alert-login')
+                    if(!data.user) {
+                        //alert class danger
+                        alert.innerHTML = `echec`
+                    } else {
+                        alert.innerHTML = `Bonjour ${data.user.username} !`
+                        localStorage.setItem('token', data.token)
+                        localStorage.setItem('username', data.user.username)
+                        localStorage.setItem('idWilder', data.user.id)
+                        loginForm.style.display = 'none'
+                        // document.getElementById('disconnect').addEventListener('click', () => {
+                        //     localStorage.removeItem('token')
+                        //     localStorage.removeItem('username')
+                        //     localStorage.removeItem('idWilder')
+                        //     render(`
+                        //         <div id="alert-login"></div> 
+                        //         ${ loginFormHtml }
+                        //     `)
+                        // })
+
+                        refreshToHome()
+                    }
+                })
             })
-            .then(res => res.json())
-            .then(data => {
-                const alert = document.getElementById('alert-login')
-                if(!data.user) {
-                    //alert class danger
-                    alert.innerHTML = `echec`
-                } else {
-                    alert.innerHTML = `Bonjour ${data.user.username} !`
-                    localStorage.setItem('token', data.token)
-                    localStorage.setItem('username', data.user.username)
-                    localStorage.setItem('idWilder', data.user.id)
-                    loginForm.style.display = 'none'
-                    document.getElementById('disconnect').addEventListener('click', () => {
-                        localStorage.removeItem('token')
-                        localStorage.removeItem('username')
-                        localStorage.removeItem('idWilder')
-                        render(`
-                            <div id="alert-login"></div> 
-                            ${ loginFormHtml }
-                        `)
-                    })
-                    refreshInterval()
-                }
+        } else {
+            document.getElementById('disconnect').addEventListener('click', () => {
+                localStorage.removeItem('token')
+                localStorage.removeItem('username')
+                localStorage.removeItem('idWilder')
+                render(`
+                <div class="alert alert-warning" role="alert">
+                    Vous avez êté déconnecté.
+                </div>
+                
+                `)
             })
-        })
-    } else {
-        document.getElementById('disconnect').addEventListener('click', () => {
-            localStorage.removeItem('token')
-            localStorage.removeItem('username')
-            localStorage.removeItem('idWilder')
-            render(`
-            <div class="alert alert-warning" role="alert">
-                Vous avez êté déconnecté.
-            </div>
-               
-            `)
-        })
-    }
-    document.getElementById('test').addEventListener('click', () => {
-        const token = localStorage.getItem('token')
-        fetch('test',{
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + token,          
-                }
-            })
-            .then(res => res.json())
-            .catch(err => console.log(err))
-        })
+        }
+        // document.getElementById('test').addEventListener('click', () => {
+            // const token = localStorage.getItem('token')
+            // fetch('connexion',{
+            //     method: 'GET',
+            //     headers: {
+            //         'Accept': 'application/json',
+            //         'Content-Type': 'application/json',
+            //         Authorization: 'Bearer ' + token,          
+            //     }
+            // })
+            // .then(res => res.json())
+            // .catch(err => console.log(err))
+            
+        // })
     },
   '/viewplaylists/:slug': ctx => {
     const {
