@@ -1,4 +1,31 @@
+ @import url('https://fonts.googleapis.com/css?family=Lobster');
+
+*{
+  font-family: 'Lobster', cursive;
+}
 .imgfaq{
   width: auto;
   height: 381px;
+  box-shadow: 1px 1px 12px #555;
+}
+
+.question{
+  text-align: center;
+  font-size: 30px;
+  padding-top: 40px;
+  padding-bottom: 20px;
+  background: linear-gradient(#ffffff, #616161);
+}
+.question:nth-child(2){
+  background: linear-gradient(#ff2828, #7e89ff);
+  
+}
+.question:nth-child(4){
+  background: linear-gradient(#04bb04, #525fd8);
+}
+.question:nth-child(6){
+  background: linear-gradient(#ad19bb, #ecdd09);
+}
+.pfaq{
+  font-size: 60px;
 }

@@ -272,6 +272,8 @@ const controllers = {
     <link rel="stylesheet" href="style.css" />
 
     <div class="question">
+    <p class="pfaq">Bienvenue dans la F.A.Q</p>
+    <hr>
     <p>Commenjhgyugkuugygyuklgjcjejfeijfceijijefjefiejfeijfiejfijefijfij</p>
     <hr>
     <p>yufytfytcjctcjycjyctjyctcy</p>
@@ -295,6 +297,13 @@ const controllers = {
 
     <div><img src="https://www.in-akustik.de/uploads/tx_flexslider/Michael_Schenker_Live_In_Tokyo_Slider_01.jpg" class="imgfaq" alt="rap"></div>
 
+    <div class="question">
+    <p>Commenjhgyugkuugygyuklgjcjejfeijfceijijefjefiejfeijfiejfijefijfij</p>
+    <hr>
+    <p>yufytfytcjctcjycjyctjyctcy</p>
+    <hr>
+    <p class="pfaq">Fin de la F.A.Q</p>
+    </div>
      `)
         
   },
