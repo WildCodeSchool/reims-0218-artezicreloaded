@@ -151,9 +151,21 @@ app.post('/membres', (req, res) => {
 })
 
 app.post('/voteforplaylist', function (req, res) {
+  // si cette utilisateur a déjà voté pour cette playist:
+  //alors on n'insert pas le vote.
   insertVote(req.body)
   return res.redirect('/')
 })
+
+
+app.get('/votes', (req, res) => {
+  db.all(`
+    SELECT * from votes
+    ;
+  `)
+  .then(votes => res.json(votes))
+})
+
 
 app.get('/connected', (req, res) => {
   db.all(`
