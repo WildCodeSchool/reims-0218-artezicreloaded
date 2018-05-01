@@ -3,6 +3,7 @@
 }
 .blocks{
   padding-bottom: 20px;
+  display: flex;
 }
 .card-title{
   color : #08aeac;
@@ -10,8 +11,8 @@
   Font-Weight: Bold;
 }
 .member{
-  margin-top: 60px;
-  margin-bottom: 60px;
+  margin-top: 40px;
+  margin-bottom: 40px;
   margin-left : 40px;
   margin-right: 60px;
 }
@@ -33,3 +34,4 @@
   left: 50%;
   transform: translateX(-50%);
 }
+

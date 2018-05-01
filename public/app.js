@@ -60,7 +60,7 @@ const makeWilder = item => `
     </div>
     `
 const makeCardMember = item => `
-    <div class="col-12 col-sm-12 col-md-3">
+    <div class="blocks col-12 col-sm-12 col-md-3">
       <div class="card style="width: 18rem;>
         <img class="card-img-top" src="${item.avatar}" alt="Card image">
           <div class="card-body">
@@ -73,15 +73,14 @@ const makeCardMember = item => `
     `
 
 const makeWinningCard = item => item.votesNb === null ? `<h5> Pas de gagnant pour l'instant </h5>` : `
-    <div class="col-12 col-sm-12 col-md-8">
-        <div class="card">
-            <img class="card-img-top" src="https://png.pngtree.com/element_origin_min_pic/17/07/23/473f204a1589862d0264b14f926b4b59.jpg" alt="Card image">
+    <div class="blocks col-12 col-sm-12 col-md-6">
+        <div class="card" id="card_sponsor">
+            <img class="center" src="http://theblog.is/thackley/files/2017/07/winner.jpeg" alt="Card image" style="width: 18rem;">
             <div class="card-body">
                 <h4 class="card-title">${item.titre}</h4>
-                <p class="card-text">${item.votesNb} votes</p>
-                <br>
+                <p class="card-text">Le vainqueur du concour de la semaine a gagnée avec ${item.votesNb} votes sur sa playlist. <br> Bravo !</p>
                 <button id="launchPlaylist" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
-                    Lancer ma playlist
+                    Ecrouter sa playlist
                 </button>
             </div>
         </div>
@@ -397,7 +396,7 @@ const controllers = {
         const winningPlaylistData = result[0].playlists
         const winner = makeWinningCard(result[0])
         render(`
-            <div class="container align-items-center" style="display: flex; justify-content: center; align-items: center;">
+            <div class="container" style="display: flex; justify-content: center; >
                 <div class="row">
                     ${winner}
                 </div>
