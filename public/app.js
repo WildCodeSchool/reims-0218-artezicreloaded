@@ -420,16 +420,6 @@ console.log("What happens in firefox?") //we get nothing...:(
                         localStorage.setItem('username', data.user.username)
                         localStorage.setItem('idWilder', data.user.id)
                         loginForm.style.display = 'none'
-                        // document.getElementById('disconnect').addEventListener('click', () => {
-                        //     localStorage.removeItem('token')
-                        //     localStorage.removeItem('username')
-                        //     localStorage.removeItem('idWilder')
-                        //     render(`
-                        //         <div id="alert-login"></div> 
-                        //         ${ loginFormHtml }
-                        //     `)
-                        // })
-
                         refreshToHome()
                     }
                 })
@@ -447,20 +437,6 @@ console.log("What happens in firefox?") //we get nothing...:(
                 `)
             })
         }
-        // document.getElementById('test').addEventListener('click', () => {
-            // const token = localStorage.getItem('token')
-            // fetch('connexion',{
-            //     method: 'GET',
-            //     headers: {
-            //         'Accept': 'application/json',
-            //         'Content-Type': 'application/json',
-            //         Authorization: 'Bearer ' + token,          
-            //     }
-            // })
-            // .then(res => res.json())
-            // .catch(err => console.log(err))
-            
-        // })
     },
   '/viewplaylists/:slug': ctx => {
     const {
