@@ -13,7 +13,8 @@ const cleanUrl = (str) => {
 }
 
 const makePlaylistCard = (item, tokenInStore) => {
-    return !tokenInStore ? `
+    if (!tokenInStore) {
+        return `
         <div class="col-md-4">
             <div class="card mb-4 box-shadow">
                 <div class="card-body">
@@ -28,27 +29,31 @@ const makePlaylistCard = (item, tokenInStore) => {
             </div>
         </div>
     
-    ` : `
-    <div class="col-md-4">
-        <div class="card mb-4 box-shadow">
-            <div class="card-body">
-                <p class="card-text">${item.titre}</p>
-                <p>${item.genre}</a>
-                <br>
-                <button id="${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
-                    Ecouter
-                </button>
-                <form action="/voteforplaylist" method="post">
-                    <input type="hidden" value="1" name="id_wilders" />
-                    <input type="hidden" value="1" name="vote" />
-                    <input type="hidden" value="${item.playlistId}" name="id_playlists" />
-                    <input type="hidden" value="${Date.now()}" name="date" />
-                    <button id="vote${item.playlistId}" type="submit" class="btn btn-success mt-2">J'aime</button>
-                </form>
+        `
+    }
+    else {
+        return ` 
+        <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+                <div class="card-body">
+                    <p class="card-text">${item.titre}</p>
+                    <p>${item.genre}</a>
+                    <br>
+                    <button id="${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
+                        Ecouter
+                    </button>
+                    <form action="/voteforplaylist" method="post">
+                        <input type="hidden" value="1" name="id_wilders" />
+                        <input type="hidden" value="1" name="vote" />
+                        <input type="hidden" value="${item.playlistId}" name="id_playlists" />
+                        <input type="hidden" value="${Date.now()}" name="date" />
+                        <button id="vote${item.playlistId}" type="submit" class="btn btn-success mt-2">J'aime</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    ` 
+        ` 
+    }
 }
 
 const makeWilder = item => `
