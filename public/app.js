@@ -512,19 +512,13 @@ console.log("What happens in firefox?") //we get nothing...:(
         })
         disconnect(localStore)
       })
-  },
-  //this is for further tests.
-  '/test':() => {
-      fetch('/connexion')
-      .then(res => res)
-      .then(result => console.log("sur test: ", result))
   }
 }
 
 const route = pathname => { }
 
 (() => {
-  ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours', '/authentification', '/test'].forEach(
+  ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours', '/authentification'].forEach(
     path => page(path, controllers[path])
   )
   page()
