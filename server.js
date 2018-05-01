@@ -179,7 +179,7 @@ app.get('/votes/:id', (req, res) => {
     WHERE id_wilders = "${id.id}"
     ;
   `)
-  .then(votes => res.json(votes))
+  .then(votes =>    res.json(votes))
 })
 
 
