@@ -150,7 +150,7 @@ app.post('/membres', (req, res) => {
     })
 })
 
-app.post('/voteforplaylist/:id', function (req, res) {
+app.post('/voteforplaylist', function (req, res) {
   // const id = req.params
   // console.log('levoteur est : ', id )
   //ON ne peut pas faire ça.
@@ -173,9 +173,10 @@ app.post('/voteforplaylist/:id', function (req, res) {
 
 app.get('/votes/:id', (req, res) => {
   const id = req.params
+  console.log(id.id)
   db.all(`
     SELECT * from votes
-    WHERE id_wilders = "${id}"
+    WHERE id_wilders = "${id.id}"
     ;
   `)
   .then(votes => res.json(votes))

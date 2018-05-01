@@ -13,6 +13,7 @@ const cleanUrl = (str) => {
 }
 
 const makePlaylistCard = (item, tokenInStore, username, idWilder) => {
+  
     if (!tokenInStore) {
         return `
         <div class="col-md-4">
@@ -32,8 +33,7 @@ const makePlaylistCard = (item, tokenInStore, username, idWilder) => {
         `
     }
     else {
-        fetch('/votes/${idWilder')
-            .then(res => console.log(res.json()))
+        console.log(idWilder)
         return ` 
         <div class="col-md-4">
             <div class="card mb-4 box-shadow">
@@ -44,8 +44,8 @@ const makePlaylistCard = (item, tokenInStore, username, idWilder) => {
                     <button id="${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
                         Ecouter
                     </button>
-                    <form action="/voteforplaylist/${idWilder}" method="post">
-                        <input type="hidden" value="1" name="id_wilders" />
+                    <form action="/voteforplaylist" method="post">
+                        <input type="hidden" value="${idWilder}" name="id_wilders" />
                         <input type="hidden" value="1" name="vote" />
                         <input type="hidden" value="${item.playlistId}" name="id_playlists" />
                         <input type="hidden" value="${Date.now()}" name="date" />
@@ -137,6 +137,12 @@ const controllers = {
     fetch('/playlistsWilders')
       .then(res => res.json())
       .then(allPlaylists => {
+          let alreadyVotedFor = []
+            fetch(`/votes/${idWilder}`)
+            .then(res => res.json())
+            .then(playlistsVotedByUser => console.log(playlistsVotedByUser))
+      
+
         const allPlaylistsCards = allPlaylists.reduce((carry, playlist) => carry + makePlaylistCard(playlist, token, username, idWilder), '')
         render(
           `<div class="container">
