@@ -151,21 +151,6 @@ app.post('/membres', (req, res) => {
 })
 
 app.post('/voteforplaylist', function (req, res) {
-  // const id = req.params
-  // console.log('levoteur est : ', id )
-  //ON ne peut pas faire ça.
-  // db.all(`
-  //     SELECT * from votes
-  //     ; 
-  //     `)
-  //     .then(result => {
-  //       console.log(`les playlists déjà votées par le wilder num ${id.id}`)
-  //       //faire un tableau avec juste les id des playlists.
-  //       console.log(res.json(result))
-  //       // const alreadyVotedPlaylists = result.map(playlist => console.log(playlist))
-  //     })
-  // si cette utilisateur a déjà voté pour cette playist:
-  //alors on n'insert pas le vote.
   insertVote(req.body)
   return res.redirect('/')
 })
@@ -173,7 +158,6 @@ app.post('/voteforplaylist', function (req, res) {
 
 app.get('/votes/:id', (req, res) => {
   const id = req.params
-  console.log(id.id)
   db.all(`
     SELECT * from votes
     WHERE id_wilders = "${id.id}"
@@ -277,7 +261,6 @@ app.get('/connexion', passport.authenticate('jwt', { session: false }), (req, re
 
 app.post('/auth/login', function (req, res) {
   passport.authenticate('local', { session: false }, (err, user, info) => {
-    console.log('dans auth/login, ce qu on a pour user : ', user)
     if (err || !user) {
       return res.status(400).json({
         message: 'Something is not right',

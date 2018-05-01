@@ -157,9 +157,7 @@ const controllers = {
             fetch(`/votes/${idWilder}`)
             .then(res => res.json())
             .then(playlistsVotedByUser => {
-                console.log(playlistsVotedByUser[0])
                 const cannotBeVoted = playlistsVotedByUser.map(playlist => playlist.id_playlists)
-                console.log(cannotBeVoted)
                 const allPlaylistsCards = allPlaylists.reduce((carry, playlist) => carry + makePlaylistCard(playlist, token, username, idWilder, cannotBeVoted), '')
                 render(
                 `<div class="container">
@@ -417,7 +415,6 @@ const controllers = {
                     //alert class danger
                     alert.innerHTML = `echec`
                 } else {
-                    console.log('app, on obtient ce user: ', data.user)
                     alert.innerHTML = `Bonjour ${data.user.username} !`
                     localStorage.setItem('token', data.token)
                     localStorage.setItem('username', data.user.username)
@@ -465,7 +462,7 @@ const controllers = {
     },
   '/viewplaylists/:slug': ctx => {
     const {
-      slug
+        slug
     } = ctx.params
     fetch(`/membre/${slug}`)
       .then(res => res.json())
