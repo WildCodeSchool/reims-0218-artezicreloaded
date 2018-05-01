@@ -535,33 +535,13 @@ const controllers = {
         })
         disconnect(localStore)
       })
-  },
-  '/connexion': () => {
-    render(`<form id="loginForm">
-    <input class="form-control" name="username" placeholder="username"/>
-    <input class="form-control" type="password" name="password" placeholder="password"/>
-    <input type="submit" value="se connecter" />
-    </form>`)
-    const loginForm = document.getElementById('loginForm')
-    loginForm.addEventListener('submit', e => {
-      e.preventDefault()
-      const data = serializeForm(loginForm)
-      fetch('/auth/login', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json, text/plain, */*',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-    })
   }
 }
 
 const route = pathname => { }
 
 (() => {
-  ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours', '/authentification', '/connexion'].forEach(
+  ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours', '/authentification'].forEach(
     path => page(path, controllers[path])
   )
   page()
