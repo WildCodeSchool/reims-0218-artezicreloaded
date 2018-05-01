@@ -150,13 +150,20 @@ app.post('/membres', (req, res) => {
     })
 })
 
-app.post('/voteforplaylist/:username', function (req, res) {
-  const username = req.params
-  console.log('levoteur est : ', username)
-  db.all(`
-      SELECT * from votes
-      ; 
-      `)
+app.post('/voteforplaylist/:id', function (req, res) {
+  // const id = req.params
+  // console.log('levoteur est : ', id )
+  //ON ne peut pas faire ça.
+  // db.all(`
+  //     SELECT * from votes
+  //     ; 
+  //     `)
+  //     .then(result => {
+  //       console.log(`les playlists déjà votées par le wilder num ${id.id}`)
+  //       //faire un tableau avec juste les id des playlists.
+  //       console.log(res.json(result))
+  //       // const alreadyVotedPlaylists = result.map(playlist => console.log(playlist))
+  //     })
   // si cette utilisateur a déjà voté pour cette playist:
   //alors on n'insert pas le vote.
   insertVote(req.body)
@@ -164,9 +171,11 @@ app.post('/voteforplaylist/:username', function (req, res) {
 })
 
 
-app.get('/votes', (req, res) => {
+app.get('/votes/:id', (req, res) => {
+  const id = req.params
   db.all(`
     SELECT * from votes
+    WHERE id_wilders = "${id}"
     ;
   `)
   .then(votes => res.json(votes))

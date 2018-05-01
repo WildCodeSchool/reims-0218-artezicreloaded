@@ -12,7 +12,7 @@ const cleanUrl = (str) => {
   return urlFromIframe[0]
 }
 
-const makePlaylistCard = (item, tokenInStore, username) => {
+const makePlaylistCard = (item, tokenInStore, username, idWilder) => {
     if (!tokenInStore) {
         return `
         <div class="col-md-4">
@@ -32,6 +32,8 @@ const makePlaylistCard = (item, tokenInStore, username) => {
         `
     }
     else {
+        fetch('/votes/${idWilder')
+            .then(res => console.log(res.json()))
         return ` 
         <div class="col-md-4">
             <div class="card mb-4 box-shadow">
@@ -42,7 +44,7 @@ const makePlaylistCard = (item, tokenInStore, username) => {
                     <button id="${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
                         Ecouter
                     </button>
-                    <form action="/voteforplaylist/${username}" method="post">
+                    <form action="/voteforplaylist/${idWilder}" method="post">
                         <input type="hidden" value="1" name="id_wilders" />
                         <input type="hidden" value="1" name="vote" />
                         <input type="hidden" value="${item.playlistId}" name="id_playlists" />
@@ -127,6 +129,7 @@ const serializeForm = form => {
 const localStore = localStorage
 let token = localStore.getItem('token')
 const username = localStore.getItem('username')
+const idWilder = localStore.getItem('idWilder')
 
 const controllers = {
   '/': () => {
@@ -134,7 +137,7 @@ const controllers = {
     fetch('/playlistsWilders')
       .then(res => res.json())
       .then(allPlaylists => {
-        const allPlaylistsCards = allPlaylists.reduce((carry, playlist) => carry + makePlaylistCard(playlist, token, username), '')
+        const allPlaylistsCards = allPlaylists.reduce((carry, playlist) => carry + makePlaylistCard(playlist, token, username, idWilder), '')
         render(
           `<div class="container">
                 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -397,6 +400,7 @@ const controllers = {
                     document.getElementById('disconnect').addEventListener('click', () => {
                         localStorage.removeItem('token')
                         localStorage.removeItem('username')
+                        localStorage.removeItem('idWilder')
                         render(`
                             <div id="alert-login"></div> 
                             ${ loginFormHtml }
@@ -410,6 +414,7 @@ const controllers = {
         document.getElementById('disconnect').addEventListener('click', () => {
             localStorage.removeItem('token')
             localStorage.removeItem('username')
+            localStorage.removeItem('idWilder')
             render(`
             <div class="alert alert-warning" role="alert">
                 Vous avez êté déconnecté.
