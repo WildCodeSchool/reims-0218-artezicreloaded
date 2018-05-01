@@ -150,7 +150,13 @@ app.post('/membres', (req, res) => {
     })
 })
 
-app.post('/voteforplaylist', function (req, res) {
+app.post('/voteforplaylist/:username', function (req, res) {
+  const username = req.params
+  console.log('levoteur est : ', username)
+  db.all(`
+      SELECT * from votes
+      ; 
+      `)
   // si cette utilisateur a déjà voté pour cette playist:
   //alors on n'insert pas le vote.
   insertVote(req.body)
@@ -261,6 +267,7 @@ app.get('/connexion', passport.authenticate('jwt', { session: false }), (req, re
 
 app.post('/auth/login', function (req, res) {
   passport.authenticate('local', { session: false }, (err, user, info) => {
+    console.log('dans auth/login, ce qu on a pour user : ', user)
     if (err || !user) {
       return res.status(400).json({
         message: 'Something is not right',

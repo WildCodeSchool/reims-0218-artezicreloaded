@@ -12,7 +12,7 @@ const cleanUrl = (str) => {
   return urlFromIframe[0]
 }
 
-const makePlaylistCard = (item, tokenInStore) => {
+const makePlaylistCard = (item, tokenInStore, username) => {
     if (!tokenInStore) {
         return `
         <div class="col-md-4">
@@ -42,7 +42,7 @@ const makePlaylistCard = (item, tokenInStore) => {
                     <button id="${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
                         Ecouter
                     </button>
-                    <form action="/voteforplaylist" method="post">
+                    <form action="/voteforplaylist/${username}" method="post">
                         <input type="hidden" value="1" name="id_wilders" />
                         <input type="hidden" value="1" name="vote" />
                         <input type="hidden" value="${item.playlistId}" name="id_playlists" />
@@ -126,13 +126,15 @@ const serializeForm = form => {
 
 const localStore = localStorage
 let token = localStore.getItem('token')
+const username = localStore.getItem('username')
 
 const controllers = {
   '/': () => {
+
     fetch('/playlistsWilders')
       .then(res => res.json())
       .then(allPlaylists => {
-        const allPlaylistsCards = allPlaylists.reduce((carry, playlist) => carry + makePlaylistCard(playlist, token), '')
+        const allPlaylistsCards = allPlaylists.reduce((carry, playlist) => carry + makePlaylistCard(playlist, token, username), '')
         render(
           `<div class="container">
                 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -386,9 +388,11 @@ const controllers = {
                     //alert class danger
                     alert.innerHTML = `echec`
                 } else {
+                    console.log('app, on obtient ce user: ', data.user)
                     alert.innerHTML = `Bonjour ${data.user.username} !`
                     localStorage.setItem('token', data.token)
                     localStorage.setItem('username', data.user.username)
+                    localStorage.setItem('idWilder', data.user.id)
                     loginForm.style.display = 'none'
                     document.getElementById('disconnect').addEventListener('click', () => {
                         localStorage.removeItem('token')

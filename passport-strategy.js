@@ -24,6 +24,7 @@ passport.use(new LocalStrategy({
                         return(cb(null, false, {message: `${username}, votre mot de passe est incorrect`}))
                     }
                     else {
+                        console.log('voici l id: ', user.id)
                         return cb(null, { id: user.id, username }, {message: 'Logged In Successfully'})
                     }
                 }
