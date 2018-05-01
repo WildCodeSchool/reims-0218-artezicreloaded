@@ -397,22 +397,6 @@ const controllers = {
         const winningPlaylistData = result[0].playlists
         const winner = makeWinningCard(result[0])
         render(`
-            <div class="container align-items-center">
-                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div id="showThisModal"class="modal-body">
-                            </div>
-                        </div>
-                    </div> 
-                </div>
-            </div>
             <div class="container align-items-center" style="display: flex; justify-content: center; align-items: center;">
                 <div class="row">
                     ${winner}

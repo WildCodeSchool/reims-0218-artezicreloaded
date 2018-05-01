@@ -1,5 +1,5 @@
 .container{
-  padding-top: 10px;
+  padding-top: 20px;
 }
 .blocks{
   padding-bottom: 20px;
@@ -12,8 +12,8 @@
 .member{
   margin-top: 60px;
   margin-bottom: 60px;
-  margin-left : 80px;
-  margin-right: 80px;
+  margin-left : 40px;
+  margin-right: 60px;
 }
 .card-text{
   text-align: center;
@@ -27,4 +27,9 @@
 }
 #card_sponsor{
   background-color: #C0C0C0;
+}
+#launchPlaylist{
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
