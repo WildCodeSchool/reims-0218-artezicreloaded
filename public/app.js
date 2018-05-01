@@ -271,63 +271,32 @@ const controllers = {
     render(`
     <link rel="stylesheet" href="style.css" />
 
-<div class="block">
-    <img src="https://unsplash.it/1920/1920/?image=1005" data-speed="-1" class="img-parallax">
-    <h2>Parallax Speed -1</h2>
-</div>
-<div class="row">
-    <div class="col-lg-12"><p>Question 1</p></div>
-</div>
-<div class="block">
-    <img src="https://unsplash.it/1920/1920/?image=1067" data-speed="-1" class="img-parallax">
-    <h2>Parallax Speed 1</h2>
-</div>
-<div class="row">
-    <div class="col-lg-12"><p>Question 2</p></div>
-</div>
-<div class="block">
-    <img src="https://unsplash.it/1920/1920/?random" data-speed="-1" class="img-parallax">
-    <h2>Parallax Speed -0.75</h2>
-</div>
-<div class="row">
-    <div class="col-lg-12"><p>Question 3</p></div>
-</div>
-<div class="block">
-    <img src="https://unsplash.it/1920/1920/?blur" data-speed="-1" class="img-parallax">
-    <h2>Parallax Speed 0.75</h2>
-</div>
+    <div class="question">
+    <p>Commenjhgyugkuugygyuklgjcjejfeijfceijijefjefiejfeijfiejfijefijfij</p>
+    <hr>
+    <p>yufytfytcjctcjycjyctjyctcy</p>
+    </div>
 
+    <div><img src="https://agenceho5.com/wp-content/uploads/2017/04/Boulevard-des-airs-1-2000x500.jpg" class="imgfaq" alt="DJ" ></div>
+
+    <div class="question">
+    <p>Commenjhgyugkuugygyuklgjcjejfeijfceijijefjefiejfeijfiejfijefijfij</p>
+    <hr>
+    <p>yufytfytcjctcjycjyctjyctcy</p>
+    </div>
+
+    <div><img src="http://www.buuworld.com/image/115006258.jpg" class="imgfaq" alt="violoniste" ></div>
+
+    <div class="question">
+    <p>Commenjhgyugkuugygyuklgjcjejfeijfceijijefjefiejfeijfiejfijefijfij</p>
+    <hr>
+    <p>yufytfytcjctcjycjyctjyctcy</p>
+    </div>
+
+    <div><img src="https://www.in-akustik.de/uploads/tx_flexslider/Michael_Schenker_Live_In_Tokyo_Slider_01.jpg" class="imgfaq" alt="rap"></div>
 
      `)
-        $('.img-parallax').each(function(){
-            var img = $(this);
-            var imgParent = $(this).parent();
-            function parallaxImg () {
-              var speed = img.data('speed');
-              var imgY = imgParent.offset().top;
-              var winY = $(this).scrollTop();
-              var parentH = imgParent.innerHeight();
-
-              var winBottom = winY + winH;
-
-              if (winBottom > imgY && winY < imgY + parentH) {
-                var imgBottom = ((winBottom - imgY) * speed);
-                var imgTop = winH + parentH;
-                var imgPercent = ((imgBottom / imgTop) * 100) + (50 - (speed * 50));
-              }
-              img.css({
-                top: imgPercent + '%',
-                transform: 'translate(-50%, -' + imgPercent + '%)'
-              });
-            }
-            $(document).on({
-              scroll: function () {
-                parallaxImg();
-              }, ready: function () {
-                parallaxImg();
-              }
-            });
-          });
+        
   },
   '/concours': () => {
     fetch('/playlistsCompete')
