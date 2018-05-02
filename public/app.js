@@ -114,7 +114,7 @@ const makeCardMember = item => `
     <div class="col-md-4 mt-5">
         <h3>Votre avatar</h3>
         <img src="${item.avatar}" alt="" class="d-block id="avatar" img-fluid mb-3" width="300px">
-        <input value="${item.avatar}" id="avatar"></input>
+        <input value="${item.avatar}" id="avatar" maxlength="10" size="10"></input>
     </div>
     `
 
