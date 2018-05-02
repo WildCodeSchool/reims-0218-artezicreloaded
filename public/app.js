@@ -69,14 +69,12 @@ const makeCardMember = item => `
                             <h4>Mon Profil</h4>
                         </div>
                         <div class="card-block ml-3 mr-3">
-                            <form>
-                                <h4 class="mt-3">${item.pseudo}</h4>
-                                <div class="form-group mt-5">
-                                    <label for="bio">Bio</label>
-                                    <textarea rows="9" name="editor1" class="form-control">${item.bio}</textarea>
-                                    <button class="btn btn-info btn-block mt-3">Enregistrer</button>
-                                </div>
-                            </form>
+                            <textarea class="mt-3 form-control" rows="1" id="pseudo">${item.pseudo}</textarea>
+                            <div class="form-group mt-5">
+                                <label for="bio">Bio</label>
+                                <textarea rows="9" name="editor1" class="form-control" id="bio">${item.bio}</textarea>
+                                <button class="btn btn-info btn-block mt-3" id="saveProfile">Enregistrer</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -86,9 +84,8 @@ const makeCardMember = item => `
 
     <div class="col-md-3 mt-5">
         <h3>Votre avatar</h3>
-        <img src="${item.avatar}" alt="" class="d-block img-fluid mb-3" width="300px">
-        <button class="btn btn-primary btn-block">Editer l'image</button>
-        <button class="btn btn-danger btn-block">Supprimer l'image</button>
+        <img src="${item.avatar}" alt="" class="d-block id="avatar" img-fluid mb-3" width="300px">
+        <input value="${item.avatar}" id="avatar"></input>
     </div>
     `
 
@@ -178,11 +175,42 @@ const controllers = {
             .then(mesInfos => render(
                 `
             <div class="container">
+                <div id="alert-box" class="hidden">
+            </div>
+            <div class="container">
                 <div class="row">
-                        ${mesInfos}
+                    ${mesInfos}
                 </div>
-            </div>`
-            ))
+            </div>`))
+            .then(zarma => {
+                const saveProfile = document.getElementById("saveProfile")
+                saveProfile.addEventListener('click', sendData);
+
+                function sendData() {
+                    let pseudo = document.getElementById('pseudo').value
+                    let bio = document.getElementById('bio').value
+                    let avatar = document.getElementById('avatar').value
+                    fetch('/membres', {
+                            method: 'PUT',
+                            headers: {
+                                'Accept': 'application/json, text/plain, */*',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                pseudo: pseudo,
+                                bio: bio,
+                                avatar: avatar
+                            })
+                        })
+                        .then(res => res.json())
+                        .then(wilderEdition => {
+                            const alertBox = document.getElementById('alert-box')
+                            alertBox.className = 'alert alert-success'
+                            alertBox.innerHTML = `${wilderEdition.pseudo}, votre profil titre été édité.`
+                        })
+                }
+            })
+
     },
     '/editer-mon-profil': () => {
         render(`
