@@ -141,7 +141,33 @@ const html = `
         </div>
         <div id="main">
         </div>
-      </div>
+        <section id="footer">
+        <div class="container">
+          <div class="row text-center text-xs-center text-sm-left text-md-left">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+              <h5>Linkedin des développeurs</h5>
+              <ul class="list-unstyled quick-links">
+                <li><a href="https://www.linkedin.com/in/aureliebayre/"><i class="fa fa-angle-double-right"></i>Aurélie Bayre</a></li>
+                <li><a href="https://www.linkedin.com/in/max-gallois/"><i class="fa fa-angle-double-right"></i>Max Gallois</a></li>
+                <li><a href="https://www.linkedin.com/in/arnaud-gadroy-63136115a/"><i class="fa fa-angle-double-right"></i>Arnaud Gadroy</a></li>
+                <li><a href="https://www.linkedin.com/in/thibaud-royer-93a7b715a/"><i class="fa fa-angle-double-right"></i>Thibaud Royer</a></li>
+              </ul>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-6">
+            <p id="pf">|  Importer et partager vos playlist  |</p>
+              <a href="https://fr-fr.facebook.com/"><i class="fa fa-facebook fa-4x fa-fw"></i></a>
+              <a href="https://twitter.com/"><i class="fa fa-twitter fa-4x fa-fw"></i></a>
+              <a href="https://www.youtube.com/"><i class="fa fa-youtube-play fa-4x fa-fw"></i></a>
+              <a href="https://www.spotify.com/fr/"><i class="fa fa-spotify fa-4x fa-fw"></i></a>
+              <a href="https://soundcloud.com/"><i class="fa fa-soundcloud fa-4x fa-fw"></i></a>
+            </div>	
+            <div class="col-xs-12 col-sm-4 col-md-3">
+              <a href="https://wildcodeschool.fr/"><img id="school" src="https://wildcodeschool.fr/wp-content/uploads/2016/05/cropped-naviconWCS-300x300.png"></a>
+            </div> 
+          </div>	
+        </div>
+        <p id="pff">Fait avec amour par la Wild Code School - Promotion Artémis 2018 / équipe Artezic reloaded</p>
+      </section>
       <script src="/page.js"></script>
       <script type="module" src="/app.js"></script>
     <script>
@@ -295,7 +321,7 @@ app.post('/auth/login', function(req, res) {
             if (err) {
                 res.send(err)
             }
-            // generate a signed son web token with the contents of user object and return it in the response
+
             const token = jwt.sign(user, 'your_jwt_secret')
             return res.json({ user, token })
         })
