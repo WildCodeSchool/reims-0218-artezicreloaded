@@ -96,37 +96,36 @@ const html = `
       </head>
     <body>
       <div class="container">
-        <div class="row">
-          <nav class="navbar navbar-expand-lg navbar-dark bg-primary col-12 col-sm-12 col-md-12">
-            <a class="navbar-brand" href="/">Artezic</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link" href="/monprofil">Mon profil<span class="sr-only">(current)</span></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/wilders">Equipe</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/concours">Concours</a>
-                  </li>
-                </ul> 
-              </div>
-                <a href="/authentification" class="btn btn-outline-light my-2 my-sm-0" role="button">Connexion</a>
-                <button id="disconnect" class="btn btn-danger" type="button">
-                Off
-              </button>
-          </nav>
-          <div id="carouselSlidesOnly" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img class="d-block w-100" src="http://res.cloudinary.com/dlfnke6kc/image/upload/v1524129058/artezik_2_reloaded_zfn4l4.jpg" alt="Artezik2 reloaded">
-              </div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+          <a class="navbar-brand" href="/">Artezic</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="/monprofil">Mon profil<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/wilders">Equipe</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/concours">Concours</a>
+                </li>
+              </ul> 
             </div>
-          </div>  
+              <a href="/authentification" class="btn btn-outline-light my-2 my-sm-0" role="button">Connexion</a>
+              <button id="disconnect" class="btn btn-danger" type="button">
+              Off
+            </button>
+        </nav>
+        <div id="carouselSlidesOnly" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="http://res.cloudinary.com/dlfnke6kc/image/upload/v1524129058/artezik_2_reloaded_zfn4l4.jpg" alt="Artezik2 reloaded">
+            </div>
+          </div>
+        </div>  
         </div>
       </div> 
         <div id="main">

@@ -201,9 +201,14 @@ const controllers = {
       return render(`
       <div class="container">
         <div class="row">
-          <div class="alert alert-danger" role="alert">
-          Vous devez vous connecter pour accéder à cette page.
-          <a href="/authentification" class="btn btn-success mt-2">Me connecter</a>
+          <div class="col-md-10">
+            <div class="alert alert-danger" role="alert">
+              Vous devez vous connecter pour accéder à cette page.
+            </div>
+          </div>
+            <div class="col-md-2">
+              <a href="/authentification" class="btn btn-success mt-2">Me connecter</a>
+            </div>
           </div>
         </div>
       </div>
