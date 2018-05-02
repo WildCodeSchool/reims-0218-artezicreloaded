@@ -104,17 +104,20 @@ const makeCardMember = item => `
     `
 
 const makeWinningCard = item => item.votesNb === null ? `<h5> Pas de gagnant pour l'instant </h5>` : `
-    <div class="blocks col-12 col-sm-12 col-md-6">
-        <div class="card" id="card_sponsor">
-            <img class="center" src="http://theblog.is/thackley/files/2017/07/winner.jpeg" alt="Card image" style="width: 18rem;">
-            <div class="card-body">
-                <h4 class="card-title">${item.titre}</h4>
-                <p class="card-text">Le vainqueur du concour de la semaine a gagné avec ${item.votesNb} votes sur sa playlist. <br> Bravo !</p>
-                <button id="launchPlaylist" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
-                    Ecouter
-                </button>
-            </div>
-        </div>
+    <div class="jumbotron col-md-12" id="card_sponsor">
+    <div class="row">
+      <div class="col-md-9 order-md-last">
+        <h1 class="card-title display-4" >${item.titre}</h1>
+        <p>Le vainqueur du concour de la semaine a gagné avec ${item.votesNb} votes sur sa playlist. <br> Bravo !</p>
+            <button id="launchPlaylist" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
+        Ecouter
+        </button>
+        <hr>
+      </div>
+      <div class="col-md-3 order-md-first">
+        <img class="center" src="http://theblog.is/thackley/files/2017/07/winner.jpeg" alt="Card image" style="width: 12rem;">
+      </div>
+    </div>
     </div>
     `
 
@@ -161,24 +164,24 @@ const controllers = {
             const allPlaylistsCards = allPlaylists.reduce((carry, playlist) => carry + makePlaylistCard(playlist, token, username, idWilder, cannotBeVoted), '')
             render(
               `<div class="container">
-            <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div id="showThisModal"class="modal-body">
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div id="showThisModal"class="modal-body">
+                      </div>
+                    </div>
+                  </div> 
+                </div>
+                  <div class="row">
+                  ${allPlaylistsCards}  
                   </div>
                 </div>
-              </div> 
-            </div>
-            <div class="row">
-                ${allPlaylistsCards}  
-            </div>
-          </div>
               `
             )
             const launchPlaylistButtons = document.getElementsByClassName("launch")
@@ -508,7 +511,7 @@ const controllers = {
               </div> 
           </div>
         </div>
-            <div class="container" style="display: flex; justify-content: center; >
+            <div class="container">
                 <div class="row">
                     ${winner}
                 </div>
