@@ -356,13 +356,13 @@ const controllers = {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(dataWithId)
-                })
-                .then(res => res.json())
-                .then(playlist => {
-                    const alertBox = document.getElementById('alert-box')
-                    alertBox.className = 'alert alert-success'
-                    alertBox.innerHTML = `Votre playlist titre ${playlist.titre} (${playlist.id}) a bien été créée`
-                })
+			})
+			.then(res => res.json())
+			.then(playlist => {
+				const alertBox = document.getElementById('alert-box')
+				alertBox.className = 'alert alert-success'
+				alertBox.innerHTML = `Votre playlist titre ${playlist.titre} (${playlist.id}) a bien été créée`
+			})
         })
 	},
 	'/newplaylist': () => {
