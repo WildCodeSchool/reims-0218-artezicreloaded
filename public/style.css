@@ -20,21 +20,25 @@
 
 .question{
   text-align: center;
+  color: rgb(255, 255, 255);
   font-size: 30px;
   padding-top: 40px;
   padding-bottom: 20px;
-  background: linear-gradient(#ffffff, #616161);
+  background: linear-gradient(#202020, #000000);
 }
 .question:nth-child(2){
-  background: linear-gradient(#ff4141, #7e89ff);
+  background: linear-gradient(#808080, #606060);
   
 }
 .question:nth-child(4){
-  background: linear-gradient(#04bb04, #525fd8);
+  background: linear-gradient(#606060, #404040);
 }
 .question:nth-child(6){
-  background: linear-gradient(#ad19bb, #ecdd09);
+  background: linear-gradient(#404040, #202020);
 }
 .pfaq{
   font-size: 60px;
+}
+hr{
+    border: wheat
 }
