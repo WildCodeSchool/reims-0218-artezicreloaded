@@ -4,13 +4,13 @@
   font-family: 'Lobster', cursive;
 }
 .imgfaq{
-  width: auto;
-  height: 381px;
+   max-width: 100%;
   box-shadow: 1px 1px 12px #555;
     -webkit-filter: grayscale(100%);
     filter: grayscale(100%);
     -webkit-transition: .3s ease-in-out;
     transition: .3s ease-in-out;
+    
   }
   .imgfaq:hover {
     -webkit-filter: grayscale(0);
