@@ -248,6 +248,7 @@ const controllers = {
                             ${mesInfos}
                         </div>
                     </div>
+                    <p><a class="btn btn-success btn-lg" href="/newplaylist" type="button">Ajouter une playlist</a></p>
                 `))
                 .then(zarma => {
                     const saveProfile = document.getElementById("saveProfile")
