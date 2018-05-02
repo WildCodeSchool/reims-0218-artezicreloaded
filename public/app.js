@@ -89,10 +89,10 @@ const makeWilder = item => `
     `
 
 const makeCardMember = item => `
-    <div class="container">
-        <div class="row">
-            <div class="col-md-9 mt-5">
-                <section>
+    <div class="col-md-8 mt-5">
+        <section>
+            <div class="row">
+                <div class="col">
                     <div class="card">
                         <div class="card-header text-white bg-info">
                             <h4>Mon Profil</h4>
@@ -106,16 +106,17 @@ const makeCardMember = item => `
                             </div>
                         </div>
                     </div>
-                </section>
+                </div>
             </div>
-            <div class="col-md-3 mt-5">
-                <h3>Votre avatar</h3>
-                <img src="${item.avatar}" alt="" class="d-block id="avatar" img-fluid mb-3" width="300px">
-                <input value="${item.avatar}" id="avatar"></input>
-            </div>
-        </div>
+        </section>
     </div>
-        `
+
+    <div class="col-md-4 mt-5">
+        <h3>Votre avatar</h3>
+        <img src="${item.avatar}" alt="" class="d-block id="avatar" img-fluid mb-3" width="300px">
+        <input value="${item.avatar}" id="avatar"></input>
+    </div>
+    `
 
 const makeWinningCard = item => item.votesNb === null ? `<h5> Pas de gagnant pour l'instant </h5>` : `
     <div class="col-12 col-sm-12 col-md-4">
@@ -204,6 +205,12 @@ const controllers = {
                                 showModal(playlistClicked[0])
                             })
                         })
+                        if (!username) {
+                            const isConnectedUser = document.getElementById('userName').innerHTML = `<span class="fa fa-user"></span> Se connecter`
+                        } else {
+                            const isConnectedUser = document.getElementById('userName').innerHTML = `<span class="fa fa-user"></span> ${username}`
+                        }
+
                     })
                 disconnect(localStore)
             })
@@ -226,9 +233,15 @@ const controllers = {
                 })
                 .then(mesInfos => render(
                     `
-                    <div id="alert-box" class="hidden">
+                    <div class="container">
+                        <div id="alert-box" class="hidden">
+                        </div>
                     </div>
-                        ${mesInfos}
+                    <div class="container">
+                        <div class="row">
+                            ${mesInfos}
+                        </div>
+                    </div>
                 `))
                 .then(zarma => {
                     const saveProfile = document.getElementById("saveProfile")

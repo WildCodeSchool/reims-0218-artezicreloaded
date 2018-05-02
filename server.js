@@ -97,8 +97,7 @@ const html = `
       </head>
     <body>
       <div class="container">
-        <div class="row">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark col-12 col-sm-12 col-md-12" id="menu">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="menu">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -119,7 +118,7 @@ const html = `
           </ul>
           <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown mr-3">
-                <a href="/authentification" class="btn btn-outline-info my-2 my-sm-0" role="button"><span class="fa fa-user"></span> Connexion</a>
+                <a href="/authentification" class="btn btn-outline-info my-2 my-sm-0" id="userName" role="button"><span class="fa fa-user"></span> Connexion</a>
             </li>
             
             <li class="nav-item">
@@ -128,12 +127,18 @@ const html = `
             </li>
           </nav>
           <div id="carouselSlidesOnly" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img class="d-block w-100" src="http://res.cloudinary.com/dlfnke6kc/image/upload/v1524129058/artezik_2_reloaded_zfn4l4.jpg" alt="Artezik2 reloaded">
-              </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="http://res.cloudinary.com/dlfnke6kc/image/upload/v1524129058/artezik_2_reloaded_zfn4l4.jpg" alt="Artezik2 reloaded">
+            </div>
+            <div class="carousel-item"> 
+              <img class="d-block w-100" src="http://res.cloudinary.com/dlfnke6kc/image/upload/v1524742523/artezik_2_reloaded_green_svho1r.jpg" alt="Artezik2 reloaded">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="http://res.cloudinary.com/dlfnke6kc/image/upload/v1524742523/artezik_2_reloaded_yellow_lklcf3.jpg" alt="Artezik2 reloaded">
             </div>
           </div>
+        </div>
         <div id="main">
         </div>
       </div>
