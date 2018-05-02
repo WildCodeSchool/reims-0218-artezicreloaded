@@ -170,7 +170,6 @@ const html = `
             // Add active class to the current button (highlight it)
             var header = document.getElementById("menu");
             var btns = header.getElementsByClassName("nav-link");
-            console.log(btns);
             for (var i = 0; i < btns.length; i++) {
                 btns[i].addEventListener("click", function() {
                     var current = document.getElementsByClassName("active");
