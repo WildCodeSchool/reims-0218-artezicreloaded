@@ -92,7 +92,6 @@ const makeWilder = item => `
 
 const makeCardMember = item => `
     <div class="col-md-8 mt-5">
-        <section>
             <div class="row">
                 <div class="col">
                     <div class="card">
@@ -110,13 +109,12 @@ const makeCardMember = item => `
                     </div>
                 </div>
             </div>
-        </section>
     </div>
 
     <div class="col-md-4 mt-5">
         <h3>Votre avatar</h3>
         <img src="${item.avatar}" alt="" class="d-block id="avatar" img-fluid mb-3" width="300px">
-        <input value="${item.avatar}" id="avatar" maxlength="10" size="10"></input>
+        <input value="${item.avatar}" id="avatar" size="36"></input>
     </div>
     `
 
@@ -248,9 +246,9 @@ const controllers = {
                             ${mesInfos}
                         </div>
                     </div>
-                    <p><a class="btn btn-success btn-lg" href="/newplaylist" type="button">Ajouter une playlist</a></p>
+                    <p><a class="btn btn-success btn-lg mt-5" href="/newplaylist" type="button">Ajouter une playlist</a></p>
                 `))
-                .then(zarma => {
+                .then(resultat => {
                     const saveProfile = document.getElementById("saveProfile")
                     saveProfile.addEventListener('click', sendData);
 
