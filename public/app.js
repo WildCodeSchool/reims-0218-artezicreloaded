@@ -180,16 +180,14 @@ const controllers = {
                     </div>
                     `
                 )
+                const launchPlaylistButtons = document.getElementsByClassName("launch")
+                Array.from(launchPlaylistButtons).forEach(button => {
+                  button.addEventListener('click', () => {
+                    const playlistClicked = allPlaylists.filter(playlist => playlist.playlistId === Number(button.id))
+                    showModal(playlistClicked[0])
+                  })
+                })
             })
-      
-        
-        const launchPlaylistButtons = document.getElementsByClassName("launch")
-        Array.from(launchPlaylistButtons).forEach(button => {
-          button.addEventListener('click', () => {
-            const playlistClicked = allPlaylists.filter(playlist => playlist.playlistId === Number(button.id))
-            showModal(playlistClicked[0])
-          })
-        })
         disconnect(localStore)
     })
   },
