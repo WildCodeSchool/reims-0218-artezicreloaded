@@ -272,35 +272,35 @@ const controllers = {
     <link rel="stylesheet" href="style.css" />
 
     <div class="question">
-    <p class="pfaq">Bienvenue dans la F.A.Q</p>
+    <p class="pfaq">Bienvenue dans la F.A.Q jeune troubadour !</p>
     <hr>
-    <p>Commenjhgyugkuugygyuklgjcjejfeijfceijijefjefiejfeijfiejfijefijfij</p>
+    <p>Comment faire sa propre playlist ?</p>
     <hr>
-    <p>yufytfytcjctcjycjyctjyctcy</p>
+    <p>Pour commencer il te faut crer un compte sur soundgood pour ensuite pouvoir faire t'es super playlist !</p>
     </div>
 
     <div><img src="https://agenceho5.com/wp-content/uploads/2017/04/Boulevard-des-airs-1-2000x500.jpg" class="imgfaq" alt="DJ" ></div>
 
     <div class="question">
-    <p>Commenjhgyugkuugygyuklgjcjejfeijfceijijefjefiejfeijfiejfijefijfij</p>
+    <p>Comment importer ta playlist sur Artezic reloaded ?</p>
     <hr>
-    <p>yufytfytcjctcjycjyctjyctcy</p>
+    <p>Vous devez aller sur votre playlist soundgood, cliquer sur intégrer puis copier le code iframe pour ensuite le coller dans le champ dédié sur Artezic reloaded.</p>
     </div>
 
     <div><img src="http://www.buuworld.com/image/115006258.jpg" class="imgfaq" alt="violoniste" ></div>
 
     <div class="question">
-    <p>Commenjhgyugkuugygyuklgjcjejfeijfceijijefjefiejfeijfiejfijefijfij</p>
+    <p>Comment ajouter une photo sur son profil ?</p>
     <hr>
-    <p>yufytfytcjctcjycjyctjyctcy</p>
+    <p>Il suffit juste de copier l'url de ta photo pour la coller dans le champ dédié pour. nous te conseillons de redimensionner ta photo pour éviter les images qui prennent trop d'espace.<a href="https://www.iloveimg.com/fr/redimensionner-image">- IloveIMG -</a> est top pour redimensionner une image. </p>
     </div>
 
     <div><img src="https://www.in-akustik.de/uploads/tx_flexslider/Michael_Schenker_Live_In_Tokyo_Slider_01.jpg" class="imgfaq" alt="rap"></div>
 
     <div class="question">
-    <p>Commenjhgyugkuugygyuklgjcjejfeijfceijijefjefiejfeijfiejfijefijfij</p>
+    <p>Que se passe t'il si je gagne le concour ?</p>
     <hr>
-    <p>yufytfytcjctcjycjyctjyctcy</p>
+    <p>Un chèque de 1500€ et une boite de chocolat "mon chéri" vous seront offert par l'école.</p>
     <hr>
     <p class="pfaq">Fin de la F.A.Q</p>
     </div>
