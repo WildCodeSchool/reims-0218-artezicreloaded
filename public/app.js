@@ -3,69 +3,68 @@ import { refreshInterval, refreshToHome, showModal, disconnect } from './utils.j
 const mainDiv = document.getElementById('main')
 
 const render = html => {
-  mainDiv.innerHTML = html
+    mainDiv.innerHTML = html
 }
 
 const cleanUrl = (str) => {
-  const urlRegex = new RegExp('https:\/\/play.soundsgood.co\/embed\/\\d*\\w*')
-  const urlFromIframe = urlRegex.exec(str)
-  return urlFromIframe[0]
+    const urlRegex = new RegExp('https:\/\/play.soundsgood.co\/embed\/\\d*\\w*')
+    const urlFromIframe = urlRegex.exec(str)
+    return urlFromIframe[0]
 }
 
 const makePlaylistCard = (item, tokenInStore, username, idWilder, arr) => {
-  
+
     if (!tokenInStore) {
         return `
-        <div class="col-md-4">
-            <div class="card mb-4 box-shadow">
-                <div class="card-body">
-                    <p class="card-text">${item.titre}</p>
-                    <p>${item.genre}</a>
-                    <br>
-                    <button id="${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
-                        Ecouter
-                    </button>
-                    <a href="/authentification" id="vote${item.playlistId}"class="btn btn-success mt-2">J'aime</a>
+        <div class="col-md-6">
+            <div class="card text-center text-white bg-secondary mt-4 pt-3">
+                <div class="card-block">
+                <h2 class="text-warning">${item.titre}</h3>
+                <p class="text-light">${item.genre}</p>
+                <button id="${item.playlistId}" type="button" class="launch btn-lg btn-warning" data-toggle="modal" data-target="#modal${item.playlistId}">
+                    Ecouter cette playlist
+                </button>
+                <p>
+                    <a href="/authentification" id="vote${item.playlistId}" style="font-size:3em; color:GhostWhite" id="vote${item.playlistId}" type="submit" class="btn btn-info mt-2"><i class="fas fa-thumbs-up"></i></a>
+                </p>
                 </div>
             </div>
         </div>   
         `
-    }
-    else {
-        if (!arr.includes(item.playlistId)){
+    } else {
+        if (!arr.includes(item.playlistId)) {
             return ` 
-            <div class="col-md-4">
-                <div class="card mb-4 box-shadow">
-                    <div class="card-body">
-                        <p class="card-text">${item.titre}</p>
-                        <p>${item.genre}</a>
-                        <br>
-                        <button id="${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
-                            Ecouter
+            <div class="col-md-6">
+                <div class="card text-center text-white bg-secondary mt-4 pt-3">
+                    <div class="card-block">
+                    <h2 class="text-warning">${item.titre}</h3>
+                    <p class="text-light">${item.genre}</p>
+                        <button id="${item.playlistId}" type="button" class="launch btn-lg btn-warning" data-toggle="modal" data-target="#modal${item.playlistId}">
+                            Ecouter cette playlist
                         </button>
-                        <form action="/voteforplaylist" method="post">
+                        <form action="/voteforplaylist" method="post" class="mt-3 mb-3">
                             <input type="hidden" value="${idWilder}" name="id_wilders" />
                             <input type="hidden" value="1" name="vote" />
                             <input type="hidden" value="${item.playlistId}" name="id_playlists" />
                             <input type="hidden" value="${Date.now()}" name="date" />
-                            <button id="vote${item.playlistId}" type="submit" class="btn btn-success mt-2">J'aime</button>
+                            <button style="font-size:3em; color:GhostWhite" id="vote${item.playlistId}" type="submit" class="btn btn-info mt-2"><i class="fas fa-thumbs-up"></i></button>
                         </form>
                     </div>
                 </div>
             </div>
-            ` 
+            `
         } else {
             return `
-            <div class="col-md-4">
-                <div class="card mb-4 box-shadow">
-                    <div class="card-body">
-                        <p class="card-text">${item.titre}</p>
-                        <p>${item.genre}</a>
+            <div class="col-md-6">
+                <div class="card text-center text-white bg-secondary mt-4 pt-3">
+                    <div class="card-block">
+                        <h2 class="text-warning">${item.titre}</h3>
+                        <p class="text-light">${item.genre}</p>
                         <br>
-                        <button id="${item.playlistId}" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
-                            Ecouter
+                        <button id="${item.playlistId}" type="button" class="launch btn-lg btn-warning" data-toggle="modal" data-target="#modal${item.playlistId}">
+                            Ecouter cette playlist
                         </button>
-                        <button id="vote${item.playlistId}" class="alreadyVoted btn btn-success mt-2">&#10003;</button>
+                        <p><button id="vote${item.playlistId}" class="alreadyVoted btn btn-success mt-5">&#10003;</button></p>
                     </div>
                 </div>
             </div>
@@ -89,13 +88,31 @@ const makeWilder = item => `
   </div>
     `
 
-    const makeCardMember = item => `
-    <div class="card">
-        <img class="card-img-top" src="${item.avatar}" alt="Card image">
-        <div class="card-body">
-          <h4 class="card-title">${item.pseudo}</h4>
-          <p class="card-text">${item.bio}</p>
-          <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlists</a>
+const makeCardMember = item => `
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 mt-5">
+                <section>
+                    <div class="card">
+                        <div class="card-header text-white bg-info">
+                            <h4>Mon Profil</h4>
+                        </div>
+                        <div class="card-block ml-3 mr-3">
+                            <textarea class="mt-3 form-control" rows="1" id="pseudo">${item.pseudo}</textarea>
+                            <div class="form-group mt-5">
+                                <label for="bio">Bio</label>
+                                <textarea rows="9" name="editor1" class="form-control" id="bio">${item.bio}</textarea>
+                                <button class="btn btn-info btn-block mt-3" id="saveProfile">Enregistrer</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-md-3 mt-5">
+                <h3>Votre avatar</h3>
+                <img src="${item.avatar}" alt="" class="d-block id="avatar" img-fluid mb-3" width="300px">
+                <input value="${item.avatar}" id="avatar"></input>
+            </div>
         </div>
     </div>
         `
@@ -134,12 +151,12 @@ const makeListsInCompete = item => `
     `
 
 const serializeForm = form => {
-  const data = {}
-  const elements = form.getElementsByClassName('form-control')
-  for (let el of elements) {
-    data[el.name] = el.value
-  }
-  return data
+    const data = {}
+    const elements = form.getElementsByClassName('form-control')
+    for (let el of elements) {
+        data[el.name] = el.value
+    }
+    return data
 }
 
 const localStore = localStorage
@@ -148,18 +165,18 @@ const username = localStore.getItem('username')
 const idWilder = localStore.getItem('idWilder')
 
 const controllers = {
-  '/': () => {
-    console.log("What happens in firefox?") //we get nothing...:(
-    fetch('/playlistsWilders')
-      .then(res => res.json())
-      .then(allPlaylists => {
-            fetch(`/votes/${idWilder}`)
+    '/': () => {
+        console.log("What happens in firefox?") //we get nothing...:(
+        fetch('/playlistsWilders')
             .then(res => res.json())
-            .then(playlistsVotedByUser => {
-                const cannotBeVoted = playlistsVotedByUser.map(playlist => playlist.id_playlists)
-                const allPlaylistsCards = allPlaylists.reduce((carry, playlist) => carry + makePlaylistCard(playlist, token, username, idWilder, cannotBeVoted), '')
-                render(
-                `<div class="container">
+            .then(allPlaylists => {
+                fetch(`/votes/${idWilder}`)
+                    .then(res => res.json())
+                    .then(playlistsVotedByUser => {
+                        const cannotBeVoted = playlistsVotedByUser.map(playlist => playlist.id_playlists)
+                        const allPlaylistsCards = allPlaylists.reduce((carry, playlist) => carry + makePlaylistCard(playlist, token, username, idWilder, cannotBeVoted), '')
+                        render(
+                            `<div class="container">
                         <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -179,54 +196,73 @@ const controllers = {
                         </div>
                     </div>
                     `
-                )
-                const launchPlaylistButtons = document.getElementsByClassName("launch")
-                Array.from(launchPlaylistButtons).forEach(button => {
-                  button.addEventListener('click', () => {
-                    const playlistClicked = allPlaylists.filter(playlist => playlist.playlistId === Number(button.id))
-                    showModal(playlistClicked[0])
-                  })
-                })
+                        )
+                        const launchPlaylistButtons = document.getElementsByClassName("launch")
+                        Array.from(launchPlaylistButtons).forEach(button => {
+                            button.addEventListener('click', () => {
+                                const playlistClicked = allPlaylists.filter(playlist => playlist.playlistId === Number(button.id))
+                                showModal(playlistClicked[0])
+                            })
+                        })
+                    })
+                disconnect(localStore)
             })
-        disconnect(localStore)
-    })
-  },
-  '/monprofil': () => {
-   const username = localStore.username
-    if (!username) {
-        return render(`
+    },
+    '/monprofil': () => {
+        const username = localStore.username
+        if (!username) {
+            return render(`
             <div class="alert alert-danger" role="alert">
             Vous devez vous connecter pour accéder à cette page.
             <a href="/authentification" class="btn btn-success mt-2">Me connecter</a>
             </div>
-            `
-        )
-    } else {
-        fetch('/connected')
-        .then(res => res.json())
-        .then(allWildersWithPlaylists => allWildersWithPlaylists.filter( wilder => wilder.pseudo === username))
-        .then(connectedMember => {
-            return makeCardMember(connectedMember[0])
-        })
-        .then(mesInfos => {
-            render(
-                `
-                <div class="container">
-                    <div class="row">
-                    ${mesInfos}
+            `)
+        } else {
+            fetch('/connected')
+                .then(res => res.json())
+                .then(allWildersWithPlaylists => allWildersWithPlaylists.filter(wilder => wilder.pseudo === username))
+                .then(connectedMember => {
+                    return makeCardMember(connectedMember[0])
+                })
+                .then(mesInfos => render(
+                    `
+                    <div id="alert-box" class="hidden">
                     </div>
-                    <br/>
-                    <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
-                    <p><a class="btn btn-success btn-lg" href="/newplaylist" type="button">Ajouter une playlist</a></p>
-                    </div>
-                </div>
-                `)
-            })
-        disconnect(localStore)
-    }
-  },
-  '/editer-mon-profil': () => {
-    render(`
+                        ${mesInfos}
+                `))
+                .then(zarma => {
+                    const saveProfile = document.getElementById("saveProfile")
+                    saveProfile.addEventListener('click', sendData);
+
+                    function sendData() {
+                        let pseudo = document.getElementById('pseudo').value
+                        let bio = document.getElementById('bio').value
+                        let avatar = document.getElementById('avatar').value
+                        fetch('/membres', {
+                                method: 'PUT',
+                                headers: {
+                                    'Accept': 'application/json, text/plain, */*',
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    pseudo: pseudo,
+                                    bio: bio,
+                                    avatar: avatar
+                                })
+                            })
+                            .then(res => res.json())
+                            .then(wilderEdition => {
+                                const alertBox = document.getElementById('alert-box')
+                                alertBox.className = 'alert alert-success'
+                                alertBox.innerHTML = `${wilderEdition.pseudo}, votre profil titre été édité.`
+                            })
+                    }
+                })
+            disconnect(localStore)
+        }
+    },
+    '/editer-mon-profil': () => {
+        render(`
         <div class="container">
           <div id="alert-box" class="hidden">
           </div>
@@ -249,32 +285,32 @@ const controllers = {
             </form>
         </div>
         `)
-    const formProfile = document.getElementById('editMyProfile')
-    formProfile.addEventListener('submit', e => {
-      e.preventDefault()
-      const data = serializeForm(formProfile)
-      if (!data.avatar) {
-        const fullName = encodeURIComponent(`${data.bio} ${data.pseudo}`)
-        data.avatar = `https://via.placeholder.com/640x480/?text=${fullName}`
-      }
-      fetch('/membres', {
-        method: 'PUT',
-        headers: {
-          'Accept': 'application/json, text/plain, */*',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-        .then(res => res.json())
-        .then(wilderEdition => {
-          const alertBox = document.getElementById('alert-box')
-          alertBox.className = 'alert alert-success'
-          alertBox.innerHTML = `${wilderEdition.pseudo}, votre profil titre été édité.`
+        const formProfile = document.getElementById('editMyProfile')
+        formProfile.addEventListener('submit', e => {
+            e.preventDefault()
+            const data = serializeForm(formProfile)
+            if (!data.avatar) {
+                const fullName = encodeURIComponent(`${data.bio} ${data.pseudo}`)
+                data.avatar = `https://via.placeholder.com/640x480/?text=${fullName}`
+            }
+            fetch('/membres', {
+                    method: 'PUT',
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(res => res.json())
+                .then(wilderEdition => {
+                    const alertBox = document.getElementById('alert-box')
+                    alertBox.className = 'alert alert-success'
+                    alertBox.innerHTML = `${wilderEdition.pseudo}, votre profil titre été édité.`
+                })
         })
-    })
-  },
-  '/newplaylist': () => {
-    render(`
+    },
+    '/newplaylist': () => {
+        render(`
       <div class="container">
         <div id="alert-box" class="hidden">
         </div>
@@ -294,60 +330,59 @@ const controllers = {
             <button type="submit" class="btn btn-primary">Submit</button>     
         </form>
         <a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil</a>
-      </div>`
-    )
-    const form = document.getElementById('add-playlist')
-    form.addEventListener('submit', e => {
-      e.preventDefault()
-      const data = serializeForm(form)
-      const dataWithId = {
-        titre: data.title,
-        genre: data.genre,
-        url: data.url,
-        compete: data.competition,
-        id_wilders: 1
-      }
-    fetch('/playlists', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(dataWithId)
-    })
-        .then(res => res.json())
-        .then(playlist => {
-          const alertBox = document.getElementById('alert-box')
-          alertBox.className = 'alert alert-success'
-          alertBox.innerHTML = `Votre playlist titre ${playlist.titre} (${playlist.id}) a bien été créée`
+      </div>`)
+        const form = document.getElementById('add-playlist')
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            const data = serializeForm(form)
+            const dataWithId = {
+                titre: data.title,
+                genre: data.genre,
+                url: data.url,
+                compete: data.competition,
+                id_wilders: 1
+            }
+            fetch('/playlists', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(dataWithId)
+                })
+                .then(res => res.json())
+                .then(playlist => {
+                    const alertBox = document.getElementById('alert-box')
+                    alertBox.className = 'alert alert-success'
+                    alertBox.innerHTML = `Votre playlist titre ${playlist.titre} (${playlist.id}) a bien été créée`
+                })
         })
-    })
     },
     '/wilders': () => {
         fetch('/membres')
-        .then(res => res.json())
-        .then(listusers => listusers.reduce((carry, user) => carry + makeWilder(user), ''))
-        .then(book => {
-            render(
-            `<div class="container">
+            .then(res => res.json())
+            .then(listusers => listusers.reduce((carry, user) => carry + makeWilder(user), ''))
+            .then(book => {
+                render(
+                    `<div class="container">
             <div class="row">
                 ${book}  
             </div>
             </div>
             `)
-            disconnect(localStore)
-        })
+                disconnect(localStore)
+            })
     },
     '/viewplaylists/:slug': ctx => {
         const {
-        slug
+            slug
         } = ctx.params
         fetch(`/membre/${slug}`)
-        .then(res => res.json())
-        .then(wilder => {
-            const playlists = wilder[0].playlists
-            const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
-            render(`
+            .then(res => res.json())
+            .then(wilder => {
+                const playlists = wilder[0].playlists
+                const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
+                render(`
                 <div class="container">
                     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -368,16 +403,15 @@ const controllers = {
                         ${wilderPlaylistsCards}
                     </div>
                 </div>
-                `
-            )
-        const launchPlaylistButtons = document.getElementsByClassName("launch")
-        Array.from(launchPlaylistButtons).forEach(button => {
-            button.addEventListener('click', ()=>{
-                const playlistClicked = playlists.filter(playlist => playlist.playlistId === Number(button.id))
-                showModal(playlistClicked[0])
-                }) 
+                `)
+                const launchPlaylistButtons = document.getElementsByClassName("launch")
+                Array.from(launchPlaylistButtons).forEach(button => {
+                    button.addEventListener('click', () => {
+                        const playlistClicked = playlists.filter(playlist => playlist.playlistId === Number(button.id))
+                        showModal(playlistClicked[0])
+                    })
+                })
             })
-        })
     },
 
     '/authentification': () => {
@@ -389,37 +423,36 @@ const controllers = {
             `
         render(`
             <div id="alert-login"></div> 
-            ${ !token ? loginFormHtml : '<button id="disconnect" type="button">se deconnecter</button>' }`
-        )
+            ${ !token ? loginFormHtml : '<button id="disconnect" type="button">se deconnecter</button>' }`)
         if (!token) {
             const loginForm = document.getElementById('loginForm')
             loginForm.addEventListener('submit', e => {
                 e.preventDefault()
                 const data = serializeForm(loginForm)
-                //post sur le server /auth/login
+                    //post sur le server /auth/login
                 fetch('/auth/login', {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json, text/plain, */*',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                })
-                .then(res => res.json())
-                .then(data => {
-                    const alert = document.getElementById('alert-login')
-                    if(!data.user) {
-                        //alert class danger
-                        alert.innerHTML = `echec`
-                    } else {
-                        alert.innerHTML = `Bonjour ${data.user.username} !`
-                        localStorage.setItem('token', data.token)
-                        localStorage.setItem('username', data.user.username)
-                        localStorage.setItem('idWilder', data.user.id)
-                        loginForm.style.display = 'none'
-                        refreshToHome()
-                    }
-                })
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json, text/plain, */*',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        const alert = document.getElementById('alert-login')
+                        if (!data.user) {
+                            //alert class danger
+                            alert.innerHTML = `echec`
+                        } else {
+                            alert.innerHTML = `Bonjour ${data.user.username} !`
+                            localStorage.setItem('token', data.token)
+                            localStorage.setItem('username', data.user.username)
+                            localStorage.setItem('idWilder', data.user.id)
+                            loginForm.style.display = 'none'
+                            refreshToHome()
+                        }
+                    })
             })
         } else {
             document.getElementById('disconnect').addEventListener('click', () => {
@@ -435,16 +468,16 @@ const controllers = {
             })
         }
     },
-  '/viewplaylists/:slug': ctx => {
-    const {
-        slug
-    } = ctx.params
-    fetch(`/membre/${slug}`)
-      .then(res => res.json())
-      .then(wilder => {
-        const playlists = wilder[0].playlists
-        const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
-        render(`
+    '/viewplaylists/:slug': ctx => {
+        const {
+            slug
+        } = ctx.params
+        fetch(`/membre/${slug}`)
+            .then(res => res.json())
+            .then(wilder => {
+                const playlists = wilder[0].playlists
+                const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
+                render(`
             <div class="container">
                 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -464,24 +497,23 @@ const controllers = {
                 <div class="row">
                     ${wilderPlaylistsCards}
                 </div>
-            </div>`
-        )
-        const launchPlaylistButtons = document.getElementsByClassName("launch")
-        Array.from(launchPlaylistButtons).forEach(button => {
-          button.addEventListener('click', () => {
-            const playlistClicked = playlists.filter(playlist => playlist.playlistId === Number(button.id))
-            showModal(playlistClicked[0])
-          })
-        })
-      })
-  },
-  '/concours': () => {
-    fetch('/playlistsCompete')
-      .then(res => res.json())
-      .then(result => {
-        const winningPlaylistData = result[0].playlists
-        const winner = makeWinningCard(result[0])
-        render(`
+            </div>`)
+                const launchPlaylistButtons = document.getElementsByClassName("launch")
+                Array.from(launchPlaylistButtons).forEach(button => {
+                    button.addEventListener('click', () => {
+                        const playlistClicked = playlists.filter(playlist => playlist.playlistId === Number(button.id))
+                        showModal(playlistClicked[0])
+                    })
+                })
+            })
+    },
+    '/concours': () => {
+        fetch('/playlistsCompete')
+            .then(res => res.json())
+            .then(result => {
+                const winningPlaylistData = result[0].playlists
+                const winner = makeWinningCard(result[0])
+                render(`
             <div class="container align-items-center">
                 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -504,20 +536,20 @@ const controllers = {
                 </div>
             </div>    
             `)
-        const winningPlaylistButton = document.getElementById('launchPlaylist')
-        winningPlaylistButton.addEventListener('click', () => {
-          return showModal(result[0])
-        })
-        disconnect(localStore)
-      })
-  }
+                const winningPlaylistButton = document.getElementById('launchPlaylist')
+                winningPlaylistButton.addEventListener('click', () => {
+                    return showModal(result[0])
+                })
+                disconnect(localStore)
+            })
+    }
 }
 
-const route = pathname => { }
+const route = pathname => {}
 
 (() => {
-  ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours', '/authentification'].forEach(
-    path => page(path, controllers[path])
-  )
-  page()
+    ['/', '/wilders', '/monprofil', '/newplaylist', '/editer-mon-profil', '/viewplaylists/:slug', '/concours', '/authentification'].forEach(
+        path => page(path, controllers[path])
+    )
+    page()
 })()
