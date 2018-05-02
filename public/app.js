@@ -248,7 +248,7 @@ const controllers = {
                     </div>
                     <p><a class="btn btn-success btn-lg mt-5" href="/newplaylist" type="button">Ajouter une playlist</a></p>
                 `))
-                .then(resultat => {
+                .then(() => {
                     const saveProfile = document.getElementById("saveProfile")
                     saveProfile.addEventListener('click', sendData);
 
