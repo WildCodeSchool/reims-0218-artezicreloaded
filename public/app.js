@@ -13,9 +13,9 @@ const cleanUrl = (str) => {
 }
 
 const makePlaylistCard = (item, tokenInStore, username, idWilder, arr) => {
-  
-    if (!tokenInStore) {
-        return `
+
+  if (!tokenInStore) {
+    return `
         <div class="col-md-4">
             <div class="card mb-4 box-shadow">
                 <div class="card-body">
@@ -30,10 +30,10 @@ const makePlaylistCard = (item, tokenInStore, username, idWilder, arr) => {
             </div>
         </div>   
         `
-    }
-    else {
-        if (!arr.includes(item.playlistId)){
-            return ` 
+  }
+  else {
+    if (!arr.includes(item.playlistId)) {
+      return ` 
             <div class="col-md-4">
                 <div class="card mb-4 box-shadow">
                     <div class="card-body">
@@ -53,9 +53,9 @@ const makePlaylistCard = (item, tokenInStore, username, idWilder, arr) => {
                     </div>
                 </div>
             </div>
-            ` 
-        } else {
-            return `
+            `
+    } else {
+      return `
             <div class="col-md-4">
                 <div class="card mb-4 box-shadow">
                     <div class="card-body">
@@ -70,50 +70,54 @@ const makePlaylistCard = (item, tokenInStore, username, idWilder, arr) => {
                 </div>
             </div>
             `
-        }
     }
+  }
 }
 
 const makeWilder = item => `
-  <div class="col-12 col-sm-12 col-md-3 ">
-    <div class="d-flex justify-content-around">
-      <div class="card w-100">
-          <div class="card-body">
-              <img class="card-img-top" src="${item.avatar}" alt="Card image">
-              <h5 class="card-title">${item.pseudo}</h5>
+    <div class="blocks col-12 col-sm-12 col-md-4">
+      <div class="card" id="card_sponsor">
+        <div class="card-block">
+          <div class="row">
+            <div class="member">
+              <h3 class="card-title">${item.pseudo}</h3>
+              <img class="center" src="${item.avatar}" alt="Card image" style="width: 14rem;">
+              <hr style="background-color: #00001c;">
               <p class="card-text">${item.bio}</p>
-              <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlists</a>
+            </div>
           </div>
         </div>
-      </div>  
-  </div>
+      </div>
+    </div>
+    `
+const makeCardMember = item => `
+    <div class="blocks col-12 col-sm-12 col-md-3">
+      <div class="card style="width: 18rem;>
+        <img class="card-img-top" src="${item.avatar}" alt="Card image">
+          <div class="card-body">
+            <h4 class="card-title">${item.pseudo}</h4>
+            <p class="card-text">${item.bio}</p>
+            <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlists</a>
+          </div>
+      </div>
+    </div>
     `
 
-    const makeCardMember = item => `
-    <div class="card">
-        <img class="card-img-top" src="${item.avatar}" alt="Card image">
-        <div class="card-body">
-          <h4 class="card-title">${item.pseudo}</h4>
-          <p class="card-text">${item.bio}</p>
-          <a href="/viewplaylists/${item.pseudo.toLowerCase()}" class="btn btn-primary">Voir mes playlists</a>
-        </div>
-    </div>
-        `
-
 const makeWinningCard = item => item.votesNb === null ? `<h5> Pas de gagnant pour l'instant </h5>` : `
-    <div class="col-12 col-sm-12 col-md-4">
-        <div class="card">
-            <img class="card-img-top" src="https://png.pngtree.com/element_origin_min_pic/17/07/23/473f204a1589862d0264b14f926b4b59.jpg" alt="Card image">
-            <div class="card-body">
-                <h4 class="card-title">${item.titre}</h4>
-                <p class="card-text">${item.votesNb} votes</p>
-                <br>
-                <button id="launchPlaylist" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
-                    Ecouter
-                </button>
-            </div>
-        </div>
+    <div class="jumbotron col-md-12" id="card_sponsor">
+    <div class="row">
+      <div class="col-md-9 order-md-last">
+        <h1 class="card-title display-4" >${item.titre}</h1>
+        <p>Le vainqueur du concour de la semaine a gagné avec ${item.votesNb} votes sur sa playlist. <br> Bravo !</p>
+            <button id="launchPlaylist" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
+        Ecouter
+        </button>
+        <hr>
       </div>
+      <div class="col-md-3 order-md-first">
+        <img class="center" src="http://theblog.is/thackley/files/2017/07/winner.jpeg" alt="Card image" style="width: 12rem;">
+      </div>
+    </div>
     </div>
     `
 
@@ -153,76 +157,85 @@ const controllers = {
     fetch('/playlistsWilders')
       .then(res => res.json())
       .then(allPlaylists => {
-            fetch(`/votes/${idWilder}`)
-            .then(res => res.json())
-            .then(playlistsVotedByUser => {
-                const cannotBeVoted = playlistsVotedByUser.map(playlist => playlist.id_playlists)
-                const allPlaylistsCards = allPlaylists.reduce((carry, playlist) => carry + makePlaylistCard(playlist, token, username, idWilder, cannotBeVoted), '')
-                render(
-                `<div class="container">
-                        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div id="showThisModal"class="modal-body">
-                                    </div>
-                                </div>
-                            </div> 
-                        </div>
-                        <div class="row">
-                            ${allPlaylistsCards}  
-                        </div>
+        fetch(`/votes/${idWilder}`)
+          .then(res => res.json())
+          .then(playlistsVotedByUser => {
+            const cannotBeVoted = playlistsVotedByUser.map(playlist => playlist.id_playlists)
+            const allPlaylistsCards = allPlaylists.reduce((carry, playlist) => carry + makePlaylistCard(playlist, token, username, idWilder, cannotBeVoted), '')
+            render(
+              `<div class="container">
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div id="showThisModal"class="modal-body">
+                      </div>
                     </div>
-                    `
-                )
-                const launchPlaylistButtons = document.getElementsByClassName("launch")
-                Array.from(launchPlaylistButtons).forEach(button => {
-                  button.addEventListener('click', () => {
-                    const playlistClicked = allPlaylists.filter(playlist => playlist.playlistId === Number(button.id))
-                    showModal(playlistClicked[0])
-                  })
-                })
+                  </div> 
+                </div>
+                  <div class="row">
+                  ${allPlaylistsCards}  
+                  </div>
+                </div>
+              `
+            )
+            const launchPlaylistButtons = document.getElementsByClassName("launch")
+            Array.from(launchPlaylistButtons).forEach(button => {
+              button.addEventListener('click', () => {
+                const playlistClicked = allPlaylists.filter(playlist => playlist.playlistId === Number(button.id))
+                showModal(playlistClicked[0])
+              })
             })
+          })
         disconnect(localStore)
-    })
+      })
   },
   '/monprofil': () => {
-   const username = localStore.username
+    const username = localStore.username
     if (!username) {
-        return render(`
+      return render(`
+      <div class="container">
+        <div class="row">
+          <div class="col-md-10">
             <div class="alert alert-danger" role="alert">
-            Vous devez vous connecter pour accéder à cette page.
-            <a href="/authentification" class="btn btn-success mt-2">Me connecter</a>
+              Vous devez vous connecter pour accéder à cette page.
             </div>
+          </div>
+            <div class="col-md-2">
+              <a href="/authentification" class="btn btn-success mt-2">Me connecter</a>
+            </div>
+          </div>
+        </div>
+      </div>
             `
-        )
+      )
     } else {
-        fetch('/connected')
+      fetch('/connected')
         .then(res => res.json())
-        .then(allWildersWithPlaylists => allWildersWithPlaylists.filter( wilder => wilder.pseudo === username))
+        .then(allWildersWithPlaylists => allWildersWithPlaylists.filter(wilder => wilder.pseudo === username))
         .then(connectedMember => {
-            return makeCardMember(connectedMember[0])
+          return makeCardMember(connectedMember[0])
         })
         .then(mesInfos => {
-            render(
-                `
-                <div class="container">
-                    <div class="row">
-                    ${mesInfos}
-                    </div>
-                    <br/>
-                    <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
-                    <p><a class="btn btn-success btn-lg" href="/newplaylist" type="button">Ajouter une playlist</a></p>
-                    </div>
+          render(
+            `
+            <div class="container">
+                <div class="row">
+                ${mesInfos}
                 </div>
-                `)
-            })
-        disconnect(localStore)
+                <br/>
+                <p><a class="btn btn-success btn-lg" href="/editer-mon-profil" role="button">Editer mon profil</a></p>
+                <p><a class="btn btn-success btn-lg" href="/newplaylist" type="button">Ajouter une playlist</a></p>
+                </div>
+            </div>
+            `)
+        })
+      disconnect(localStore)
     }
   },
   '/editer-mon-profil': () => {
@@ -307,14 +320,14 @@ const controllers = {
         compete: data.competition,
         id_wilders: 1
       }
-    fetch('/playlists', {
+      fetch('/playlists', {
         method: 'POST',
         headers: {
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(dataWithId)
-    })
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dataWithId)
+      })
         .then(res => res.json())
         .then(playlist => {
           const alertBox = document.getElementById('alert-box')
@@ -322,122 +335,127 @@ const controllers = {
           alertBox.innerHTML = `Votre playlist titre ${playlist.titre} (${playlist.id}) a bien été créée`
         })
     })
-    },
-    '/wilders': () => {
-        fetch('/membres')
-        .then(res => res.json())
-        .then(listusers => listusers.reduce((carry, user) => carry + makeWilder(user), ''))
-        .then(book => {
-            render(
-            `<div class="container">
+  },
+  '/wilders': () => {
+    fetch('/membres')
+      .then(res => res.json())
+      .then(listusers => listusers.reduce((carry, user) => carry + makeWilder(user), ''))
+      .then(book => {
+        render(
+          `<div class="container">
             <div class="row">
-                ${book}  
+              ${book}  
             </div>
-            </div>
-            `)
-            disconnect(localStore)
-        })
-    },
-    '/viewplaylists/:slug': ctx => {
-        const {
-        slug
-        } = ctx.params
-        fetch(`/membre/${slug}`)
-        .then(res => res.json())
-        .then(wilder => {
-            const playlists = wilder[0].playlists
-            const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
-            render(`
-                <div class="container">
-                    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div id="showThisModal"class="modal-body">
-                                </div>
-                            </div>
-                        </div> 
-                    </div>
-                    <h2>Les playlists de ${slug}</h2>
-                    <div class="row">
-                        ${wilderPlaylistsCards}
-                    </div>
-                </div>
-                `
-            )
-        const launchPlaylistButtons = document.getElementsByClassName("launch")
-        Array.from(launchPlaylistButtons).forEach(button => {
-            button.addEventListener('click', ()=>{
-                const playlistClicked = playlists.filter(playlist => playlist.playlistId === Number(button.id))
-                showModal(playlistClicked[0])
-                }) 
-            })
-        })
-    },
-
-    '/authentification': () => {
-        const loginFormHtml = `<form id="loginForm">
-            <input class="form-control" name="username" placeholder="username"/>
-            <input class="form-control" type="password" name="password" placeholder="password"/>
-            <input type="submit" value="se connecter" />
-            </form>
-            `
-        render(`
-            <div id="alert-login"></div> 
-            ${ !token ? loginFormHtml : '<button id="disconnect" type="button">se deconnecter</button>' }`
-        )
-        if (!token) {
-            const loginForm = document.getElementById('loginForm')
-            loginForm.addEventListener('submit', e => {
-                e.preventDefault()
-                const data = serializeForm(loginForm)
-                //post sur le server /auth/login
-                fetch('/auth/login', {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json, text/plain, */*',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                })
-                .then(res => res.json())
-                .then(data => {
-                    const alert = document.getElementById('alert-login')
-                    if(!data.user) {
-                        //alert class danger
-                        alert.innerHTML = `echec`
-                    } else {
-                        alert.innerHTML = `Bonjour ${data.user.username} !`
-                        localStorage.setItem('token', data.token)
-                        localStorage.setItem('username', data.user.username)
-                        localStorage.setItem('idWilder', data.user.id)
-                        loginForm.style.display = 'none'
-                        refreshToHome()
-                    }
-                })
-            })
-        } else {
-            document.getElementById('disconnect').addEventListener('click', () => {
-                localStorage.removeItem('token')
-                localStorage.removeItem('username')
-                localStorage.removeItem('idWilder')
-                render(`
-                <div class="alert alert-warning" role="alert">
-                    Vous avez êté déconnecté.
-                </div>
-                
-                `)
-            })
-        }
-    },
+          </div>
+          `)
+        disconnect(localStore)
+      })
+  },
   '/viewplaylists/:slug': ctx => {
     const {
-        slug
+      slug
+    } = ctx.params
+    fetch(`/membre/${slug}`)
+      .then(res => res.json())
+      .then(wilder => {
+        const playlists = wilder[0].playlists
+        const wilderPlaylistsCards = playlists.reduce((acc, playlist) => acc + makePlaylistCard(playlist), '')
+        render(`
+        <div class="container">
+            <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div id="showThisModal"class="modal-body">
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <h2>Les playlists de ${slug}</h2>
+            <div class="row">
+                ${wilderPlaylistsCards}
+            </div>
+        </div>
+        `
+        )
+        const launchPlaylistButtons = document.getElementsByClassName("launch")
+        Array.from(launchPlaylistButtons).forEach(button => {
+          button.addEventListener('click', () => {
+            const playlistClicked = playlists.filter(playlist => playlist.playlistId === Number(button.id))
+            showModal(playlistClicked[0])
+          })
+        })
+      })
+  },
+
+  '/authentification': () => {
+    const loginFormHtml = `
+      <div class="container">  
+        <form id="loginForm">
+          <input class="form-control" name="username" placeholder="username"/>
+          <input class="form-control" type="password" name="password" placeholder="password"/>
+          <input type="submit" value="se connecter" />
+        </form>
+      </div>`
+    render(`
+      <div class="container">  
+        <div id="alert-login"></div> 
+        ${ !token ? loginFormHtml : '<button id="disconnect" type="button">se deconnecter</button>'}
+      </div>`
+    )
+    if (!token) {
+      const loginForm = document.getElementById('loginForm')
+      loginForm.addEventListener('submit', e => {
+        e.preventDefault()
+        const data = serializeForm(loginForm)
+        //post sur le server /auth/login
+        fetch('/auth/login', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+          .then(res => res.json())
+          .then(data => {
+            const alert = document.getElementById('alert-login')
+            if (!data.user) {
+              //alert class danger
+              alert.innerHTML = `echec`
+            } else {
+              alert.innerHTML = `Bonjour ${data.user.username} !`
+              localStorage.setItem('token', data.token)
+              localStorage.setItem('username', data.user.username)
+              localStorage.setItem('idWilder', data.user.id)
+              loginForm.style.display = 'none'
+              refreshToHome()
+            }
+          })
+      })
+    } else {
+      document.getElementById('disconnect').addEventListener('click', () => {
+        localStorage.removeItem('token')
+        localStorage.removeItem('username')
+        localStorage.removeItem('idWilder')
+        render(`
+          <div class="container">
+            <div class="alert alert-warning" role="alert">
+                Vous avez êté déconnecté.
+            </div>
+          </div>
+                `)
+      })
+    }
+  },
+  '/viewplaylists/:slug': ctx => {
+    const {
+      slug
     } = ctx.params
     fetch(`/membre/${slug}`)
       .then(res => res.json())
@@ -460,7 +478,7 @@ const controllers = {
                         </div>
                     </div> 
                 </div>
-                <h2>Les playlists de ${slug}</h2>
+                <h2>Les playlists de ${slug} :</h2>
                 <div class="row">
                     ${wilderPlaylistsCards}
                 </div>
@@ -481,24 +499,24 @@ const controllers = {
       .then(result => {
         const winningPlaylistData = result[0].playlists
         const winner = makeWinningCard(result[0])
-        render(`
-            <div class="container align-items-center">
-                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div id="showThisModal"class="modal-body">
-                            </div>
-                        </div>
-                    </div> 
-                </div>
-            </div>
-            <div class="container align-items-center" style="display: flex; justify-content: center; align-items: center;">
+        render(`           
+        <div class="container align-items-center">
+          <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <div id="showThisModal"class="modal-body">
+                      </div>
+                  </div>
+              </div> 
+          </div>
+        </div>
+            <div class="container">
                 <div class="row">
                     ${winner}
                 </div>

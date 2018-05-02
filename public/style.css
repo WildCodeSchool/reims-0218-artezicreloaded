@@ -1,5 +1,43 @@
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
+.container{
+  padding-top: 20px;
+}
+.blocks{
+  padding-bottom: 20px;
+  display: flex;
+}
+.card-title{
+  color : #08aeac;
+  text-align: center;
+  Font-Weight: Bold;
+  font-style: italic;
+}
+.member{
+  margin-top: 40px;
+  margin-bottom: 40px;
+  margin-left : 40px;
+  margin-right: 60px;
+}
+.card-text{
+  text-align: center;
+  margin: 40px;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+#card_sponsor{
+  background-color: #C0C0C0;
+}
+#launchPlaylist{
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 body .container-fluid{
     padding: 0;
     margin: 0;
