@@ -22,7 +22,7 @@ let db
 app.use(express.static('public'))
 app.use(bodyParser.json())
 
-app.use(bodyParser.urlencoded({ extended: true })); 
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const insertWilder = w => {
   const {
@@ -92,49 +92,76 @@ const html = `
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <title>Artezic Reloaded</title>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-      <link rel="stylesheet" href="style.css">
-      </head>
+      <link rel="stylesheet" href="/style.css">
+    </head>
     <body>
       <div class="container">
-        <div class="row">
-          <nav class="navbar navbar-expand-lg navbar-dark bg-primary col-12 col-sm-12 col-md-12">
-            <a class="navbar-brand" href="/">Artezic</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+          <a class="navbar-brand" href="/">Artezic</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="/monprofil">Mon profil<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/wilders">Equipe</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/concours">Concours</a>
+                </li>
+              </ul> 
+            </div>
+              <a href="/authentification" class="btn btn-outline-light my-2 my-sm-0" role="button">Connexion</a>
+              <button id="disconnect" class="btn btn-danger" type="button">
+              Off
             </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link" href="/monprofil">Mon profil<span class="sr-only">(current)</span></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/wilders">Equipe</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/concours">Concours</a>
-                  </li>
-                </ul> 
-              </div>
-                <a href="/authentification" class="btn btn-outline-light my-2 my-sm-0" role="button">Connexion</a>
-                <button id="disconnect" class="btn btn-danger" type="button">
-                Off
-              </button>
-          </nav>
-          <div id="carouselSlidesOnly" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img class="d-block w-100" src="http://res.cloudinary.com/dlfnke6kc/image/upload/v1524129058/artezik_2_reloaded_zfn4l4.jpg" alt="Artezik2 reloaded">
-              </div>
+        </nav>
+        <div id="carouselSlidesOnly" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="http://res.cloudinary.com/dlfnke6kc/image/upload/v1524129058/artezik_2_reloaded_zfn4l4.jpg" alt="Artezik2 reloaded">
             </div>
           </div>
-        <div id="main">
         </div>
       </div>
-      <script src="/page.js"></script>
-      <script type="module" src="/app.js"></script>
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <div id="main">
+      </div>
+      <section id="footer">
+        <div class="container">
+          <div class="row text-center text-xs-center text-sm-left text-md-left">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+              <h5>Linkedin des développeurs</h5>
+              <ul class="list-unstyled quick-links">
+                <li><a href="https://www.linkedin.com/in/aureliebayre/"><i class="fa fa-angle-double-right"></i>Aurélie Bayre</a></li>
+                <li><a href="https://www.linkedin.com/in/max-gallois/"><i class="fa fa-angle-double-right"></i>Max Gallois</a></li>
+                <li><a href="https://www.linkedin.com/in/arnaud-gadroy-63136115a/"><i class="fa fa-angle-double-right"></i>Arnaud Gadroy</a></li>
+                <li><a href="https://www.linkedin.com/in/thibaud-royer-93a7b715a/"><i class="fa fa-angle-double-right"></i>Thibaud Royer</a></li>
+              </ul>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-6">
+            <p id="pf">|  Importer et partager vos playlist  |</p>
+              <a href="https://fr-fr.facebook.com/"><i class="fa fa-facebook fa-4x fa-fw"></i></a>
+              <a href="https://twitter.com/"><i class="fa fa-twitter fa-4x fa-fw"></i></a>
+              <a href="https://www.youtube.com/"><i class="fa fa-youtube-play fa-4x fa-fw"></i></a>
+              <a href="https://www.spotify.com/fr/"><i class="fa fa-spotify fa-4x fa-fw"></i></a>
+              <a href="https://soundcloud.com/"><i class="fa fa-soundcloud fa-4x fa-fw"></i></a>
+            </div>	
+            <div class="col-xs-12 col-sm-4 col-md-3">
+              <a href="https://wildcodeschool.fr/"><img id="school" src="https://wildcodeschool.fr/wp-content/uploads/2016/05/cropped-naviconWCS-300x300.png"></a>
+            </div> 
+          </div>	
+        </div>
+        <p id="pff">Fait avec amour par la Wild Code School - Promotion Artémis 2018 / équipe Artezic reloaded</p>
+      </section>
+        
+          <script src="/page.js"></script>
+          <script type="module" src="/app.js"></script>
+          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
   </html>`
 
@@ -163,7 +190,7 @@ app.get('/votes/:id', (req, res) => {
     WHERE id_wilders = "${id.id}"
     ;
   `)
-  .then(votes =>    res.json(votes))
+    .then(votes => res.json(votes))
 })
 
 
@@ -271,7 +298,7 @@ app.post('/auth/login', function (req, res) {
       if (err) {
         res.send(err)
       }
-      // generate a signed son web token with the contents of user object and return it in the response
+
       const token = jwt.sign(user, 'your_jwt_secret')
       return res.json({ user, token })
     })
