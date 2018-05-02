@@ -205,10 +205,11 @@ app.post('/voteforplaylist', function(req, res) {
 app.get('/votes/:id', (req, res) => {
     const id = req.params
     db.all(`
-    SELECT * from votes
-    WHERE id_wilders = "${id.id}"
-    ;
-  `)
+        SELECT * from votes
+        WHERE id_wilders = "${id.id}"
+        ;
+        `
+    )
         .then(votes => res.json(votes))
 })
 
@@ -229,11 +230,11 @@ app.get('/membre/:slug', (req, res) => {
     const slug = req.params
     const pseudoFromSlug = [...slug.slug][0].toUpperCase() + slug.slug.slice(1)
     db.all(`
-    SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
-    from wilders
-    left join playlists on wilders.id = playlists.id_wilders
-    WHERE pseudo = "${pseudoFromSlug}"
-    ; 
+        SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
+        from wilders
+        left join playlists on wilders.id = playlists.id_wilders
+        WHERE pseudo = "${pseudoFromSlug}"
+        ; 
     `)
         .then(wilderPlaylists => {
             res.json(wildersWithPlaylists(wilderPlaylists))
@@ -271,9 +272,9 @@ app.get('/playlists', (req, res) => {
 app.get('/playlistsWilders', (req, res) => {
     db.all(
             `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
-      from wilders
-      left join playlists on wilders.id = playlists.id_wilders
-    `
+        from wilders
+        left join playlists on wilders.id = playlists.id_wilders
+        `
         )
         .then(playlistsByWilders => {
             res.json(playlistsByWilders)
@@ -282,13 +283,13 @@ app.get('/playlistsWilders', (req, res) => {
 
 app.get('/playlistsCompete', (req, res) => {
     db.all(
-            `Select votes.id_wilders as voterId, date, SUM(vote) as votesNb, votes.id_playlists as playlistId, titre, genre, url
-      FROM playlists
-      LEFT JOIN votes ON  playlists.id = votes.id_playlists
-      GROUP BY playlistId
-      ORDER BY votesNB DESC
-      limit 1;
-    `
+        `Select votes.id_wilders as voterId, date, SUM(vote) as votesNb, votes.id_playlists as playlistId, titre, genre, url
+        FROM playlists
+        LEFT JOIN votes ON  playlists.id = votes.id_playlists
+        GROUP BY playlistId
+        ORDER BY votesNB DESC
+        limit 1;
+        `
         )
         .then(playlistsReturn => res.json(playlistsReturn))
 })
@@ -316,13 +317,11 @@ app.post('/auth/login', function(req, res) {
             if (err) {
                 res.send(err)
             }
-
             const token = jwt.sign(user, 'your_jwt_secret')
             return res.json({ user, token })
         })
     })(req, res)
 })
-
 
 app.get('*', (req, res) => {
     res.send(html)
