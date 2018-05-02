@@ -80,7 +80,7 @@ const makeWinningCard = item => item.votesNb === null ? `<h5> Pas de gagnant pou
                 <h4 class="card-title">${item.titre}</h4>
                 <p class="card-text">Le vainqueur du concour de la semaine a gagné avec ${item.votesNb} votes sur sa playlist. <br> Bravo !</p>
                 <button id="launchPlaylist" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
-                    Ecrouter sa playlist
+                    Ecouter sa playlist
                 </button>
             </div>
         </div>
@@ -342,11 +342,27 @@ const controllers = {
       .then(res => res.json())
       .then(listusers => listusers.reduce((carry, user) => carry + makeWilder(user), ''))
       .then(book => render(
-        `<div class="container">
-                <div class="row">
-                    ${book}  
+        `<div class="container align-items-center">
+          <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
                 </div>
-            </div>
+                <div id="showThisModal"class="modal-body">
+                </div>
+              </div>
+            </div> 
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+              ${book}  
+          </div>
+        </div>
                 `))
   },
   '/viewplaylists/:slug': ctx => {
