@@ -12,17 +12,20 @@ passport.use(new LocalStrategy({
         passwordField: 'password'
     }, 
     function (username, password, cb) {
-        console.log(username, password)
-         //in the first vid, Thomas RETURNS the promise...
-        userLogin(username, password).then(
+        return userLogin(username, password).then(
             user => {
                 if(!user) {
                     return cb(null, false, {message: 'Incorrect username or password.'})
                 } else {
-                    return cb(null, { id: user.id, username }, {message: 'Logged In Successfully'})
+                    if (user.password !== password) {
+                        return(cb(null, false, {message: `${username}, votre mot de passe est incorrect`}))
+                    }
+                    else {
+                        return cb(null, { id: user.id, username }, {message: 'Logged In Successfully'})
+                    }
                 }
             }
-        )//and here, a .catch(err=> cb(err))
+        ).catch(err=> cb(err))
     }
 ))
 

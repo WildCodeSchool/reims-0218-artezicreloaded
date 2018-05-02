@@ -5,7 +5,6 @@ const passport = require('passport')
 const jwt = require('jsonwebtoken')
 
 require('./passport-strategy')
-//const auth = require('./auth')
 
 const {
   wildersWithPlaylists
@@ -22,9 +21,8 @@ let db
 
 app.use(express.static('public'))
 app.use(bodyParser.json())
-//app.use('/auth', auth)
 
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const insertWilder = w => {
   const {
@@ -84,18 +82,7 @@ const dbPromise = Promise.resolve()
     Promise.map(users, w => {
       insertWilder(w)
     })
-  })/*
-  .then(() => {
-    Promise.map(users, w => {
-      insertPlaylist(w)
-    })
   })
-  .then(() => {
-    Promise.map(users, w => {
-      insertVote(w)
-    })
-  })
-  */
 
 const html = `
   <!doctype html>
@@ -110,25 +97,29 @@ const html = `
     <body>
       <div class="container">
         <div class="row">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light col-12 col-sm-12 col-md-12">
+          <nav class="navbar navbar-expand-lg navbar-dark bg-primary col-12 col-sm-12 col-md-12">
             <a class="navbar-brand" href="/">Artezic</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="/monprofil">Mon profil<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/wilders">Equipe</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/concours">Concours</a>
-                </li>
-              </ul>
-            </div>
-          </nav>     
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/monprofil">Mon profil<span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/wilders">Equipe</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/concours">Concours</a>
+                  </li>
+                </ul> 
+              </div>
+                <a href="/authentification" class="btn btn-outline-light my-2 my-sm-0" role="button">Connexion</a>
+                <button id="disconnect" class="btn btn-danger" type="button">
+                Off
+              </button>
+          </nav>
           <div id="carouselSlidesOnly" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active">
@@ -140,8 +131,9 @@ const html = `
       </div> 
         <div id="main">
         </div>
+      </div>
       <script src="/page.js"></script>
-      <script src="/app.js"></script>
+      <script type="module" src="/app.js"></script>
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -156,7 +148,7 @@ app.get('/', (req, res) => {
 app.post('/membres', (req, res) => {
   return insertWilder(req.body)
     .then(recordNewWilder => {
-      return res.json(recordNewWilder)
+      res.json(recordNewWilder)
     })
 })
 
@@ -165,16 +157,27 @@ app.post('/voteforplaylist', function (req, res) {
   return res.redirect('/')
 })
 
+
+app.get('/votes/:id', (req, res) => {
+  const id = req.params
+  db.all(`
+    SELECT * from votes
+    WHERE id_wilders = "${id.id}"
+    ;
+  `)
+    .then(votes => res.json(votes))
+})
+
+
 app.get('/connected', (req, res) => {
   db.all(`
       SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
       from wilders
       left join playlists on wilders.id = playlists.id_wilders
-      WHERE id_wilders = 1
       ; 
       `)
     .then(wilderPlaylists => {
-      return res.json(wildersWithPlaylists(wilderPlaylists))
+      res.json(wildersWithPlaylists(wilderPlaylists))
     })
 })
 
@@ -245,19 +248,6 @@ app.get('/playlistsCompete', (req, res) => {
   )
     .then(playlistsReturn => res.json(playlistsReturn)
     )
-})
-//OBSOLETE:.
-app.get('/playlistsInCompete', (req, res) => {
-  db.all(
-    `SELECT wilders.id as wilderId, playlists.id as playlistId, pseudo, avatar, bio, titre, genre, url 
-      from wilders
-      left join playlists on wilders.id = playlists.id_wilders
-      where compete = "true"
-    `
-  )
-    .then(playlistsReturn => {
-      return res.json(wildersWithPlaylists(playlistsReturn))
-    })
 })
 
 app.get('/playlists/1', (req, res) => {
