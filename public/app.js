@@ -298,9 +298,10 @@ const controllers = {
     <div><img src="https://www.in-akustik.de/uploads/tx_flexslider/Michael_Schenker_Live_In_Tokyo_Slider_01.jpg" class="imgfaq" alt="rap"></div>
 
     <div class="question">
-    <p>Que se passe t'il si je gagne le concour ?</p>
+    <p>est-il possible d'importer sa playlist entière d'une autre plateforme sur soudgood ?</p>
     <hr>
-    <p>Un chèque de 1500€ et une boite de chocolat "mon chéri" vous seront offert par l'école.</p>
+    <p>Oui, il faut aller sur la plateforme ou il y a la playlist en question aller sur l'option partager ou share pour ensuite copier le code playlist link.
+    Une fois ceci de fait aller sur soundgood puis faite importer une playlist et coller y le code playlist link.</p>
     <hr>
     <p class="pfaq">Fin de la F.A.Q</p>
     </div>
