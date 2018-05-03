@@ -6,10 +6,6 @@ password VARCHAR(255),
 avatar VARCHAR(255),
 bio TEXT );
 
-INSERT INTO wilders(pseudo, password, avatar, bio)
-VALUES ('Gontran', 'gogo', 'https://www.chroniquedisney.fr/imgPerso/donaldville/1948-gontran-bonheur-00.png', 'Je suis le neveu de Picsous');
-INSERT INTO wilders(pseudo, password, avatar, bio)
-VALUES ('Aurélie', 'auau', 'https://avatars1.githubusercontent.com/u/26029267?s=460&v=4', 'Je suis étudiante à la Wild Code School');
 
 CREATE TABLE playlists (
 id INTEGER PRIMARY KEY,
@@ -21,9 +17,9 @@ FOREIGN KEY(id_wilders) REFERENCES wilders(id)
 );
 
 INSERT INTO playlists(titre, genre, url, id_wilders)
-VALUES ('SQL le retour', 'chill', 'https://play.soundsgood.co/embed/5ad9971be7806b34155747da', 1);
+VALUES ('SQL le retour', 'chill', 'https://play.soundsgood.co/embed/5ad9971be7806b34155747da', 6);
 INSERT INTO playlists(titre, genre, url, id_wilders)
-VALUES ('J''aime le rock', 'rock', 'https://play.soundsgood.co/embed/5ad8a263e7806b3415568c2f', 1);
+VALUES ('J''aime le rock', 'rock', 'https://play.soundsgood.co/embed/5ad8a263e7806b3415568c2f', 5);
 INSERT INTO playlists(titre, genre, url, id_wilders)
 VALUES ('Gontran the best', 'rap', 'https://play.soundsgood.co/embed/5ad8a369e7806b3415568dc4', 1);
 
