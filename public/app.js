@@ -542,6 +542,7 @@ const controllers = {
     },
 
     "/authentification": () => {
+		if (!token) {
         const loginFormHtml = `
             <div class="container">  
                 <form id="loginForm">
@@ -554,13 +555,9 @@ const controllers = {
             <div class="container">  
                 <div id="alert-login">
                 </div> 
-                ${
-                    !token
-                        ? loginFormHtml
-                        : '<button id="disconnect" type="button">se deconnecter</button>'
-                }
+                ${loginFormHtml}
             </div>`);
-        if (!token) {
+        
             const loginForm = document.getElementById("loginForm");
             loginForm.addEventListener("submit", e => {
                 e.preventDefault();
@@ -590,29 +587,22 @@ const controllers = {
                             localStorage.setItem("idWilder", data.user.id);
                             loginForm.style.display = "none";
                             console.log("do wehave a token, in /authentification?",  localStorage.getItem('token'))
-                             refreshToHome();
-                            // page('/')
-                            // page()
+                            //  refreshToHome();
+                            page('/monprofil')
+                            page()
                         }
                     });
             });
         } else {
-            document
-                .getElementById("disconnect")
-                .addEventListener("click", () => {
-                    localStorage.removeItem("token");
-                    localStorage.removeItem("username");
-                    localStorage.removeItem("idWilder");
-                    render(`
-                        <div class="container">
-                            <div class="alert alert-warning" role="alert">
-                                Vous avez êté déconnecté.
-                            </div>
-                        </div>
-                    `);
-                });
-        }
-    },
+				render(`
+					<div class="container">
+						<div class="alert alert-warning" role="alert">
+							Vous avez êté déconnecté.
+						</div>
+					</div>
+				`);
+			};
+        },
     "/concours": () => {
         fetch("/playlistsCompete")
             .then(res => res.json())
