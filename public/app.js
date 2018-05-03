@@ -26,18 +26,18 @@ const makePlaylistCard = (item, tokenInStore, username, idWilder, arr) => {
                 <h2 class="text-warning">${item.titre}</h2>
                 <p class="text-light">${item.genre}</p>
                 <button id="${
+                    item.playlistId
+                }" type="button" class="launch btn-lg btn-warning" data-toggle="modal" data-target="#modal${
             item.playlistId
-            }" type="button" class="launch btn-lg btn-warning" data-toggle="modal" data-target="#modal${
-            item.playlistId
-            }">
-                    Ecouter cette playlist
-                </button>
-                <p>
-                    <a href="/authentification" id="vote${
-            item.playlistId
-            }" style="font-size:3em; color:GhostWhite" id="vote${
-            item.playlistId
-            }" type="submit" class="btn btn-info mt-2"><i class="fas fa-thumbs-up"></i></a>
+        }">
+                        Ecouter cette playlist
+                    </button>
+                    <p>
+                        <a href="/authentification" id="vote${
+                            item.playlistId
+                        }" style="font-size:3em; color:GhostWhite" id="vote${
+                        item.playlistId
+                }" type="submit" class="btn btn-info mt-2"><i class="fas fa-thumbs-up"></i></a>
                 </p>
                 </div>
             </div>
@@ -52,22 +52,22 @@ const makePlaylistCard = (item, tokenInStore, username, idWilder, arr) => {
                     <h2 class="text-warning">${item.titre}</h3>
                     <p class="text-light">${item.genre}</p>
                         <button id="${
+                            item.playlistId
+                        }" type="button" class="launch btn-lg btn-warning" data-toggle="modal" data-target="#modal${
                 item.playlistId
-                }" type="button" class="launch btn-lg btn-warning" data-toggle="modal" data-target="#modal${
-                item.playlistId
-                }">
+            }">
                             Ecouter cette playlist
                         </button>
                         <form action="/voteforplaylist" method="post" class="mt-3 mb-3">
                             <input type="hidden" value="${idWilder}" name="id_wilders" />
                             <input type="hidden" value="1" name="vote" />
                             <input type="hidden" value="${
-                item.playlistId
-                }" name="id_playlists" />
+                            item.playlistId
+                            }" name="id_playlists" />
                             <input type="hidden" value="${Date.now()}" name="date" />
                             <button style="font-size:3em; color:GhostWhite" id="vote${
-                item.playlistId
-                }" type="submit" class="btn btn-info mt-2"><i class="fas fa-thumbs-up"></i></button>
+                            item.playlistId
+                            }" type="submit" class="btn btn-info mt-2"><i class="fas fa-thumbs-up"></i></button>
                         </form>
                     </div>
                 </div>
@@ -82,15 +82,15 @@ const makePlaylistCard = (item, tokenInStore, username, idWilder, arr) => {
                         <p class="text-light">${item.genre}</p>
                         <br>
                         <button id="${
-                item.playlistId
-                }" type="button" class="launch btn-lg btn-warning" data-toggle="modal" data-target="#modal${
-                item.playlistId
+                            item.playlistId
+                        }" type="button" class="launch btn-lg btn-warning" data-toggle="modal" data-target="#modal${
+                    item.playlistId
                 }">
                             Ecouter cette playlist
                         </button>
                         <p><button id="vote${
-                item.playlistId
-                }" class="alreadyVoted btn btn-success mt-5">&#10003;</button></p>
+                            item.playlistId
+                        }" class="alreadyVoted btn btn-success mt-5">&#10003;</button></p>
                     </div>
                 </div>
             </div>
@@ -107,8 +107,8 @@ const makeWilder = item => `
                         <div class="member">
                         <h3 class="card-title">${item.pseudo}</h3>
                         <img class="center" src="${
-    item.avatar
-    }" alt="Card image" style="width: 14rem;">
+                            item.avatar
+                        }" alt="Card image" style="width: 14rem;">
                         <hr style="background-color: #00001c;">
                         <p class="card-text">${item.bio}</p>
                         </div>
@@ -128,13 +128,13 @@ const makeCardMember = item => `
                         </div>
                         <div class="card-block ml-3 mr-3">
                             <textarea class="mt-3 form-control" rows="1" id="pseudo">${
-    item.pseudo
-    }</textarea>
+                                item.pseudo
+                            }</textarea>
                             <div class="form-group mt-5">
                                 <label for="bio">Bio</label>
                                 <textarea rows="9" name="editor1" class="form-control" id="bio">${
-    item.bio
-    }</textarea>
+                                item.bio
+                            }</textarea>
                                 <button class="btn btn-info btn-block mt-3" id="saveProfile">Enregistrer</button>
                             </div>
                         </div>
@@ -179,13 +179,13 @@ const makeListsInCompete = item => `
             <h4 class="card-title">${item.playlists[0].titre}</h4>
             <p class="card-text">${item.playlists[0].nbrevotes} votes</p>
             <a href="${
-    item.playlists[0].url
-    }" class="btn btn-primary">Afficher la playlist</a>
+                item.playlists[0].url
+            }" class="btn btn-primary">Afficher la playlist</a>
             <form action="/voteforplaylist" method="post">
                 <input type="hidden" value="1" name="id_wilders" />
                 <input type="hidden" value="${
-    item.playlists[0].playlistId
-    }" name="id_playlists" />
+                    item.playlists[0].playlistId
+                }" name="id_playlists" />
                 <input type="hidden" value="${Date.now()}" name="date" />
                 <button type="submit" class="btn btn-success mt-2">Voter pour cette playlist</button>
             </form>
@@ -362,24 +362,24 @@ const controllers = {
     "/editer-mon-profil": () => {
         render(`
         <div class="container">
-          <div id="alert-box" class="hidden">
-          </div>
+            <div id="alert-box" class="hidden">
+            </div>
             <form id="editMyProfile">
-              <div class="form-group col-md-9 ">
-                  <label for="inputPseudo">Pseudo</label>
-                  <input name="pseudo" type="text " class="form-control " id="inputPseudo" placeholder="Enter your pseudo ">
-              </div>             
-              <div class="form-group col-md-9">
-                  <label for="inputBio">Bio</label>
-                  <textarea name="bio" class="form-control" id="inputBio " placeholder="Bio"></textarea>
-              </div>
-              <div class="form-group col-md-9 ">
-                  <label for="inputAvatar ">Avatar</label>
-                  <input name="avatar" type="text " class="form-control " id="inputAvatar" placeholder="Enter image URL ">
-              </div>
-              <div class="form-group col-md-3 ">
-                  <button type="submit " class="btn btn-primary ">Submit</button>
-              </div>
+                <div class="form-group col-md-9 ">
+                    <label for="inputPseudo">Pseudo</label>
+                    <input name="pseudo" type="text " class="form-control " id="inputPseudo" placeholder="Enter your pseudo ">
+                </div>             
+                <div class="form-group col-md-9">
+                    <label for="inputBio">Bio</label>
+                    <textarea name="bio" class="form-control" id="inputBio " placeholder="Bio"></textarea>
+                </div>
+                <div class="form-group col-md-9 ">
+                    <label for="inputAvatar ">Avatar</label>
+                    <input name="avatar" type="text " class="form-control " id="inputAvatar" placeholder="Enter image URL ">
+                </div>
+                <div class="form-group col-md-3 ">
+                    <button type="submit " class="btn btn-primary ">Submit</button>
+                </div>
             </form>
         </div>
             <div class="form-group">
@@ -397,7 +397,7 @@ const controllers = {
             <button type="submit" class="btn btn-primary">Submit</button>     
         </form>
         <a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil</a>
-      </div>`);
+        </div>`);
         const form = document.getElementById("add-playlist");
         form.addEventListener("submit", e => {
             e.preventDefault();
@@ -429,26 +429,26 @@ const controllers = {
     },
     "/newplaylist": () => {
         render(`
-		  <div class="container">
-			<div id="alert-box" class="hidden">
-			</div>
-			<form id="add-playlist">
-				<div class="form-group">
-					<label for="inputTitle">Titre</label>
-					<input name="title" type="text" class="form-control" id="inputTitle" placeholder="Entrez le titre de votre playlist">
-				</div>
-				<div class="form-group">
-					<label for="inputGenre">Genre musical</label>
-					<input name="genre" type="text" class="form-control" id="inputGenre" placeholder="Quel est le genre de votre playlist ?">
-				</div>
-				<div class="form-group">
-					<label for="inputUrl">Copiez Le code intégré de Soundsgood</label>
-					<input name="url" type="text" class="form-control" id="inputUrl" placeholder="Copiez Ici">
-				</div> 
-				<button type="submit" class="btn btn-primary">Submit</button>     
-			</form>
-			<a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil</a>
-		  </div>`);
+		    <div class="container">
+                <div id="alert-box" class="hidden">
+                </div>
+                <form id="add-playlist">
+                    <div class="form-group">
+                        <label for="inputTitle">Titre</label>
+                        <input name="title" type="text" class="form-control" id="inputTitle" placeholder="Entrez le titre de votre playlist">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputGenre">Genre musical</label>
+                        <input name="genre" type="text" class="form-control" id="inputGenre" placeholder="Quel est le genre de votre playlist ?">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputUrl">Copiez Le code intégré de Soundsgood</label>
+                        <input name="url" type="text" class="form-control" id="inputUrl" placeholder="Copiez Ici">
+                    </div> 
+                    <button type="submit" class="btn btn-primary">Submit</button>     
+                </form>
+                <a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil</a>
+		    </div>`);
         const form = document.getElementById("add-playlist");
         form.addEventListener("submit", e => {
             e.preventDefault();
@@ -487,7 +487,7 @@ const controllers = {
             .then(book => {
                 render(
                     `<div class="container">
-                       <div class="row">
+                        <div class="row">
                             ${book}  
                         </div>
                     </div>
