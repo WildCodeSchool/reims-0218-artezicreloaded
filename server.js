@@ -202,7 +202,6 @@ app.post('/membres', (req, res) => {
 })
 
 app.post('/voteforplaylist', function(req, res) {
-    console.log("notre req.body: ", req.body)
     return insertVote(req.body)
         .then(recordVote => res.json(recordVote))
 })

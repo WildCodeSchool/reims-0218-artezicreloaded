@@ -211,18 +211,15 @@ const controllers = {
             })
 		}
 		else {
-			(console.log("j'ai un token,"))
 			fetch("/playlistsWilders")
             .then(res => res.json())
             .then(allPlaylists => {
                 fetch(`/votes/${idWilder}`)
                     .then(res => res.json())
                     .then(playlistsVotedByUser => {
-						console.log("p user has voted for: ", playlistsVotedByUser)
                         const cannotBeVoted = playlistsVotedByUser.map(
                             playlist => playlist.id_playlists
 						);
-						console.log("all the p in th db: ", allPlaylists)
                         const allPlaylistsCards = allPlaylists.reduce(
                             (carry, playlist) =>
                                 carry +
@@ -263,14 +260,12 @@ const controllers = {
                     const votingButton = document.getElementsByClassName("votingButton")
                     Array.from(votingButton).forEach(button => {
                         button.addEventListener("click", () => {
-                            console.log('notre bouton: ', button.dataset.idplaylist)
                             const votingData = {
                                 date: Date.now(),
                                 vote: 1,
                                 id_playlists: button.dataset.idplaylist,
                                 id_wilders: button.dataset.idwilder
                             }
-                            console.log('on va envoyer : ', votingData)
                             fetch('/voteforplaylist',{
                                 method: "POST",
                                 headers: {
@@ -283,8 +278,6 @@ const controllers = {
                                 page('/')
                                 page()
                             })
-                            //changer les classe et le texte du boutton
-                            // button.innerHTML ="&#10003;"
                         })
                     })
 					Array.from(launchPlaylistButtons).forEach(button => {
@@ -606,8 +599,6 @@ const controllers = {
                             );
                             localStorage.setItem("idWilder", data.user.id);
                             loginForm.style.display = "none";
-                            console.log("do wehave a token, in /authentification?",  localStorage.getItem('token'))
-                            //  refreshToHome();
                             page('/monprofil')
                             page()
                         }
