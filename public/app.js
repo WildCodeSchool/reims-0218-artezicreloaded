@@ -26,18 +26,18 @@ const makePlaylistCard = (item, tokenInStore, username, idWilder, arr) => {
                 <h2 class="text-warning">${item.titre}</h2>
                 <p class="text-light">${item.genre}</p>
                 <button id="${
-                    item.playlistId
-                }" type="button" class="launch btn-lg btn-warning" data-toggle="modal" data-target="#modal${
             item.playlistId
-        }">
+            }" type="button" class="launch btn-lg btn-warning" data-toggle="modal" data-target="#modal${
+            item.playlistId
+            }">
                     Ecouter cette playlist
                 </button>
                 <p>
                     <a href="/authentification" id="vote${
-                        item.playlistId
-                    }" style="font-size:3em; color:GhostWhite" id="vote${
             item.playlistId
-        }" type="submit" class="btn btn-info mt-2"><i class="fas fa-thumbs-up"></i></a>
+            }" style="font-size:3em; color:GhostWhite" id="vote${
+            item.playlistId
+            }" type="submit" class="btn btn-info mt-2"><i class="fas fa-thumbs-up"></i></a>
                 </p>
                 </div>
             </div>
@@ -52,22 +52,22 @@ const makePlaylistCard = (item, tokenInStore, username, idWilder, arr) => {
                     <h2 class="text-warning">${item.titre}</h3>
                     <p class="text-light">${item.genre}</p>
                         <button id="${
-                            item.playlistId
-                        }" type="button" class="launch btn-lg btn-warning" data-toggle="modal" data-target="#modal${
                 item.playlistId
-            }">
+                }" type="button" class="launch btn-lg btn-warning" data-toggle="modal" data-target="#modal${
+                item.playlistId
+                }">
                             Ecouter cette playlist
                         </button>
                         <form action="/voteforplaylist" method="post" class="mt-3 mb-3">
                             <input type="hidden" value="${idWilder}" name="id_wilders" />
                             <input type="hidden" value="1" name="vote" />
                             <input type="hidden" value="${
-                                item.playlistId
-                            }" name="id_playlists" />
+                item.playlistId
+                }" name="id_playlists" />
                             <input type="hidden" value="${Date.now()}" name="date" />
                             <button style="font-size:3em; color:GhostWhite" id="vote${
-                                item.playlistId
-                            }" type="submit" class="btn btn-info mt-2"><i class="fas fa-thumbs-up"></i></button>
+                item.playlistId
+                }" type="submit" class="btn btn-info mt-2"><i class="fas fa-thumbs-up"></i></button>
                         </form>
                     </div>
                 </div>
@@ -82,15 +82,15 @@ const makePlaylistCard = (item, tokenInStore, username, idWilder, arr) => {
                         <p class="text-light">${item.genre}</p>
                         <br>
                         <button id="${
-                            item.playlistId
-                        }" type="button" class="launch btn-lg btn-warning" data-toggle="modal" data-target="#modal${
                 item.playlistId
-            }">
+                }" type="button" class="launch btn-lg btn-warning" data-toggle="modal" data-target="#modal${
+                item.playlistId
+                }">
                             Ecouter cette playlist
                         </button>
                         <p><button id="vote${
-                            item.playlistId
-                        }" class="alreadyVoted btn btn-success mt-5">&#10003;</button></p>
+                item.playlistId
+                }" class="alreadyVoted btn btn-success mt-5">&#10003;</button></p>
                     </div>
                 </div>
             </div>
@@ -100,23 +100,23 @@ const makePlaylistCard = (item, tokenInStore, username, idWilder, arr) => {
 };
 
 const makeWilder = item => `
-    <div class="blocks col-12 col-sm-12 col-md-4">
-      <div class="card" id="card_sponsor">
-        <div class="card-block">
-          <div class="row">
-            <div class="member">
-              <h3 class="card-title">${item.pseudo}</h3>
-              <img class="center" src="${
-                  item.avatar
-              }" alt="Card image" style="width: 14rem;">
-              <hr style="background-color: #00001c;">
-              <p class="card-text">${item.bio}</p>
+            <div class="blocks col-12 col-sm-12 col-md-4">
+                <div class="card" id="card_sponsor">
+                    <div class="card-block">
+                    <div class="row">
+                        <div class="member">
+                        <h3 class="card-title">${item.pseudo}</h3>
+                        <img class="center" src="${
+    item.avatar
+    }" alt="Card image" style="width: 14rem;">
+                        <hr style="background-color: #00001c;">
+                        <p class="card-text">${item.bio}</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    `;
+                `;
 
 const makeCardMember = item => `
     <div class="col-md-8 mt-5">
@@ -128,13 +128,13 @@ const makeCardMember = item => `
                         </div>
                         <div class="card-block ml-3 mr-3">
                             <textarea class="mt-3 form-control" rows="1" id="pseudo">${
-                                item.pseudo
-                            }</textarea>
+    item.pseudo
+    }</textarea>
                             <div class="form-group mt-5">
                                 <label for="bio">Bio</label>
                                 <textarea rows="9" name="editor1" class="form-control" id="bio">${
-                                    item.bio
-                                }</textarea>
+    item.bio
+    }</textarea>
                                 <button class="btn btn-info btn-block mt-3" id="saveProfile">Enregistrer</button>
                             </div>
                         </div>
@@ -146,36 +146,32 @@ const makeCardMember = item => `
     <div class="col-md-4 mt-5">
         <h3>Votre avatar</h3>
         <img src="${
-            item.avatar
-        }" alt="" class="d-block id="avatar" img-fluid mb-3" width="300px">
+    item.avatar
+    }" alt="" class="d-block id="avatar" img-fluid mb-3" width="300px">
         <input value="${item.avatar}" id="avatar" size="36"></input>
     </div>
     `;
 
 const makeWinningCard = item =>
     item.votesNb === null
-        ? `<h5> Pas de gagnant pour l'instant </h5>`
-        : `
-    <div class="jumbotron col-md-12" id="card_sponsor">
-    <div class="row">
-      <div class="col-md-9 order-md-last">
-        <h1 class="card-title display-4" >${item.titre}</h1>
-        <p>Le vainqueur du concour de la semaine a gagné avec ${
-            item.votesNb
-        } votes sur sa playlist. <br> Bravo !</p>
-            <button id="launchPlaylist" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${
-                item.playlistId
-            }"
-        Ecouter
-        </button>
-        <hr>
-      </div>
-      <div class="col-md-3 order-md-first">
-        <img class="center" src="http://theblog.is/thackley/files/2017/07/winner.jpeg" alt="Card image" style="width: 12rem;">
-      </div>
-    </div>
-    </div>
-    `;
+        ? `<h5> Pas de gagnant pour l'instant </h5>` :
+        `
+                <div class="jumbotron col-md-12" id="card_sponsor">
+                    <div class="row">
+                        <div class="col-md-9 order-md-last">
+                            <h1 class="card-title display-4" >${item.titre}</h1>
+                            <p>Le vainqueur du concour de la semaine a gagné avec ${item.votesNb} votes sur sa playlist. <br> Bravo !</p>
+                                <button id="launchPlaylist" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
+                                Ecouter
+                                </button>
+                        <hr>
+                        </div>  
+                        <div class="col-md-3 order-md-first">
+                            <img class="center" src="http://theblog.is/thackley/files/2017/07/winner.jpeg" alt="Card image" style="width: 12rem;">
+                        </div>
+                    </div>
+                </div>
+            `;
 
 const makeListsInCompete = item => `
     <div class="card mt-3 mr-3" style="width:400px">
@@ -183,13 +179,13 @@ const makeListsInCompete = item => `
             <h4 class="card-title">${item.playlists[0].titre}</h4>
             <p class="card-text">${item.playlists[0].nbrevotes} votes</p>
             <a href="${
-                item.playlists[0].url
-            }" class="btn btn-primary">Afficher la playlist</a>
+    item.playlists[0].url
+    }" class="btn btn-primary">Afficher la playlist</a>
             <form action="/voteforplaylist" method="post">
                 <input type="hidden" value="1" name="id_wilders" />
                 <input type="hidden" value="${
-                    item.playlists[0].playlistId
-                }" name="id_playlists" />
+    item.playlists[0].playlistId
+    }" name="id_playlists" />
                 <input type="hidden" value="${Date.now()}" name="date" />
                 <button type="submit" class="btn btn-success mt-2">Voter pour cette playlist</button>
             </form>
@@ -287,13 +283,19 @@ const controllers = {
         const username = localStore.username;
         if (!username) {
             return render(`
-            <div class="alert alert-danger" role="alert">
-              Vous devez vous connecter pour accéder à cette page.
-            </div>
-          </div>
-            <div class="col-md-2">
-              <a href="/authentification" class="btn btn-success mt-2">Me connecter</a>
-            </div>
+            <div class="container"> 
+                <div class="row"> 
+                    <div class="col-md-10"> 
+                        <div class="alert alert-danger" role="alert"> 
+                            Vous devez vous connecter pour accéder à cette page. 
+                        </div> 
+                        </div> 
+                        <div class="col-md-2"> 
+                            <a href="/authentification" class="btn btn-success mt-2">Me connecter</a> 
+                        </div> 
+                    </div> 
+                </div> 
+            </div> 
             `);
         } else {
             fetch("/connected")
@@ -350,7 +352,7 @@ const controllers = {
                                 alertBox.className = "alert alert-success";
                                 alertBox.innerHTML = `${
                                     wilderEdition.pseudo
-                                }, votre profil titre été édité.`;
+                                    }, votre profil titre été édité.`;
                             });
                     }
                 });
@@ -421,7 +423,7 @@ const controllers = {
                     alertBox.className = "alert alert-success";
                     alertBox.innerHTML = `Votre playlist titre ${
                         playlist.titre
-                    } (${playlist.id}) a bien été créée`;
+                        } (${playlist.id}) a bien été créée`;
                 });
         });
     },
@@ -472,7 +474,7 @@ const controllers = {
                     alertBox.className = "alert alert-success";
                     alertBox.innerHTML = `Votre playlist titre ${
                         playlist.titre
-                    } (${playlist.id}) a bien été créée`;
+                        } (${playlist.id}) a bien été créée`;
                 });
         });
     },
@@ -543,22 +545,28 @@ const controllers = {
 
     "/authentification": () => {
         const loginFormHtml = `
-            <div class="container">  
                 <form id="loginForm">
-                <input class="form-control" name="username" placeholder="username"/>
-                <input class="form-control" type="password" name="password" placeholder="password"/>
-                <input type="submit" value="se connecter" />
-                </form>
-            </div>`;
+                    <div class="form-row">
+                        <div class="col-md-5">
+                            <input class="form-control form-group mb-4" name="username" placeholder="username"/>
+                        </div>
+                        <div class="col-md-5">
+                            <input class="form-control form-group mb-4" type="password" name="password" placeholder="password"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="submit" class="btn btn-primary" value="se connecter" />
+                        </div>
+                    </div>
+                </form>`;
         render(`
             <div class="container">  
                 <div id="alert-login">
                 </div> 
                 ${
-                    !token
-                        ? loginFormHtml
-                        : '<button id="disconnect" type="button">se deconnecter</button>'
-                }
+            !token
+                ? loginFormHtml
+                : '<button id="disconnectButton" type="button">se deconnecter</button>'
+            }
             </div>`);
         if (!token) {
             const loginForm = document.getElementById("loginForm");
@@ -579,9 +587,13 @@ const controllers = {
                         const alert = document.getElementById("alert-login");
                         if (!data.user) {
                             //alert class danger
-                            alert.innerHTML = `echec`;
+                            alert.innerHTML = `<div class="alert alert-danger" role="alert"> 
+                            Nom d'utilisateur ou mots de passe incorrect!
+                            </div>`;
                         } else {
-                            alert.innerHTML = `Bonjour ${data.user.username} !`;
+                            alert.innerHTML = `<div class="alert alert-success" role="alert">
+                            Bonjour ${data.user.username} !
+                            </div>`;
                             localStorage.setItem("token", data.token);
                             localStorage.setItem(
                                 "username",
@@ -650,7 +662,7 @@ const controllers = {
     }
 };
 
-const route = pathname => {};
+const route = pathname => { };
 
 (() => {
     [
