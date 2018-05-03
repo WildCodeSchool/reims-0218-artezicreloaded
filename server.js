@@ -78,6 +78,11 @@ const dbPromise = Promise.resolve()
             force: 'last'
         })
     })
+    .then(() => {
+        Promise.map(users, w => {
+        insertWilder(w)
+        })
+        })
 
 const html = `
     <!doctype html>

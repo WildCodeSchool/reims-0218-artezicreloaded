@@ -590,6 +590,12 @@ const controllers = {
                             localStorage.setItem("idWilder", data.user.id);
                             loginForm.style.display = "none";
                             refreshToHome();
+                            /*
+                                *I tried page() but it's not working.
+                                * 
+                            */
+                            // page('/')
+                            // page()
                         }
                     });
             });
