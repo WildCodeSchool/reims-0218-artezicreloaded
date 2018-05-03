@@ -455,7 +455,7 @@ const controllers = {
                 genre: data.genre,
                 url: data.url,
                 compete: data.competition,
-                id_wilders: 1
+                id_wilders: idWilder
             };
             fetch("/playlists", {
                     method: "POST",
