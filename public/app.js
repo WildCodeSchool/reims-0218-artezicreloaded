@@ -18,62 +18,6 @@ const cleanUrl = str => {
     return urlFromIframe[0];
 };
 
-
-const makePlaylistWithToken = (item, tokenInStore, username, idWilder, arr) => {
-	console.log("we're accessing the function")
-	if (!arr.includes(item.playlistId)) {
-		return ` 
-		<div class="col-md-6">
-			<div class="card text-center text-white bg-secondary mt-4 pt-3">
-				<div class="card-block">
-				<h2 class="text-warning">${item.titre}</h3>
-				<p class="text-light">${item.genre}</p>
-					<button id="${
-						item.playlistId
-					}" type="button" class="launch btn-lg btn-warning" data-toggle="modal" data-target="#modal${
-			item.playlistId
-		}">
-						Ecouter cette playlist
-					</button>
-					<form action="/voteforplaylist" method="post" class="mt-3 mb-3">
-						<input type="hidden" value="${idWilder}" name="id_wilders" />
-						<input type="hidden" value="1" name="vote" />
-						<input type="hidden" value="${
-							item.playlistId
-						}" name="id_playlists" />
-						<input type="hidden" value="${Date.now()}" name="date" />
-						<button style="font-size:3em; color:GhostWhite" id="vote${
-							item.playlistId
-						}" type="submit" class="btn btn-info mt-2"><i class="fas fa-thumbs-up"></i></button>
-					</form>
-				</div>
-			</div>
-		</div>
-		`;
-	} else {
-		return `
-		<div class="col-md-6">
-			<div class="card text-center text-white bg-secondary mt-4 pt-3">
-				<div class="card-block">
-					<h2 class="text-warning">${item.titre}</h3>
-					<p class="text-light">${item.genre}</p>
-					<br>
-					<button id="${
-						item.playlistId
-					}" type="button" class="launch btn-lg btn-warning" data-toggle="modal" data-target="#modal${
-			item.playlistId
-		}">
-						Ecouter cette playlist
-					</button>
-					<p><button id="vote${
-						item.playlistId
-					}" class="alreadyVoted btn btn-success mt-5">&#10003;</button></p>
-				</div>
-			</div>
-		</div>
-		`;
-	}
-}
 const makePlaylistCard = (item, tokenInStore, username, idWilder, arr) => {
     if (!tokenInStore) {
         return `
@@ -323,6 +267,19 @@ const controllers = {
 						</div>
 						`
 					);
+					const launchPlaylistButtons = document.getElementsByClassName(
+						"launch"
+					);
+					Array.from(launchPlaylistButtons).forEach(button => {
+						button.addEventListener("click", () => {
+							const playlistClicked = allPlaylists.filter(
+								playlist =>
+									playlist.playlistId ===
+									Number(button.id)
+							);
+							showModal(playlistClicked[0]);
+						});
+					});
 			// render(`j'ai un token, je vais montrer les cartes en triant celles où j'ai déjà voté `)
 			disconnect(localStore);
 				})

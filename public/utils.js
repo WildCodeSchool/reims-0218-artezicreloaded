@@ -35,7 +35,6 @@ const disconnect = obj => {
 }
 
 const makePlaylistCardWithToken = (item, tokenInStore, idWilder, arr) => {
-	console.log("we're accessing the function")
 	if (!arr.includes(item.playlistId)) {
 		return ` 
 		<div class="col-md-6">
@@ -64,7 +63,7 @@ const makePlaylistCardWithToken = (item, tokenInStore, idWilder, arr) => {
 				</div>
 			</div>
 		</div>
-		`;
+        `;
 	} else {
 		return `
 		<div class="col-md-6">
