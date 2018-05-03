@@ -1,23 +1,19 @@
  @import url('https://fonts.googleapis.com/css?family=Lobster');
-
 *{
   font-family: 'Lobster', cursive;
 }
 .imgfaq{
-   max-width: 100%;
+  max-width: 100%;
   box-shadow: 1px 1px 12px #555;
-    -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
-    -webkit-transition: .3s ease-in-out;
-    transition: .3s ease-in-out;
-    
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
   }
   .imgfaq:hover {
     -webkit-filter: grayscale(0);
     filter: grayscale(0);
   }
-
-
 .question{
   text-align: center;
   color: rgb(255, 255, 255);
@@ -28,7 +24,6 @@
   border: 3px solid transparent;
   border-image: linear-gradient(to right, #ff0000 20%,#ff662a 30%, #ffffff 61%, #424242 100%);
   border-image-slice: 1;
-
 }
 .question:nth-child(2){
   background: linear-gradient(#808080, #606060);
