@@ -66,7 +66,7 @@ background-size:100px 50px;
     border-top: 0.05rem solid rgb(0, 0, 0);
     padding: 1.5rem 0;
     height: 250px;
-    margin-top: 300px;
+    margin-top: auto;
 }
 #footer h5{
 	padding-left: 10px;
@@ -97,7 +97,8 @@ background-size:100px 50px;
 }
 #footer ul.social li a,
 #footer ul.quick-links li a{
-	color:#ffffff;
+    color:#ffffff;
+    margin-left: 30px;
 }
 #footer ul.social li a:hover{
 	color:#eeeeee;
