@@ -213,7 +213,7 @@ const idWilder = localStore.getItem("idWilder");
 
 const controllers = {
     "/": () => {
-        console.log("What happens in firefox?"); //we get nothing...:(
+       console.log(token)
         fetch("/playlistsWilders")
             .then(res => res.json())
             .then(allPlaylists => {
@@ -589,7 +589,10 @@ const controllers = {
                             );
                             localStorage.setItem("idWilder", data.user.id);
                             loginForm.style.display = "none";
-                            refreshToHome();
+                            console.log("do wehave a token, in /authentification?",  localStorage.getItem('token'))
+                             refreshToHome();
+                            // page('/')
+                            // page()
                         }
                     });
             });
