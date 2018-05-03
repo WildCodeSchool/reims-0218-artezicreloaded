@@ -165,7 +165,7 @@ const makeWinningCard = item =>
         } votes sur sa playlist. <br> Bravo !</p>
             <button id="launchPlaylist" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${
                 item.playlistId
-            }"
+            }">
         Ecouter
         </button>
         <hr>
@@ -453,7 +453,7 @@ const controllers = {
             const dataWithId = {
                 titre: data.title,
                 genre: data.genre,
-                url: data.url,
+                url: cleanUrl(data.url),
                 compete: data.competition,
                 id_wilders: idWilder
             };
@@ -542,13 +542,20 @@ const controllers = {
 
     "/authentification": () => {
         const loginFormHtml = `
-            <div class="container">  
-                <form id="loginForm">
-                <input class="form-control" name="username" placeholder="username"/>
-                <input class="form-control" type="password" name="password" placeholder="password"/>
-                <input type="submit" value="se connecter" />
-                </form>
-            </div>`;
+        <form id="loginForm">
+            <div class="form-row">
+                <div class="col-md-5">
+                    <input class="form-control form-group mb-4" name="username" placeholder="username"/>
+                </div>
+                <div class="col-md-5">
+                    <input class="form-control form-group mb-4" type="password" name="password" placeholder="password"/>
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" class="btn btn-primary" value="se connecter" />
+                </div>
+            </div>
+        </form>
+		`;
         render(`
             <div class="container">  
                 <div id="alert-login">
@@ -556,7 +563,7 @@ const controllers = {
                 ${
                     !token
                         ? loginFormHtml
-                        : '<button id="disconnect" type="button">se deconnecter</button>'
+                        : '<button id="disconnectButton" type="button">se deconnecter</button>'
                 }
             </div>`);
         if (!token) {
@@ -578,9 +585,16 @@ const controllers = {
                         const alert = document.getElementById("alert-login");
                         if (!data.user) {
                             //alert class danger
-                            alert.innerHTML = `echec`;
+                            alert.innerHTML = `
+                            <div class="alert alert-danger" role="alert"> 
+                            Nom d'utilisateur ou mots de passe incorrect!
+                            </div>
+                        `;
                         } else {
-                            alert.innerHTML = `Bonjour ${data.user.username} !`;
+                            alert.innerHTML = `
+                            <div class="alert alert-success" role="alert">
+                            Bonjour ${data.user.username} !
+                            </div>`;
                             localStorage.setItem("token", data.token);
                             localStorage.setItem(
                                 "username",

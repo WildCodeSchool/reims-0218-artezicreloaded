@@ -1,43 +1,44 @@
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
 .container{
-  padding-top: 20px;
+    padding-top: 20px;
 }
 .blocks{
-  padding-bottom: 20px;
-  display: flex;
+    padding-bottom: 20px;
+    display: flex;
 }
 .card-title{
-  color : #08aeac;
-  text-align: center;
-  Font-Weight: Bold;
-  font-style: italic;
+    color : #08aeac;
+    text-align: center;
+    Font-Weight: Bold;
+    font-style: italic;
 }
 .member{
-  margin-top: 40px;
-  margin-bottom: 40px;
-  margin-left : 40px;
-  margin-right: 60px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-left : 40px;
+    margin-right: 60px;
 }
 .card-text{
-  text-align: center;
-  margin: 40px;
+    text-align: center;
+    margin: 40px;
 }
 .center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
 #card_sponsor{
-  background-color: #C0C0C0;
+    background-color: #C0C0C0;
 }
 #launchPlaylist{
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
+    position: relative;
 }
 
+#disconnectButton{
+    visibility: hidden;
+}
 body .container-fluid{
     padding: 0;
     margin: 0;
@@ -95,7 +96,8 @@ background-size:100px 50px;
 }
 #footer ul.social li a,
 #footer ul.quick-links li a{
-	color:#ffffff;
+    color:#ffffff;
+    margin-left: 30px;
 }
 #footer ul.social li a:hover{
 	color:#eeeeee;
