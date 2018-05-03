@@ -239,7 +239,6 @@ const controllers = {
                                 makePlaylistCardWithToken(
                                     playlist,
                                     token,
-                                    username,
                                     idWilder,
                                     cannotBeVoted
                                 ),
