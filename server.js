@@ -115,6 +115,9 @@ const html = `
                         <li class="nav-item px-2">
                             <a class="nav-link" href="/concours">Concours</a>
                         </li>
+                        <li class="nav-item px-2">
+                        <a class="nav-link" href="/faq">faq</a>
+                    </li>
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown mr-3">

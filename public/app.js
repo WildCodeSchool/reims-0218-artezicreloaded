@@ -646,7 +646,42 @@ const controllers = {
                 });
                 disconnect(localStore);
             });
-    }
+    },
+    '/faq': () => {
+        render(`
+        <link rel="stylesheet" href="style.css" />
+        
+        <div class="question">
+            <p class="pfaq">Bienvenue dans la F.A.Q jeune troubadour !</p><br />
+            <p>Comment faire sa propre playlist ?</p><br />
+            <p>Pour commencer il te faut crer un compte sur soundgood<br /> pour ensuite pouvoir faire t'es super playlist !</p>
+        </div>
+        
+        <div><img src="https://agenceho5.com/wp-content/uploads/2017/04/Boulevard-des-airs-1-2000x500.jpg" class="imgfaq" alt="DJ" ></div>
+        
+        <div class="question">
+            <p>Comment importer ta playlist sur Artezic reloaded ?</p><br /
+            <p>Vous devez aller sur votre playlist soundgood, cliquer sur intégrer puis copier le code<br /> iframe pour ensuite le coller dans le champ dédié sur Artezic reloaded.</p>
+        </div>
+        
+        <div><img src="http://www.buuworld.com/image/115006258.jpg" class="imgfaq" alt="violoniste" ></div>
+        
+        <div class="question">
+            <p>Comment ajouter une photo sur son profil ?</p><br />
+            <p>Il suffit juste de copier l'url de ta photo pour la coller dans le champ dédié pour. Nous<br /> te conseillons de redimensionner ta photo pour éviter les images qui prennent<br /> trop d'espace.<a href="https://www.iloveimg.com/fr/redimensionner-image">- IloveIMG -</a> est top pour redimensionner une image. </p>
+        </div>
+        
+        <div><img src="https://www.in-akustik.de/uploads/tx_flexslider/Michael_Schenker_Live_In_Tokyo_Slider_01.jpg" class="imgfaq" alt="rap"></div>
+        
+        <div class="question">
+            <p>Est-il possible d'importer sa playlist entière<br /> d'une autre plateforme sur soudgood ?</p><br />
+            <p>Oui, il faut aller sur la plateforme ou il y a la playlist en question aller sur<br /> l'option partager ou share pour ensuite copier le code playlist link.<br />
+            Une fois ceci de fait aller sur soundgood puis faite importer<br /> une playlist et coller y le code playlist link.</p><br />
+            <p class="pfaq">Fin de la F.A.Q</p>
+        </div>
+        `)
+        
+    }, 
 };
 
 const route = pathname => {};
@@ -660,7 +695,8 @@ const route = pathname => {};
         "/editer-mon-profil",
         "/viewplaylists/:slug",
         "/concours",
-        "/authentification"
+        "/authentification",
+        "/faq"
     ].forEach(path => page(path, controllers[path]));
     page();
 })();
