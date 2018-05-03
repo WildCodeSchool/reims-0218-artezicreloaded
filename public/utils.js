@@ -30,7 +30,7 @@ const disconnect = obj => {
         </div>
             
         `)
-        refreshInterval()
+        refreshToHome()
     })
 }
 
