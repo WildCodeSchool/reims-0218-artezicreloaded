@@ -153,9 +153,9 @@ const makeCardMember = item => `
     `;
 
 const makeWinningCard = item =>
-    item.votesNb === null
-        ? `<h5> Pas de gagnant pour l'instant </h5>`
-        : `
+    item.votesNb === null ?
+    `<h5> Pas de gagnant pour l'instant </h5>` :
+    `
     <div class="jumbotron col-md-12" id="card_sponsor">
     <div class="row">
       <div class="col-md-9 order-md-last">
@@ -225,14 +225,14 @@ const controllers = {
                         );
                         const allPlaylistsCards = allPlaylists.reduce(
                             (carry, playlist) =>
-                                carry +
-                                makePlaylistCard(
-                                    playlist,
-                                    token,
-                                    username,
-                                    idWilder,
-                                    cannotBeVoted
-                                ),
+                            carry +
+                            makePlaylistCard(
+                                playlist,
+                                token,
+                                username,
+                                idWilder,
+                                cannotBeVoted
+                            ),
                             ""
                         );
                         render(
@@ -264,8 +264,8 @@ const controllers = {
                             button.addEventListener("click", () => {
                                 const playlistClicked = allPlaylists.filter(
                                     playlist =>
-                                        playlist.playlistId ===
-                                        Number(button.id)
+                                    playlist.playlistId ===
+                                    Number(button.id)
                                 );
                                 showModal(playlistClicked[0]);
                             });
@@ -317,31 +317,30 @@ const controllers = {
                         <div class="row">
                             ${mesInfos}
                         </div>
+                        <p><a class="btn btn-info btn-lg mt-5" href="/viewplaylists/${username.toLowerCase()}">Voir mes playlists</a>
+                        <a class="btn btn-success btn-lg mt-5" href="/newplaylist">Ajouter une playlist</a></p>
                     </div>
-                    <p><a class="btn btn-success btn-lg mt-5" href="/newplaylist" type="button">Ajouter une playlist</a></p>
-                `
-                    )
-                )
+                `))
                 .then(() => {
-                    const saveProfile = document.getElementById("saveProfile");
-                    saveProfile.addEventListener("click", sendData);
+                    const saveProfile = document.getElementById("saveProfile")
+                    saveProfile.addEventListener('click', sendData)
 
                     function sendData() {
                         let pseudo = document.getElementById("pseudo").value;
                         let bio = document.getElementById("bio").value;
                         let avatar = document.getElementById("avatar").value;
                         fetch("/membres", {
-                            method: "PUT",
-                            headers: {
-                                Accept: "application/json, text/plain, */*",
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({
-                                pseudo: pseudo,
-                                bio: bio,
-                                avatar: avatar
+                                method: "PUT",
+                                headers: {
+                                    Accept: "application/json, text/plain, */*",
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    pseudo: pseudo,
+                                    bio: bio,
+                                    avatar: avatar
+                                })
                             })
-                        })
                             .then(res => res.json())
                             .then(wilderEdition => {
                                 const alertBox = document.getElementById(
@@ -405,16 +404,16 @@ const controllers = {
                 genre: data.genre,
                 url: data.url,
                 compete: data.competition,
-                id_wilders: 1
-            };
-            fetch("/playlists", {
-                method: "POST",
-                headers: {
-                    Accept: "application/json, text/plain, */*",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(dataWithId)
-            })
+                id_wilders: idWilder
+            }
+            fetch('/playlists', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(dataWithId)
+                })
                 .then(res => res.json())
                 .then(playlist => {
                     const alertBox = document.getElementById("alert-box");
@@ -459,13 +458,13 @@ const controllers = {
                 id_wilders: 1
             };
             fetch("/playlists", {
-                method: "POST",
-                headers: {
-                    Accept: "application/json, text/plain, */*",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(dataWithId)
-            })
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json, text/plain, */*",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(dataWithId)
+                })
                 .then(res => res.json())
                 .then(playlist => {
                     const alertBox = document.getElementById("alert-box");
@@ -533,7 +532,7 @@ const controllers = {
                     button.addEventListener("click", () => {
                         const playlistClicked = playlists.filter(
                             playlist =>
-                                playlist.playlistId === Number(button.id)
+                            playlist.playlistId === Number(button.id)
                         );
                         showModal(playlistClicked[0]);
                     });
@@ -567,13 +566,13 @@ const controllers = {
                 const data = serializeForm(loginForm);
                 //post sur le server /auth/login
                 fetch("/auth/login", {
-                    method: "POST",
-                    headers: {
-                        Accept: "application/json, text/plain, */*",
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(data)
-                })
+                        method: "POST",
+                        headers: {
+                            Accept: "application/json, text/plain, */*",
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(data)
+                    })
                     .then(res => res.json())
                     .then(data => {
                         const alert = document.getElementById("alert-login");
