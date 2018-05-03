@@ -82,7 +82,7 @@ const dbPromise = Promise.resolve()
         Promise.map(users, w => {
         insertWilder(w)
         })
-        })
+    })
 
 const html = `
     <!doctype html>

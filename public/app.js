@@ -166,7 +166,7 @@ const makeWinningCard = item =>
         } votes sur sa playlist. <br> Bravo !</p>
             <button id="launchPlaylist" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${
                 item.playlistId
-            }"
+            }">
         Ecouter
         </button>
         <hr>
@@ -178,25 +178,25 @@ const makeWinningCard = item =>
     </div>
     `;
 
-const makeListsInCompete = item => `
-    <div class="card mt-3 mr-3" style="width:400px">
-        <div class="card-body">
-            <h4 class="card-title">${item.playlists[0].titre}</h4>
-            <p class="card-text">${item.playlists[0].nbrevotes} votes</p>
-            <a href="${
-                item.playlists[0].url
-            }" class="btn btn-primary">Afficher la playlist</a>
-            <form action="/voteforplaylist" method="post">
-                <input type="hidden" value="1" name="id_wilders" />
-                <input type="hidden" value="${
-                    item.playlists[0].playlistId
-                }" name="id_playlists" />
-                <input type="hidden" value="${Date.now()}" name="date" />
-                <button type="submit" class="btn btn-success mt-2">Voter pour cette playlist</button>
-            </form>
-        </div>
-    </div>
-    `;
+// const makeListsInCompete = item => `
+//     <div class="card mt-3 mr-3" style="width:400px">
+//         <div class="card-body">
+//             <h4 class="card-title">${item.playlists[0].titre}</h4>
+//             <p class="card-text">${item.playlists[0].nbrevotes} votes</p>
+//             <a href="${
+//                 item.playlists[0].url
+//             }" class="btn btn-primary">Afficher la playlist</a>
+//             <form action="/voteforplaylist" method="post">
+//                 <input type="hidden" value="1" name="id_wilders" />
+//                 <input type="hidden" value="${
+//                     item.playlists[0].playlistId
+//                 }" name="id_playlists" />
+//                 <input type="hidden" value="${Date.now()}" name="date" />
+//                 <button type="submit" class="btn btn-success mt-2">Voter pour cette playlist</button>
+//             </form>
+//         </div>
+//     </div>
+//     `;
 
 const serializeForm = form => {
     const data = {};
@@ -284,76 +284,6 @@ const controllers = {
 				})
 			})
 		}
-			
-    //    console.log("now do we have a token in / ?", token)
-    //     fetch("/playlistsWilders")
-    //         .then(res => res.json())
-    //         .then(allPlaylists => {
-    //             fetch(`/votes/${idWilder}`)
-    //                 .then(res => res.json())
-    //                 .then(playlistsVotedByUser => {
-    //                     const cannotBeVoted = playlistsVotedByUser.map(
-    //                         playlist => playlist.id_playlists
-    //                     );
-    //                     const allPlaylistsCards = allPlaylists.reduce(
-    //                         (carry, playlist) =>
-    //                             carry +
-    //                             makePlaylistCard(
-    //                                 playlist,
-    //                                 token,
-    //                                 username,
-    //                                 idWilder,
-    //                                 cannotBeVoted
-    //                             ),
-    //                         ""
-    //                     );
-    //                     render(
-    //                         `<div class="container">
-    //                             <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    //                                 <div class="modal-dialog" role="document">
-    //                                     <div class="modal-content">
-    //                                         <div class="modal-header">
-    //                                             <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
-    //                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    //                                                 <span aria-hidden="true">&times;</span>
-    //                                             </button>
-    //                                         </div>
-    //                                         <div id="showThisModal"class="modal-body">
-    //                                         </div>
-    //                                     </div>
-    //                                 </div> 
-    //                             </div>
-    //                             <div class="row">
-    //                                 ${allPlaylistsCards}  
-    //                             </div>
-    //                         </div>
-    //                         `
-    //                     );
-    //                     const launchPlaylistButtons = document.getElementsByClassName(
-    //                         "launch"
-    //                     );
-    //                     Array.from(launchPlaylistButtons).forEach(button => {
-    //                         button.addEventListener("click", () => {
-    //                             const playlistClicked = allPlaylists.filter(
-    //                                 playlist =>
-    //                                     playlist.playlistId ===
-    //                                     Number(button.id)
-    //                             );
-    //                             showModal(playlistClicked[0]);
-    //                         });
-    //                     });
-    //                     if (!username) {
-    //                         const isConnectedUser = (document.getElementById(
-    //                             "userName"
-    //                         ).innerHTML = `<span class="fa fa-user"></span> Se connecter`);
-    //                     } else {
-    //                         const isConnectedUser = (document.getElementById(
-    //                             "userName"
-    //                         ).innerHTML = `<span class="fa fa-user"></span> ${username}`);
-    //                     }
-    //                 });
-    //             disconnect(localStore);
-    //         });
     },
     "/monprofil": () => {
         const username = localStore.username;
