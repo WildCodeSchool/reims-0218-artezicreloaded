@@ -1,43 +1,41 @@
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
 .container{
-    padding-top: 20px;
-    margin-top: -10px;
+  padding-top: 20px;
 }
 .blocks{
-    padding-bottom: 20px;
-    display: flex;
+  padding-bottom: 20px;
+  display: flex;
 }
 .card-title{
-    color : #08aeac;
-    text-align: center;
-    Font-Weight: Bold;
-    font-style: italic;
+  color : #08aeac;
+  text-align: center;
+  Font-Weight: Bold;
+  font-style: italic;
 }
 .member{
-    margin-top: 40px;
-    margin-bottom: 40px;
-    margin-left : 40px;
-    margin-right: 60px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  margin-left : 40px;
+  margin-right: 60px;
 }
 .card-text{
-    text-align: center;
-    margin: 40px;
+  text-align: center;
+  margin: 40px;
 }
 .center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 #card_sponsor{
-    background-color: #6c757d;
+  background-color: #C0C0C0;
 }
 #launchPlaylist{
-    position: relative;
-}
-#disconnectButton{
-    visibility: hidden;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 body .container-fluid{
@@ -66,7 +64,7 @@ background-size:100px 50px;
     border-top: 0.05rem solid rgb(0, 0, 0);
     padding: 1.5rem 0;
     height: 250px;
-    margin-top: 300px;
+    margin-top: auto;
 }
 #footer h5{
 	padding-left: 10px;
@@ -188,4 +186,86 @@ background-size:100px 50px;
     color: #afafaf;
     text-align: center;
     margin-top: 30px;
+}
+@import url('https://fonts.googleapis.com/css?family=Lobster');
+*{
+font-family: 'Lobster', cursive;
+}
+.imgfaq{
+max-width: 100%;
+box-shadow: 1px 1px 12px
+#555
+;
+-webkit-filter: grayscale(100%);
+filter: grayscale(100%);
+-webkit-transition: .3s ease-in-out;
+transition: .3s ease-in-out;
+}
+.imgfaq:hover {
+-webkit-filter: grayscale(0);
+filter: grayscale(0);
+}
+.question{
+text-align: center;
+color: rgb(255, 255, 255);
+font-size: 25px;
+padding-top: 40px;
+padding-bottom: 20px;
+background: linear-gradient(#202020,
+#000000
+);
+border: 3px solid transparent;
+border-image: linear-gradient(to right,
+#FF0000
+20%,#ff662a 30%,
+#FFFFFF
+61%,
+#424242
+100%);
+border-image-slice: 1;
+}
+.question:nth-child(2){
+background: linear-gradient(#808080,
+#606060
+);
+border: 3px solid transparent;
+border-image: linear-gradient(to right,
+#19850B
+0%,#3cff00 30%,
+#B3C001
+41%,
+#FFFB0D
+100%);
+border-image-slice: 1;
+}
+.question:nth-child(4){
+background: linear-gradient(#606060,
+#404040
+);
+border: 3px solid transparent;
+border-image: linear-gradient(to right,
+#FF0000
+20%,#ff7b00 30%,
+#0059FF
+61%,
+#00B7FF
+100%);
+border-image-slice: 1;
+}
+.question:nth-child(6){
+background: linear-gradient(#404040,
+#202020
+);
+border: 3px solid transparent;
+border-image: linear-gradient(to right,
+#ED22FF
+20%,#9500eb 30%,
+#0F0097
+61%,
+#365BFF
+100%);
+border-image-slice: 1;
+}
+.pfaq{
+font-size: 50px;
 }
