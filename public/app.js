@@ -148,7 +148,7 @@ const makeCardMember = item => `
         <img src="${
     item.avatar
     }" alt="" class="d-block id="avatar" img-fluid mb-3" width="300px">
-        <input value="${item.avatar}" id="avatar" size="36"></input>
+        <button>avatar</button><input value="${item.avatar}" id="avatar" size="36"></input>
     </div>
     `;
 
