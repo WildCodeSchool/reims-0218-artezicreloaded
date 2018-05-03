@@ -213,75 +213,81 @@ const idWilder = localStore.getItem("idWilder");
 
 const controllers = {
     "/": () => {
-       console.log(token)
-        fetch("/playlistsWilders")
-            .then(res => res.json())
-            .then(allPlaylists => {
-                fetch(`/votes/${idWilder}`)
-                    .then(res => res.json())
-                    .then(playlistsVotedByUser => {
-                        const cannotBeVoted = playlistsVotedByUser.map(
-                            playlist => playlist.id_playlists
-                        );
-                        const allPlaylistsCards = allPlaylists.reduce(
-                            (carry, playlist) =>
-                                carry +
-                                makePlaylistCard(
-                                    playlist,
-                                    token,
-                                    username,
-                                    idWilder,
-                                    cannotBeVoted
-                                ),
-                            ""
-                        );
-                        render(
-                            `<div class="container">
-                                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div id="showThisModal"class="modal-body">
-                                            </div>
-                                        </div>
-                                    </div> 
-                                </div>
-                                <div class="row">
-                                    ${allPlaylistsCards}  
-                                </div>
-                            </div>
-                            `
-                        );
-                        const launchPlaylistButtons = document.getElementsByClassName(
-                            "launch"
-                        );
-                        Array.from(launchPlaylistButtons).forEach(button => {
-                            button.addEventListener("click", () => {
-                                const playlistClicked = allPlaylists.filter(
-                                    playlist =>
-                                        playlist.playlistId ===
-                                        Number(button.id)
-                                );
-                                showModal(playlistClicked[0]);
-                            });
-                        });
-                        if (!username) {
-                            const isConnectedUser = (document.getElementById(
-                                "userName"
-                            ).innerHTML = `<span class="fa fa-user"></span> Se connecter`);
-                        } else {
-                            const isConnectedUser = (document.getElementById(
-                                "userName"
-                            ).innerHTML = `<span class="fa fa-user"></span> ${username}`);
-                        }
-                    });
-                disconnect(localStore);
-            });
+		if (!token) {
+			render(`je n'ai pas de token, je ne montre que des cartes qui vont me demander de l'authentification`)
+		}
+		else {
+			render(`j'ai un token, je vais montrer les cartes en triant celles où j'ai déjà voté `)
+		}
+    //    console.log("now do we have a token in / ?", token)
+    //     fetch("/playlistsWilders")
+    //         .then(res => res.json())
+    //         .then(allPlaylists => {
+    //             fetch(`/votes/${idWilder}`)
+    //                 .then(res => res.json())
+    //                 .then(playlistsVotedByUser => {
+    //                     const cannotBeVoted = playlistsVotedByUser.map(
+    //                         playlist => playlist.id_playlists
+    //                     );
+    //                     const allPlaylistsCards = allPlaylists.reduce(
+    //                         (carry, playlist) =>
+    //                             carry +
+    //                             makePlaylistCard(
+    //                                 playlist,
+    //                                 token,
+    //                                 username,
+    //                                 idWilder,
+    //                                 cannotBeVoted
+    //                             ),
+    //                         ""
+    //                     );
+    //                     render(
+    //                         `<div class="container">
+    //                             <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    //                                 <div class="modal-dialog" role="document">
+    //                                     <div class="modal-content">
+    //                                         <div class="modal-header">
+    //                                             <h5 class="modal-title" id="exampleModalLabel">Artezic remercie Soundsgood !</h5>
+    //                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    //                                                 <span aria-hidden="true">&times;</span>
+    //                                             </button>
+    //                                         </div>
+    //                                         <div id="showThisModal"class="modal-body">
+    //                                         </div>
+    //                                     </div>
+    //                                 </div> 
+    //                             </div>
+    //                             <div class="row">
+    //                                 ${allPlaylistsCards}  
+    //                             </div>
+    //                         </div>
+    //                         `
+    //                     );
+    //                     const launchPlaylistButtons = document.getElementsByClassName(
+    //                         "launch"
+    //                     );
+    //                     Array.from(launchPlaylistButtons).forEach(button => {
+    //                         button.addEventListener("click", () => {
+    //                             const playlistClicked = allPlaylists.filter(
+    //                                 playlist =>
+    //                                     playlist.playlistId ===
+    //                                     Number(button.id)
+    //                             );
+    //                             showModal(playlistClicked[0]);
+    //                         });
+    //                     });
+    //                     if (!username) {
+    //                         const isConnectedUser = (document.getElementById(
+    //                             "userName"
+    //                         ).innerHTML = `<span class="fa fa-user"></span> Se connecter`);
+    //                     } else {
+    //                         const isConnectedUser = (document.getElementById(
+    //                             "userName"
+    //                         ).innerHTML = `<span class="fa fa-user"></span> ${username}`);
+    //                     }
+    //                 });
+    //             disconnect(localStore);
+    //         });
     },
     "/monprofil": () => {
         const username = localStore.username;
