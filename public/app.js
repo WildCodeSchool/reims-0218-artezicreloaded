@@ -453,7 +453,7 @@ const controllers = {
             const dataWithId = {
                 titre: data.title,
                 genre: data.genre,
-                url: data.url,
+                url: cleanUrl(data.url),
                 compete: data.competition,
                 id_wilders: idWilder
             };
