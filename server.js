@@ -63,9 +63,9 @@ const insertVote = w => {
 }
 
 const modifyMyProfile = newInfo => {
-    const { pseudo, bio, avatar } = newInfo
-    return db.get('UPDATE wilders SET pseudo=?, bio=?, avatar=? WHERE id=1', pseudo, bio, avatar)
-        .then(() => db.get('SELECT * from wilders WHERE ID=1'))
+    const { pseudo, bio, avatar, id } = newInfo
+    return db.get('UPDATE wilders SET pseudo=?, bio=?, avatar=? WHERE id=?', pseudo, bio, avatar, id)
+        .then(() => db.get('SELECT * from wilders WHERE ID=?', id))
 }
 
 const dbPromise = Promise.resolve()
@@ -80,9 +80,9 @@ const dbPromise = Promise.resolve()
     })
     .then(() => {
         Promise.map(users, w => {
-        insertWilder(w)
+            insertWilder(w)
         })
-        })
+    })
 
 const html = `
     <!doctype html>
@@ -213,8 +213,7 @@ app.get('/votes/:id', (req, res) => {
         SELECT * from votes
         WHERE id_wilders = "${id.id}"
         ;
-        `
-    )
+        `)
         .then(votes => res.json(votes))
 })
 
@@ -288,7 +287,7 @@ app.get('/playlistsWilders', (req, res) => {
 
 app.get('/playlistsCompete', (req, res) => {
     db.all(
-        `Select votes.id_wilders as voterId, date, SUM(vote) as votesNb, votes.id_playlists as playlistId, titre, genre, url
+            `Select votes.id_wilders as voterId, date, SUM(vote) as votesNb, votes.id_playlists as playlistId, titre, genre, url
         FROM playlists
         LEFT JOIN votes ON  playlists.id = votes.id_playlists
         GROUP BY playlistId

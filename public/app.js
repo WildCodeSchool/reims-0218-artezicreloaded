@@ -220,6 +220,7 @@ const controllers = {
                 fetch(`/votes/${idWilder}`)
                     .then(res => res.json())
                     .then(playlistsVotedByUser => {
+                        console.log(playlistsVotedByUser.map(playlist => playlist.id_playlists))
                         const cannotBeVoted = playlistsVotedByUser.map(
                             playlist => playlist.id_playlists
                         );
@@ -338,7 +339,8 @@ const controllers = {
                                 body: JSON.stringify({
                                     pseudo: pseudo,
                                     bio: bio,
-                                    avatar: avatar
+                                    avatar: avatar,
+                                    id: idWilder
                                 })
                             })
                             .then(res => res.json())
