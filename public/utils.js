@@ -1,6 +1,6 @@
 const mainDiv = document.getElementById('main')
 
-export { render, refreshInterval, refreshToHome, showModal, disconnect, makePlaylistCardWithToken }
+export { render, refreshInterval, refreshToHome, showModal, disconnect, makePlaylistWithoutToken, makePlaylistCardWithToken }
 
 const render = html => {
     mainDiv.innerHTML = html
@@ -34,6 +34,32 @@ const disconnect = obj => {
     })
 }
 
+const makePlaylistWithoutToken = (item) => {
+	return `
+	<div class="col-md-6">
+		<div class="card text-center text-white bg-secondary mt-4 pt-3">
+			<div class="card-block">
+			<h2 class="text-warning">${item.titre}</h2>
+			<p class="text-light">${item.genre}</p>
+			<button id="${
+				item.playlistId
+			}" type="button" class="launch btn-lg btn-warning" data-toggle="modal" data-target="#modal${
+		item.playlistId
+	}">
+				Ecouter cette playlist
+			</button>
+			<p>
+				<a href="/authentification" id="vote${
+					item.playlistId
+				}" style="font-size:3em; color:GhostWhite" id="vote${
+		item.playlistId
+	}" type="submit" class="btn btn-info mt-2"><i class="fas fa-thumbs-up"></i></a>
+			</p>
+			</div>
+		</div>
+	</div>   
+	`;
+}
 const makePlaylistCardWithToken = (item, tokenInStore, idWilder, arr) => {
 	if (!arr.includes(item.playlistId)) {
 		return ` 
@@ -49,17 +75,11 @@ const makePlaylistCardWithToken = (item, tokenInStore, idWilder, arr) => {
 		}">
 						Ecouter cette playlist
 					</button>
-					<form action="/voteforplaylist" method="post" class="mt-3 mb-3">
-						<input type="hidden" value="${idWilder}" name="id_wilders" />
-						<input type="hidden" value="1" name="vote" />
-						<input type="hidden" value="${
-							item.playlistId
-						}" name="id_playlists" />
-						<input type="hidden" value="${Date.now()}" name="date" />
-						<button style="font-size:3em; color:GhostWhite" id="vote${
-							item.playlistId
-						}" type="submit" class="btn btn-info mt-2"><i class="fas fa-thumbs-up"></i></button>
-					</form>
+					
+					<button data-idPlaylist=${item.playlistId} data-idWilder=${idWilder} style="font-size:3em; color:GhostWhite" id="vote${
+						item.playlistId
+					}" type="submit" class="votingButton btn btn-info mt-2"><i class="fas fa-thumbs-up"></i></button>
+				
 				</div>
 			</div>
 		</div>
@@ -89,4 +109,4 @@ const makePlaylistCardWithToken = (item, tokenInStore, idWilder, arr) => {
 	}
 }
 
-export default { render, refreshInterval, refreshToHome, showModal, disconnect, makePlaylistCardWithToken }
+export default { render, refreshInterval, refreshToHome, showModal, disconnect, makePlaylistWithoutToken, makePlaylistCardWithToken }

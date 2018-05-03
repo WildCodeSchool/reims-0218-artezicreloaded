@@ -3,7 +3,8 @@ import {
     refreshToHome,
     showModal,
 	disconnect,
-	makePlaylistCardWithToken
+	makePlaylistCardWithToken,
+    makePlaylistWithoutToken
 } from "./utils.js";
 
 const mainDiv = document.getElementById("main");
@@ -178,26 +179,6 @@ const makeWinningCard = item =>
     </div>
     `;
 
-// const makeListsInCompete = item => `
-//     <div class="card mt-3 mr-3" style="width:400px">
-//         <div class="card-body">
-//             <h4 class="card-title">${item.playlists[0].titre}</h4>
-//             <p class="card-text">${item.playlists[0].nbrevotes} votes</p>
-//             <a href="${
-//                 item.playlists[0].url
-//             }" class="btn btn-primary">Afficher la playlist</a>
-//             <form action="/voteforplaylist" method="post">
-//                 <input type="hidden" value="1" name="id_wilders" />
-//                 <input type="hidden" value="${
-//                     item.playlists[0].playlistId
-//                 }" name="id_playlists" />
-//                 <input type="hidden" value="${Date.now()}" name="date" />
-//                 <button type="submit" class="btn btn-success mt-2">Voter pour cette playlist</button>
-//             </form>
-//         </div>
-//     </div>
-//     `;
-
 const serializeForm = form => {
     const data = {};
     const elements = form.getElementsByClassName("form-control");
@@ -218,7 +199,16 @@ const controllers = {
 		const username = localStore.getItem("username");
 		const idWilder = localStore.getItem("idWilder");
 		if (!testToken) {
-			render(`je n'ai pas de token, je ne montre que des cartes qui vont me demander de l'authentification`)
+            fetch("/playlistsWilders")
+            .then(res => res.json())
+            .then(allPlaylists => {
+                const allPlaylistsCards = allPlaylists.reduce((carry, playlist) => carry + makePlaylistWithoutToken(playlist), "")
+                render(`
+                    <div class="row">
+						${allPlaylistsCards}  
+                    </div>
+                `)
+            })
 		}
 		else {
 			(console.log("j'ai un token,"))
@@ -268,7 +258,35 @@ const controllers = {
 					);
 					const launchPlaylistButtons = document.getElementsByClassName(
 						"launch"
-					);
+                    );
+
+                    const votingButton = document.getElementsByClassName("votingButton")
+                    Array.from(votingButton).forEach(button => {
+                        button.addEventListener("click", () => {
+                            console.log('notre bouton: ', button.dataset.idplaylist)
+                            const votingData = {
+                                date: Date.now(),
+                                vote: 1,
+                                id_playlists: button.dataset.idplaylist,
+                                id_wilders: button.dataset.idwilder
+                            }
+                            console.log('on va envoyer : ', votingData)
+                            fetch('/voteforplaylist',{
+                                method: "POST",
+                                headers: {
+                                    Accept: "application/json, text/plain, */*",
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify(votingData)
+                            })
+                            .then(() => {
+                                page('/')
+                                page()
+                            })
+                            //changer les classe et le texte du boutton
+                            // button.innerHTML ="&#10003;"
+                        })
+                    })
 					Array.from(launchPlaylistButtons).forEach(button => {
 						button.addEventListener("click", () => {
 							const playlistClicked = allPlaylists.filter(
