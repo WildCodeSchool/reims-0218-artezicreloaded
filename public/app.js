@@ -30,14 +30,14 @@ const makePlaylistCard = (item, tokenInStore, username, idWilder, arr) => {
                 }" type="button" class="launch btn-lg btn-warning" data-toggle="modal" data-target="#modal${
             item.playlistId
         }">
-                        Ecouter cette playlist
-                    </button>
-                    <p>
-                        <a href="/authentification" id="vote${
-                            item.playlistId
-                        }" style="font-size:3em; color:GhostWhite" id="vote${
+                    Ecouter cette playlist
+                </button>
+                <p>
+                    <a href="/authentification" id="vote${
                         item.playlistId
-                }" type="submit" class="btn btn-info mt-2"><i class="fas fa-thumbs-up"></i></a>
+                    }" style="font-size:3em; color:GhostWhite" id="vote${
+            item.playlistId
+        }" type="submit" class="btn btn-info mt-2"><i class="fas fa-thumbs-up"></i></a>
                 </p>
                 </div>
             </div>
@@ -62,11 +62,11 @@ const makePlaylistCard = (item, tokenInStore, username, idWilder, arr) => {
                             <input type="hidden" value="${idWilder}" name="id_wilders" />
                             <input type="hidden" value="1" name="vote" />
                             <input type="hidden" value="${
-                            item.playlistId
+                                item.playlistId
                             }" name="id_playlists" />
                             <input type="hidden" value="${Date.now()}" name="date" />
                             <button style="font-size:3em; color:GhostWhite" id="vote${
-                            item.playlistId
+                                item.playlistId
                             }" type="submit" class="btn btn-info mt-2"><i class="fas fa-thumbs-up"></i></button>
                         </form>
                     </div>
@@ -84,8 +84,8 @@ const makePlaylistCard = (item, tokenInStore, username, idWilder, arr) => {
                         <button id="${
                             item.playlistId
                         }" type="button" class="launch btn-lg btn-warning" data-toggle="modal" data-target="#modal${
-                    item.playlistId
-                }">
+                item.playlistId
+            }">
                             Ecouter cette playlist
                         </button>
                         <p><button id="vote${
@@ -100,23 +100,23 @@ const makePlaylistCard = (item, tokenInStore, username, idWilder, arr) => {
 };
 
 const makeWilder = item => `
-            <div class="blocks col-12 col-sm-12 col-md-4">
-                <div class="card" id="card_sponsor">
-                    <div class="card-block">
-                    <div class="row">
-                        <div class="member">
-                        <h3 class="card-title">${item.pseudo}</h3>
-                        <img class="center" src="${
-                            item.avatar
-                        }" alt="Card image" style="width: 14rem;">
-                        <hr style="background-color: #00001c;">
-                        <p class="card-text">${item.bio}</p>
-                        </div>
-                    </div>
-                    </div>
-                </div>
+    <div class="blocks col-12 col-sm-12 col-md-4">
+      <div class="card" id="card_sponsor">
+        <div class="card-block">
+          <div class="row">
+            <div class="member">
+              <h3 class="card-title">${item.pseudo}</h3>
+              <img class="center" src="${
+                  item.avatar
+              }" alt="Card image" style="width: 14rem;">
+              <hr style="background-color: #00001c;">
+              <p class="card-text">${item.bio}</p>
             </div>
-                `;
+          </div>
+        </div>
+      </div>
+    </div>
+    `;
 
 const makeCardMember = item => `
     <div class="col-md-8 mt-5">
@@ -133,8 +133,8 @@ const makeCardMember = item => `
                             <div class="form-group mt-5">
                                 <label for="bio">Bio</label>
                                 <textarea rows="9" name="editor1" class="form-control" id="bio">${
-                                item.bio
-                            }</textarea>
+                                    item.bio
+                                }</textarea>
                                 <button class="btn btn-info btn-block mt-3" id="saveProfile">Enregistrer</button>
                             </div>
                         </div>
@@ -146,32 +146,36 @@ const makeCardMember = item => `
     <div class="col-md-4 mt-5">
         <h3>Votre avatar</h3>
         <img src="${
-    item.avatar
-    }" alt="" class="d-block id="avatar" img-fluid mb-3" width="300px">
-        <button>avatar</button><input value="${item.avatar}" id="avatar" size="36"></input>
+            item.avatar
+        }" alt="" class="d-block id="avatar" img-fluid mb-3" width="300px">
+        <input value="${item.avatar}" id="avatar" size="36"></input>
     </div>
     `;
 
 const makeWinningCard = item =>
-    item.votesNb === null
-        ? `<h5> Pas de gagnant pour l'instant </h5>` :
-        `
-                <div class="jumbotron col-md-12" id="card_sponsor">
-                    <div class="row">
-                        <div class="col-md-9 order-md-last">
-                            <h1 class="card-title display-4" >${item.titre}</h1>
-                            <p>Le vainqueur du concour de la semaine a gagné avec ${item.votesNb} votes sur sa playlist. <br> Bravo !</p>
-                                <button id="launchPlaylist" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${item.playlistId}">
-                                Ecouter
-                                </button>
-                        <hr>
-                        </div>  
-                        <div class="col-md-3 order-md-first">
-                            <img class="center" src="http://theblog.is/thackley/files/2017/07/winner.jpeg" alt="Card image" style="width: 12rem;">
-                        </div>
-                    </div>
-                </div>
-            `;
+    item.votesNb === null ?
+    `<h5> Pas de gagnant pour l'instant </h5>` :
+    `
+    <div class="jumbotron col-md-12" id="card_sponsor">
+    <div class="row">
+      <div class="col-md-9 order-md-last">
+        <h1 class="card-title display-4" >${item.titre}</h1>
+        <p>Le vainqueur du concour de la semaine a gagné avec ${
+            item.votesNb
+        } votes sur sa playlist. <br> Bravo !</p>
+            <button id="launchPlaylist" type="button" class="launch btn btn-primary" data-toggle="modal" data-target="#modal${
+                item.playlistId
+            }">
+        Ecouter
+        </button>
+        <hr>
+      </div>
+      <div class="col-md-3 order-md-first">
+        <img class="center" src="http://theblog.is/thackley/files/2017/07/winner.jpeg" alt="Card image" style="width: 12rem;">
+      </div>
+    </div>
+    </div>
+    `;
 
 const makeListsInCompete = item => `
     <div class="card mt-3 mr-3" style="width:400px">
@@ -221,14 +225,14 @@ const controllers = {
                         );
                         const allPlaylistsCards = allPlaylists.reduce(
                             (carry, playlist) =>
-                                carry +
-                                makePlaylistCard(
-                                    playlist,
-                                    token,
-                                    username,
-                                    idWilder,
-                                    cannotBeVoted
-                                ),
+                            carry +
+                            makePlaylistCard(
+                                playlist,
+                                token,
+                                username,
+                                idWilder,
+                                cannotBeVoted
+                            ),
                             ""
                         );
                         render(
@@ -260,8 +264,8 @@ const controllers = {
                             button.addEventListener("click", () => {
                                 const playlistClicked = allPlaylists.filter(
                                     playlist =>
-                                        playlist.playlistId ===
-                                        Number(button.id)
+                                    playlist.playlistId ===
+                                    Number(button.id)
                                 );
                                 showModal(playlistClicked[0]);
                             });
@@ -283,19 +287,13 @@ const controllers = {
         const username = localStore.username;
         if (!username) {
             return render(`
-            <div class="container"> 
-                <div class="row"> 
-                    <div class="col-md-10"> 
-                        <div class="alert alert-danger" role="alert"> 
-                            Vous devez vous connecter pour accéder à cette page. 
-                        </div> 
-                        </div> 
-                        <div class="col-md-2"> 
-                            <a href="/authentification" class="btn btn-success mt-2">Me connecter</a> 
-                        </div> 
-                    </div> 
-                </div> 
-            </div> 
+            <div class="alert alert-danger" role="alert">
+              Vous devez vous connecter pour accéder à cette page.
+            </div>
+          </div>
+            <div class="col-md-2">
+              <a href="/authentification" class="btn btn-success mt-2">Me connecter</a>
+            </div>
             `);
         } else {
             fetch("/connected")
@@ -319,31 +317,30 @@ const controllers = {
                         <div class="row">
                             ${mesInfos}
                         </div>
+                        <p><a class="btn btn-info btn-lg mt-5" href="/viewplaylists/${username.toLowerCase()}">Voir mes playlists</a>
+                        <a class="btn btn-success btn-lg mt-5" href="/newplaylist">Ajouter une playlist</a></p>
                     </div>
-                    <p><a class="btn btn-success btn-lg mt-5" href="/newplaylist" type="button">Ajouter une playlist</a></p>
-                `
-                    )
-                )
+                `))
                 .then(() => {
-                    const saveProfile = document.getElementById("saveProfile");
-                    saveProfile.addEventListener("click", sendData);
+                    const saveProfile = document.getElementById("saveProfile")
+                    saveProfile.addEventListener('click', sendData)
 
                     function sendData() {
                         let pseudo = document.getElementById("pseudo").value;
                         let bio = document.getElementById("bio").value;
                         let avatar = document.getElementById("avatar").value;
                         fetch("/membres", {
-                            method: "PUT",
-                            headers: {
-                                Accept: "application/json, text/plain, */*",
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({
-                                pseudo: pseudo,
-                                bio: bio,
-                                avatar: avatar
+                                method: "PUT",
+                                headers: {
+                                    Accept: "application/json, text/plain, */*",
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    pseudo: pseudo,
+                                    bio: bio,
+                                    avatar: avatar
+                                })
                             })
-                        })
                             .then(res => res.json())
                             .then(wilderEdition => {
                                 const alertBox = document.getElementById(
@@ -352,7 +349,7 @@ const controllers = {
                                 alertBox.className = "alert alert-success";
                                 alertBox.innerHTML = `${
                                     wilderEdition.pseudo
-                                    }, votre profil titre été édité.`;
+                                }, votre profil titre été édité.`;
                             });
                     }
                 });
@@ -362,24 +359,24 @@ const controllers = {
     "/editer-mon-profil": () => {
         render(`
         <div class="container">
-            <div id="alert-box" class="hidden">
-            </div>
+          <div id="alert-box" class="hidden">
+          </div>
             <form id="editMyProfile">
-                <div class="form-group col-md-9 ">
-                    <label for="inputPseudo">Pseudo</label>
-                    <input name="pseudo" type="text " class="form-control " id="inputPseudo" placeholder="Enter your pseudo ">
-                </div>             
-                <div class="form-group col-md-9">
-                    <label for="inputBio">Bio</label>
-                    <textarea name="bio" class="form-control" id="inputBio " placeholder="Bio"></textarea>
-                </div>
-                <div class="form-group col-md-9 ">
-                    <label for="inputAvatar ">Avatar</label>
-                    <input name="avatar" type="text " class="form-control " id="inputAvatar" placeholder="Enter image URL ">
-                </div>
-                <div class="form-group col-md-3 ">
-                    <button type="submit " class="btn btn-primary ">Submit</button>
-                </div>
+              <div class="form-group col-md-9 ">
+                  <label for="inputPseudo">Pseudo</label>
+                  <input name="pseudo" type="text " class="form-control " id="inputPseudo" placeholder="Enter your pseudo ">
+              </div>             
+              <div class="form-group col-md-9">
+                  <label for="inputBio">Bio</label>
+                  <textarea name="bio" class="form-control" id="inputBio " placeholder="Bio"></textarea>
+              </div>
+              <div class="form-group col-md-9 ">
+                  <label for="inputAvatar ">Avatar</label>
+                  <input name="avatar" type="text " class="form-control " id="inputAvatar" placeholder="Enter image URL ">
+              </div>
+              <div class="form-group col-md-3 ">
+                  <button type="submit " class="btn btn-primary ">Submit</button>
+              </div>
             </form>
         </div>
             <div class="form-group">
@@ -397,7 +394,7 @@ const controllers = {
             <button type="submit" class="btn btn-primary">Submit</button>     
         </form>
         <a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil</a>
-        </div>`);
+      </div>`);
         const form = document.getElementById("add-playlist");
         form.addEventListener("submit", e => {
             e.preventDefault();
@@ -407,48 +404,48 @@ const controllers = {
                 genre: data.genre,
                 url: data.url,
                 compete: data.competition,
-                id_wilders: 1
-            };
-            fetch("/playlists", {
-                method: "POST",
-                headers: {
-                    Accept: "application/json, text/plain, */*",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(dataWithId)
-            })
+                id_wilders: idWilder
+            }
+            fetch('/playlists', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(dataWithId)
+                })
                 .then(res => res.json())
                 .then(playlist => {
                     const alertBox = document.getElementById("alert-box");
                     alertBox.className = "alert alert-success";
                     alertBox.innerHTML = `Votre playlist titre ${
                         playlist.titre
-                        } (${playlist.id}) a bien été créée`;
+                    } (${playlist.id}) a bien été créée`;
                 });
         });
     },
     "/newplaylist": () => {
         render(`
-		    <div class="container">
-                <div id="alert-box" class="hidden">
-                </div>
-                <form id="add-playlist">
-                    <div class="form-group">
-                        <label for="inputTitle">Titre</label>
-                        <input name="title" type="text" class="form-control" id="inputTitle" placeholder="Entrez le titre de votre playlist">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputGenre">Genre musical</label>
-                        <input name="genre" type="text" class="form-control" id="inputGenre" placeholder="Quel est le genre de votre playlist ?">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputUrl">Copiez Le code intégré de Soundsgood</label>
-                        <input name="url" type="text" class="form-control" id="inputUrl" placeholder="Copiez Ici">
-                    </div> 
-                    <button type="submit" class="btn btn-primary">Submit</button>     
-                </form>
-                <a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil</a>
-		    </div>`);
+		  <div class="container">
+			<div id="alert-box" class="hidden">
+			</div>
+			<form id="add-playlist">
+				<div class="form-group">
+					<label for="inputTitle">Titre</label>
+					<input name="title" type="text" class="form-control" id="inputTitle" placeholder="Entrez le titre de votre playlist">
+				</div>
+				<div class="form-group">
+					<label for="inputGenre">Genre musical</label>
+					<input name="genre" type="text" class="form-control" id="inputGenre" placeholder="Quel est le genre de votre playlist ?">
+				</div>
+				<div class="form-group">
+					<label for="inputUrl">Copiez Le code intégré de Soundsgood</label>
+					<input name="url" type="text" class="form-control" id="inputUrl" placeholder="Copiez Ici">
+				</div> 
+				<button type="submit" class="btn btn-primary">Submit</button>     
+			</form>
+			<a class="btn btn-success btn-lg" href="/" role="button">retour page d'accueil</a>
+		  </div>`);
         const form = document.getElementById("add-playlist");
         form.addEventListener("submit", e => {
             e.preventDefault();
@@ -458,23 +455,23 @@ const controllers = {
                 genre: data.genre,
                 url: data.url,
                 compete: data.competition,
-                id_wilders: 1
+                id_wilders: idWilder
             };
             fetch("/playlists", {
-                method: "POST",
-                headers: {
-                    Accept: "application/json, text/plain, */*",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(dataWithId)
-            })
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json, text/plain, */*",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(dataWithId)
+                })
                 .then(res => res.json())
                 .then(playlist => {
                     const alertBox = document.getElementById("alert-box");
                     alertBox.className = "alert alert-success";
                     alertBox.innerHTML = `Votre playlist titre ${
                         playlist.titre
-                        } (${playlist.id}) a bien été créée`;
+                    } (${playlist.id}) a bien été créée`;
                 });
         });
     },
@@ -487,7 +484,7 @@ const controllers = {
             .then(book => {
                 render(
                     `<div class="container">
-                        <div class="row">
+                       <div class="row">
                             ${book}  
                         </div>
                     </div>
@@ -535,7 +532,7 @@ const controllers = {
                     button.addEventListener("click", () => {
                         const playlistClicked = playlists.filter(
                             playlist =>
-                                playlist.playlistId === Number(button.id)
+                            playlist.playlistId === Number(button.id)
                         );
                         showModal(playlistClicked[0]);
                     });
@@ -545,28 +542,29 @@ const controllers = {
 
     "/authentification": () => {
         const loginFormHtml = `
-                <form id="loginForm">
-                    <div class="form-row">
-                        <div class="col-md-5">
-                            <input class="form-control form-group mb-4" name="username" placeholder="username"/>
-                        </div>
-                        <div class="col-md-5">
-                            <input class="form-control form-group mb-4" type="password" name="password" placeholder="password"/>
-                        </div>
-                        <div class="col-md-2">
-                            <input type="submit" class="btn btn-primary" value="se connecter" />
-                        </div>
-                    </div>
-                </form>`;
+        <form id="loginForm">
+            <div class="form-row">
+                <div class="col-md-5">
+                    <input class="form-control form-group mb-4" name="username" placeholder="username"/>
+                </div>
+                <div class="col-md-5">
+                    <input class="form-control form-group mb-4" type="password" name="password" placeholder="password"/>
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" class="btn btn-primary" value="se connecter" />
+                </div>
+            </div>
+        </form>
+		`;
         render(`
             <div class="container">  
                 <div id="alert-login">
                 </div> 
                 ${
-            !token
-                ? loginFormHtml
-                : '<button id="disconnectButton" type="button">se deconnecter</button>'
-            }
+                    !token
+                        ? loginFormHtml
+                        : '<button id="disconnectButton" type="button">se deconnecter</button>'
+                }
             </div>`);
         if (!token) {
             const loginForm = document.getElementById("loginForm");
@@ -575,23 +573,26 @@ const controllers = {
                 const data = serializeForm(loginForm);
                 //post sur le server /auth/login
                 fetch("/auth/login", {
-                    method: "POST",
-                    headers: {
-                        Accept: "application/json, text/plain, */*",
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(data)
-                })
+                        method: "POST",
+                        headers: {
+                            Accept: "application/json, text/plain, */*",
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(data)
+                    })
                     .then(res => res.json())
                     .then(data => {
                         const alert = document.getElementById("alert-login");
                         if (!data.user) {
                             //alert class danger
-                            alert.innerHTML = `<div class="alert alert-danger" role="alert"> 
+                            alert.innerHTML = `
+                            <div class="alert alert-danger" role="alert"> 
                             Nom d'utilisateur ou mots de passe incorrect!
-                            </div>`;
+                            </div>
+                        `;
                         } else {
-                            alert.innerHTML = `<div class="alert alert-success" role="alert">
+                            alert.innerHTML = `
+                            <div class="alert alert-success" role="alert">
                             Bonjour ${data.user.username} !
                             </div>`;
                             localStorage.setItem("token", data.token);
@@ -659,10 +660,45 @@ const controllers = {
                 });
                 disconnect(localStore);
             });
-    }
+    },
+    '/faq': () => {
+        render(`
+        <link rel="stylesheet" href="style.css" />
+        
+        <div class="question">
+            <p class="pfaq">Bienvenue dans la F.A.Q jeune troubadour !</p><br />
+            <p>Comment faire sa propre playlist ?</p><br />
+            <p>Pour commencer il te faut crer un compte sur soundgood<br /> pour ensuite pouvoir faire t'es super playlist !</p>
+        </div>
+        
+        <div><img src="https://agenceho5.com/wp-content/uploads/2017/04/Boulevard-des-airs-1-2000x500.jpg" class="imgfaq" alt="DJ" ></div>
+        
+        <div class="question">
+            <p>Comment importer ta playlist sur Artezic reloaded ?</p><br /
+            <p>Vous devez aller sur votre playlist soundgood, cliquer sur intégrer puis copier le code<br /> iframe pour ensuite le coller dans le champ dédié sur Artezic reloaded.</p>
+        </div>
+        
+        <div><img src="http://www.buuworld.com/image/115006258.jpg" class="imgfaq" alt="violoniste" ></div>
+        
+        <div class="question">
+            <p>Comment ajouter une photo sur son profil ?</p><br />
+            <p>Il suffit juste de copier l'url de ta photo pour la coller dans le champ dédié pour. Nous<br /> te conseillons de redimensionner ta photo pour éviter les images qui prennent<br /> trop d'espace.<a href="https://www.iloveimg.com/fr/redimensionner-image">- IloveIMG -</a> est top pour redimensionner une image. </p>
+        </div>
+        
+        <div><img src="https://www.in-akustik.de/uploads/tx_flexslider/Michael_Schenker_Live_In_Tokyo_Slider_01.jpg" class="imgfaq" alt="rap"></div>
+        
+        <div class="question">
+            <p>Est-il possible d'importer sa playlist entière<br /> d'une autre plateforme sur soudgood ?</p><br />
+            <p>Oui, il faut aller sur la plateforme ou il y a la playlist en question aller sur<br /> l'option partager ou share pour ensuite copier le code playlist link.<br />
+            Une fois ceci de fait aller sur soundgood puis faite importer<br /> une playlist et coller y le code playlist link.</p><br />
+            <p class="pfaq">Fin de la F.A.Q</p>
+        </div>
+        `)
+        
+    }, 
 };
 
-const route = pathname => { };
+const route = pathname => {};
 
 (() => {
     [
@@ -673,7 +709,8 @@ const route = pathname => { };
         "/editer-mon-profil",
         "/viewplaylists/:slug",
         "/concours",
-        "/authentification"
+        "/authentification",
+        "/faq"
     ].forEach(path => page(path, controllers[path]));
     page();
 })();
