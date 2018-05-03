@@ -64,8 +64,8 @@ const insertVote = w => {
 
 const modifyMyProfile = newInfo => {
     const { pseudo, bio, avatar } = newInfo
-    return db.get('UPDATE wilders SET pseudo=?, bio=?, avatar=? WHERE id=1', pseudo, bio, avatar)
-        .then(() => db.get('SELECT * from wilders WHERE ID=1'))
+    return db.get('UPDATE wilders SET pseudo=?, bio=?, avatar=? WHERE id=?', pseudo, bio, avatar)
+        .then(() => db.get('SELECT * from wilders WHERE ID=?'))
 }
 
 const dbPromise = Promise.resolve()
